@@ -11,12 +11,20 @@ class ListTestCell: UITableViewCell {
     
     // MARK: Properties
     
+    var word: Word? {
+        didSet {
+            self.viewModel = ListTestCellViewModel(word: word!)
+            configure()
+        }
+    }
+    
+    var viewModel: ListTestCellViewModel?
+    
     let wordLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 30)
         label.numberOfLines = 0
-        label.text = "test" // test text
         return label
     }()
     
@@ -55,4 +63,7 @@ class ListTestCell: UITableViewCell {
         wordLabel.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
     }
 
+    func configure() {
+        wordLabel.text = viewModel?.wordLabelText
+    }
 }
