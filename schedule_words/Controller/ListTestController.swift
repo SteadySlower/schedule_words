@@ -88,26 +88,48 @@ extension ListTestController: UITableViewDataSource {
 extension ListTestController: UITableViewDelegate {
     // 커스텀 스와이프
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        // 이미지 크기를 위한 cell 크기 재기
+        let imageSize = tableView.visibleCells.first?.bounds.height ?? 50
+        
+        // viewModel에서 처리하기 위해서 해당 word
         let word = viewModel.undefinedWords[indexPath.row]
+        
+        // 스와이프 되었을 때 실행할 동작
         let action = UIContextualAction(style: .normal, title: nil) { _, _, completionHandler in
             self.viewModel.moveWordToSuccess(word: word)
             tableView.deleteRows(at: [indexPath], with: .fade)
             completionHandler(true)
         }
+        
+        // 스와이프할 때 나오는 아이콘 수정
         action.backgroundColor = .white
-        action.image = UIImage(systemName: "circle")
+        
+        // 그냥 image만 넣으면 흰색으로 자동으로 랜더링 되므로 색변경하고 랜더링 안되게 오리지널
+        // UIGraphicsImageRenderer를 통해서 사이즈 키우고
+        // frame 위치 조정해서 이미지가 중간 정도에 보이도록
+        action.image = UIGraphicsImageRenderer(size: CGSize(width: imageSize, height: imageSize)).image { _ in
+            UIImage(systemName: "circle")!
+                .withTintColor(.blue, renderingMode: .alwaysOriginal)
+                .draw(in: CGRect(x: 7, y: 0, width: imageSize, height: imageSize))
+        }
         return UISwipeActionsConfiguration(actions: [action])
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let word = viewModel.undefinedWords[indexPath.row]
-        let action = UIContextualAction(style: .normal, title: nil) { _, _, completionHandler in
+        let imageSize = tableView.visibleCells.first?.bounds.height ?? 50
+        let action = UIContextualAction(style: .normal, title: nil) { _, view, completionHandler in
             self.viewModel.moveWordToFail(word: word)
             tableView.deleteRows(at: [indexPath], with: .fade)
             completionHandler(true)
         }
+        
         action.backgroundColor = .white
-        action.image = UIImage(systemName: "multiply")
+        action.image = UIGraphicsImageRenderer(size: CGSize(width: imageSize, height: imageSize)).image { _ in
+            UIImage(systemName: "multiply")!
+                .withTintColor(.red, renderingMode: .alwaysOriginal)
+                .draw(in: CGRect(x: -12, y: 0, width: imageSize, height: imageSize))
+        }
         return UISwipeActionsConfiguration(actions: [action])
     }
 }
