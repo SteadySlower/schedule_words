@@ -13,7 +13,7 @@ class ListTestController: UIViewController {
     
     // MARK: Properties
     
-    let viewModel = ListTestViewModel(wordBook: dummyWordBook)
+    var viewModel = ListTestViewModel(wordBook: dummyWordBook)
         //🚫 dummy code
     
     let tableView = UITableView()
@@ -64,6 +64,7 @@ class ListTestController: UIViewController {
         tableView.register(ListTestCell.self, forCellReuseIdentifier: reuseIdentifier)
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
+        tableView.isUserInteractionEnabled = true
     }
     
     func configureScoreBoard() {
@@ -85,5 +86,28 @@ extension ListTestController: UITableViewDataSource {
 }
 
 extension ListTestController: UITableViewDelegate {
+    // 커스텀 스와이프
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let word = viewModel.undefinedWords[indexPath.row]
+        let action = UIContextualAction(style: .normal, title: nil) { _, _, completionHandler in
+            self.viewModel.moveWordToSuccess(word: word)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            completionHandler(true)
+        }
+        action.backgroundColor = .white
+        action.image = UIImage(systemName: "circle")
+        return UISwipeActionsConfiguration(actions: [action])
+    }
     
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let word = viewModel.undefinedWords[indexPath.row]
+        let action = UIContextualAction(style: .normal, title: nil) { _, _, completionHandler in
+            self.viewModel.moveWordToFail(word: word)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            completionHandler(true)
+        }
+        action.backgroundColor = .white
+        action.image = UIImage(systemName: "multiply")
+        return UISwipeActionsConfiguration(actions: [action])
+    }
 }

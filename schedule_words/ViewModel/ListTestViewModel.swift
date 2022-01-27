@@ -32,4 +32,18 @@ struct ListTestViewModel {
         let fail = failWords.count
         return (undefined: undefined, success: success, fail: fail)
     }
+    
+    mutating func moveWordToSuccess(word: Word) {
+        successWords.append(word)
+        undefinedWords.removeAll { toBeRemoved in
+            toBeRemoved.id == word.id
+        }
+    }
+    
+    mutating func moveWordToFail(word: Word) {
+        failWords.append(word)
+        undefinedWords.removeAll { toBeRemoved in
+            toBeRemoved.id == word.id
+        }
+    }
 }

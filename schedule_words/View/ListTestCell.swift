@@ -44,6 +44,8 @@ class ListTestCell: UITableViewCell {
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
     }
     
+    // MARK: Selectors
+    
     // MARK: Helpers
     
     func configureUI() {
