@@ -62,7 +62,7 @@ class ListTestController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(ListTestCell.self, forCellReuseIdentifier: reuseIdentifier)
-        tableView.allowsSelection = false
+        tableView.selectionFollowsFocus = true
         tableView.separatorStyle = .none
         tableView.isUserInteractionEnabled = true
     }
@@ -86,6 +86,25 @@ extension ListTestController: UITableViewDataSource {
 }
 
 extension ListTestController: UITableViewDelegate {
+    // 터치시 단어 뜻이 보이도록
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // indexPath로 cell 객체 구하기
+        guard let cell = tableView.visibleCells.filter({ cell in
+            let listCell = cell as! ListTestCell
+            return listCell.word!.id == self.viewModel.undefinedWords[indexPath.row].id
+        }).first as? ListTestCell else { return }
+        // cell 뒤집기
+        UIView.transition(with: cell,
+                    duration: 1,
+                    options: .transitionFlipFromLeft,
+                    animations: { return },
+                    completion: nil)
+        //카드 반 정도 돌아갔을 때 뜻으로 바꾸기
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            cell.toggleDisplayMode()
+       }
+    }
+    
     // 커스텀 스와이프
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         // 이미지 크기를 위한 cell 크기 재기
@@ -98,6 +117,7 @@ extension ListTestController: UITableViewDelegate {
         let action = UIContextualAction(style: .normal, title: nil) { _, _, completionHandler in
             self.viewModel.moveWordToSuccess(word: word)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            self.configureScoreBoard()
             completionHandler(true)
         }
         
@@ -121,6 +141,7 @@ extension ListTestController: UITableViewDelegate {
         let action = UIContextualAction(style: .normal, title: nil) { _, view, completionHandler in
             self.viewModel.moveWordToFail(word: word)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            self.configureScoreBoard()
             completionHandler(true)
         }
         

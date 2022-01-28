@@ -7,6 +7,10 @@
 
 import UIKit
 
+enum ListTestCellDisplayMode {
+    case spelling, meaning
+}
+
 class ListTestCell: UITableViewCell {
     
     // MARK: Properties
@@ -18,12 +22,17 @@ class ListTestCell: UITableViewCell {
         }
     }
     
+    var displayMode: ListTestCellDisplayMode = .spelling {
+        didSet {
+            configure()
+        }
+    }
+    
     var viewModel: ListTestCellViewModel?
     
     let wordLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 30)
         label.numberOfLines = 0
         return label
     }()
@@ -33,6 +42,7 @@ class ListTestCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureUI()
+        self.selectionStyle = .none // 선택되었을 때 회색 배경이 생기지 않도록
     }
     
     required init?(coder: NSCoder) {
@@ -66,6 +76,30 @@ class ListTestCell: UITableViewCell {
     }
 
     func configure() {
-        wordLabel.text = viewModel?.wordLabelText
+        if displayMode == .spelling {
+            wordLabel.font = UIFont.systemFont(ofSize: 30)
+            wordLabel.text = viewModel?.wordLabelText
+        } else {
+            var fontSize: CGFloat
+            
+            switch word?.meanings.count {
+            case 1: fontSize = 30
+            case 2: fontSize = 20
+            case 3: fontSize = 15
+            default: fontSize = 10
+            }
+            
+            wordLabel.font = UIFont.systemFont(ofSize: fontSize)
+            wordLabel.text = viewModel?.meaningLabelText
+        }
     }
+    
+    func toggleDisplayMode() {
+        if displayMode == .spelling {
+            displayMode = .meaning
+        } else {
+            displayMode = .spelling
+        }
+    }
+    
 }
