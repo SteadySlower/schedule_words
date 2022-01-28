@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0639A2E627A4008E009EFC83 /* HomeStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0639A2E527A4008E009EFC83 /* HomeStatusView.swift */; };
 		06C2382E27A0C3D800CF4A13 /* ListTestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2382D27A0C3D800CF4A13 /* ListTestController.swift */; };
 		06C2383027A0C5C100CF4A13 /* ListTestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2382F27A0C5C100CF4A13 /* ListTestCell.swift */; };
 		06C2383327A0C80200CF4A13 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2383227A0C80200CF4A13 /* Constants.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0639A2E527A4008E009EFC83 /* HomeStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatusView.swift; sourceTree = "<group>"; };
 		06C2382D27A0C3D800CF4A13 /* ListTestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTestController.swift; sourceTree = "<group>"; };
 		06C2382F27A0C5C100CF4A13 /* ListTestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTestCell.swift; sourceTree = "<group>"; };
 		06C2383227A0C80200CF4A13 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 			children = (
 				06C2382F27A0C5C100CF4A13 /* ListTestCell.swift */,
 				06C2383427A0E85B00CF4A13 /* TestScoreBoard.swift */,
+				0639A2E527A4008E009EFC83 /* HomeStatusView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -225,6 +228,7 @@
 				06DCEC11279FDC9E000E3255 /* AppDelegate.swift in Sources */,
 				06C2383B27A15BD600CF4A13 /* DummyWords.swift in Sources */,
 				06C2383027A0C5C100CF4A13 /* ListTestCell.swift in Sources */,
+				0639A2E627A4008E009EFC83 /* HomeStatusView.swift in Sources */,
 				06C2382E27A0C3D800CF4A13 /* ListTestController.swift in Sources */,
 				06C2383F27A1692100CF4A13 /* ListTestCellViewModel.swift in Sources */,
 				06DCEC13279FDC9E000E3255 /* SceneDelegate.swift in Sources */,

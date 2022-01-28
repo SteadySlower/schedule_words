@@ -73,6 +73,8 @@ class ListTestController: UIViewController {
 
 }
 
+// MARK: UITableViewDataSource
+
 extension ListTestController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numOfCells
@@ -84,6 +86,8 @@ extension ListTestController: UITableViewDataSource {
         return cell
     }
 }
+
+// MARK: UITableViewDelegate
 
 extension ListTestController: UITableViewDelegate {
     // 터치시 단어 뜻이 보이도록
@@ -152,5 +156,19 @@ extension ListTestController: UITableViewDelegate {
                 .draw(in: CGRect(x: -12, y: 0, width: imageSize, height: imageSize))
         }
         return UISwipeActionsConfiguration(actions: [action])
+    }
+}
+
+// MARK: motionEnded
+
+// 흔들면 실행 취소
+extension ListTestController {
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            guard let index = viewModel.undo() else { return }
+            configureScoreBoard()
+            let indexPath = IndexPath(row: index, section: 0)
+            tableView.insertRows(at: [indexPath], with: .fade)
+        }
     }
 }
