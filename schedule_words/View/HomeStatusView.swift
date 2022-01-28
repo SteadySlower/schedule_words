@@ -8,6 +8,27 @@
 import Foundation
 import UIKit
 
+enum StatusViewUnitType {
+    case studyBooks
+    case studyWords
+    case studyTime
+    
+    case reviewBooks
+    case reviewWords
+    case reviewTime
+    
+    var titleText: String {
+        switch self {
+        case .studyBooks: return "학습 단어장"
+        case .studyWords: return "학습 단어"
+        case .studyTime: return "학습 시간"
+        case .reviewBooks: return "복습 단어장"
+        case .reviewWords: return "복습 단어"
+        case .reviewTime: return "복습 시간"
+        }
+    }
+}
+
 class HomeStatusView: UIView {
     
     // MARK: Properties
@@ -24,6 +45,7 @@ class HomeStatusView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        configureUnits()
     }
     
     required init?(coder: NSCoder) {
@@ -57,9 +79,19 @@ class HomeStatusView: UIView {
         addSubview(totalStackView)
         totalStackView.translatesAutoresizingMaskIntoConstraints = false
         totalStackView.topAnchor.constraint(equalTo: topAnchor, constant: 16).isActive = true
-        totalStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true
-        totalStackView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        totalStackView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        totalStackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        totalStackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
+        totalStackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -20).isActive = true
+    }
+    
+    func configureUnits() {
+        studyBookUnit.unitType = .studyBooks
+        studyWordUnit.unitType = .studyWords
+        studyTimeUnit.unitType = .studyTime
+        
+        reviewBookUnit.unitType = .reviewBooks
+        reviewWordUnit.unitType = .reviewWords
+        reviewTimeUnit.unitType = .reviewTime
     }
     
 }
@@ -68,11 +100,16 @@ class HomeStatusViewUnit: UIView {
     
     // MARK: Properties
     
+    var unitType: StatusViewUnitType? {
+        didSet {
+            configureNameLabel()
+        }
+    }
+    
     let nameLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 15, weight: .heavy)
-        label.text = "오늘의 단어장" // 삭제
         return label
     }()
     
@@ -114,5 +151,10 @@ class HomeStatusViewUnit: UIView {
         statLabel.translatesAutoresizingMaskIntoConstraints = false
         statLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         statLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: nameLabelHeight / 2).isActive = true
+    }
+    
+    func configureNameLabel() {
+        guard let unitType = unitType else { return }
+        nameLabel.text = unitType.titleText
     }
 }
