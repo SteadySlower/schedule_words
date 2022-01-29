@@ -7,13 +7,14 @@
 
 import UIKit
 
-class HomeStudyListCell: UITableViewCell {
+class HomeListCell: UITableViewCell {
     
     // MARK: Properties
-    
-    var wordBook: WordBook? {
+
+    var viewModel: HomeCellViewModel? {
         didSet {
-            tagCircle.date = wordBook?.createdAt
+            tagCircle.viewModel = viewModel
+            configureLabels()
         }
     }
     
@@ -94,13 +95,19 @@ class HomeStudyListCell: UITableViewCell {
         numOfStudyLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -40).isActive = true
         numOfStudyLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 15).isActive = true
     }
+    
+    private func configureLabels() {
+        dateLabel.text = viewModel?.dateLabelString
+        numOfWordsLabel.text = viewModel?.numOfWordsLabelString
+        numOfStudyLabel.text = viewModel?.numOfStudyLabelString
+    }
 }
 
 class HomeListCellCircle: UIView {
     
     // MARK: Properties
     
-    var date: Date? {
+    var viewModel: HomeCellViewModel? {
         didSet {
             configureLabel()
         }
@@ -125,7 +132,6 @@ class HomeListCellCircle: UIView {
     private func configureUI() {
         let length = frame.width
         layer.cornerRadius = length / 2
-        layer.borderColor = UIColor.black.cgColor
         layer.borderWidth = 5
         
         addSubview(tagLabel)
@@ -135,26 +141,7 @@ class HomeListCellCircle: UIView {
     }
     
     private func configureLabel() {
-        guard let date = date else { return }
-        let dateGap = Utilities().getDaysFromToday(date: date)
-        
-        switch dateGap {
-        case 0:
-            label.text = "오늘"
-            layer.borderColor = UIColor.green.cgColor
-            return
-        case 1:
-            label.text = "어제"
-            layer.borderColor = UIColor.yellow.cgColor
-            return
-        case 2:
-            label.text = "그제"
-            layer.borderColor = UIColor.red.cgColor
-            return
-        default:
-            label.text = "??"
-            layer.borderColor = UIColor.black.cgColor
-            return
-        }
+        tagLabel.text = viewModel?.tagCircleLabelString
+        layer.borderColor = viewModel?.tagCircleColor
     }
 }

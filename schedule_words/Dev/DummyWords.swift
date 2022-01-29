@@ -35,18 +35,18 @@ let today = Date()
 let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: today)!
 let dayBeforeYesterday = Calendar.current.date(byAdding: .day, value: -2, to: today)!
 
-let dummyWordBook = WordBook(words: [cake, run, go, love, make, complicated, lucky], createdAt: Date())
+let dayPlusWeek = Calendar.current.date(byAdding: .day, value: -7, to: today)!
+let dayPlusTwoWeeks = Calendar.current.date(byAdding: .day, value: -14, to: today)!
+let dayPlusMonth = Calendar.current.date(byAdding: .day, value: -28, to: today)!
 
 let dummyTodayWordBook = WordBook(words: [cake, run, go, love, make, complicated, lucky], createdAt: today)
 let dummyYesterdayWordBook = WordBook(words: [cake, run, go, love, make, complicated, lucky], createdAt: yesterday)
 let dummyDayBeforeYesterdayWordBook = WordBook(words: [cake, run, go, love, make, complicated, lucky], createdAt: dayBeforeYesterday)
 
+let dummyWeekWordBook = WordBook(words: [cake, run, go, love, make, complicated, lucky], createdAt: dayPlusWeek)
+let dummyTwoWeekWordBook = WordBook(words: [cake, run, go, love, make, complicated, lucky], createdAt: dayPlusTwoWeeks)
+let dummyMonthWordBook = WordBook(words: [cake, run, go, love, make, complicated, lucky], createdAt: dayPlusMonth)
 
-let dummyHomeStatus = HomeStatus(numOfStudyBooks: 3,
-                                 numOfStudyWords: 100,
-                                 secondsOfStudyTime: TimeInterval(198),
-                                 numOfReviewBooks: 10,
-                                 numOfReviewWords: 200,
-                                 secondsOfReviewTime: TimeInterval(363),
-                                 studyWordBooks: [dummyTodayWordBook, dummyYesterdayWordBook, dummyDayBeforeYesterdayWordBook],
-                                 reviewWordBooks: [dummyWordBook, dummyWordBook, dummyWordBook])
+
+let dummyHomeStatus = HomeStatus(studyWordBooks: [dummyTodayWordBook, dummyYesterdayWordBook, dummyDayBeforeYesterdayWordBook],
+                                 reviewWordBooks: [dummyWeekWordBook, dummyTwoWeekWordBook, dummyMonthWordBook])

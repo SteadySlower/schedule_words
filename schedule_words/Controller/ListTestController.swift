@@ -13,7 +13,7 @@ class ListTestController: UIViewController {
     
     // MARK: Properties
     
-    var viewModel = ListTestViewModel(wordBook: dummyWordBook)
+    var viewModel = ListTestViewModel(wordBook: dummyTodayWordBook)
         //🚫 dummy code
     
     let tableView = UITableView()
