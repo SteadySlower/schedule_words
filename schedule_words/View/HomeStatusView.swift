@@ -33,13 +33,19 @@ class HomeStatusView: UIView {
     
     // MARK: Properties
     
-    let studyBookUnit = HomeStatusViewUnit()
-    let studyWordUnit = HomeStatusViewUnit()
-    let studyTimeUnit = HomeStatusViewUnit()
+    var homeStatus: HomeStatus? {
+        didSet {
+            configureStatus()
+        }
+    }
     
-    let reviewBookUnit = HomeStatusViewUnit()
-    let reviewWordUnit = HomeStatusViewUnit()
-    let reviewTimeUnit = HomeStatusViewUnit()
+    private let studyBookUnit = HomeStatusViewUnit()
+    private let studyWordUnit = HomeStatusViewUnit()
+    private let studyTimeUnit = HomeStatusViewUnit()
+    
+    private let reviewBookUnit = HomeStatusViewUnit()
+    private let reviewWordUnit = HomeStatusViewUnit()
+    private let reviewTimeUnit = HomeStatusViewUnit()
     
     // MARK: LifeCycle
     
@@ -58,7 +64,7 @@ class HomeStatusView: UIView {
     
     // MARK: Properties
     
-    func configureUI() {
+    private func configureUI() {
         
         layer.cornerRadius = frame.height * 0.25
         backgroundColor = UIColor.init(red: 255/256, green: 252/256, blue: 220/256, alpha: 1)
@@ -84,7 +90,7 @@ class HomeStatusView: UIView {
         totalStackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -20).isActive = true
     }
     
-    func configureUnits() {
+    private func configureUnits() {
         studyBookUnit.unitType = .studyBooks
         studyWordUnit.unitType = .studyWords
         studyTimeUnit.unitType = .studyTime
@@ -92,6 +98,18 @@ class HomeStatusView: UIView {
         reviewBookUnit.unitType = .reviewBooks
         reviewWordUnit.unitType = .reviewWords
         reviewTimeUnit.unitType = .reviewTime
+    }
+    
+    private func configureStatus() {
+        guard let homeStatus = homeStatus else { return }
+        
+        studyBookUnit.statString = "\(homeStatus.numOfStudyBooks)"
+        studyWordUnit.statString = "\(homeStatus.numOfStudyWords)"
+        studyTimeUnit.statString = "\(Int(homeStatus.secondsOfStudyTime / 60))분"
+        
+        reviewBookUnit.statString = "\(homeStatus.numOfReviewBooks)"
+        reviewWordUnit.statString = "\(homeStatus.numOfReviewWords)"
+        reviewTimeUnit.statString = "\(Int(homeStatus.secondsOfReviewTime / 60))분"
     }
     
 }
@@ -106,18 +124,23 @@ class HomeStatusViewUnit: UIView {
         }
     }
     
-    let nameLabel: UILabel = {
+    var statString: String? {
+        didSet {
+            configureStat()
+        }
+    }
+    
+    private let nameLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 15, weight: .heavy)
         return label
     }()
     
-    let statLabel: UILabel = {
+    private let statLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 30, weight: .heavy)
-        label.text = "3" // 삭제
         return label
     }()
     
@@ -137,7 +160,7 @@ class HomeStatusViewUnit: UIView {
     
     // MARK: Properties
     
-    func configureUI() {
+    private func configureUI() {
         let nameLabelHeight = frame.height * 0.2
         
         addSubview(nameLabel)
@@ -153,8 +176,18 @@ class HomeStatusViewUnit: UIView {
         statLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: nameLabelHeight / 2).isActive = true
     }
     
-    func configureNameLabel() {
+    private func configureNameLabel() {
         guard let unitType = unitType else { return }
         nameLabel.text = unitType.titleText
+    }
+    
+    private func configureStat() {
+        guard let statString = statString else { return }
+        statLabel.text = statString
+        
+        guard let unitType = unitType else { return }
+        if unitType == .studyTime || unitType == .reviewTime {
+            statLabel.font = UIFont.systemFont(ofSize: 25, weight: .heavy)
+        }
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct HomeStat {
+struct HomeStatus {
     let numOfStudyBooks: Int
     let numOfStudyWords: Int
     let secondsOfStudyTime: TimeInterval

@@ -31,5 +31,22 @@ private let complicated = Word(spelling: "complicated", meanings: [complicatedMe
 private let luckyMeaning = Meaning(description: "운이 좋은")
 private let lucky = Word(spelling: "lucky", meanings: [luckyMeaning])
 
+let today = Date()
+let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: today)!
+let dayBeforeYesterday = Calendar.current.date(byAdding: .day, value: -2, to: today)!
 
-let dummyWordBook = WordBook(words: [cake, run, go, love, make, complicated, lucky])
+let dummyWordBook = WordBook(words: [cake, run, go, love, make, complicated, lucky], createdAt: Date())
+
+let dummyTodayWordBook = WordBook(words: [cake, run, go, love, make, complicated, lucky], createdAt: today)
+let dummyYesterdayWordBook = WordBook(words: [cake, run, go, love, make, complicated, lucky], createdAt: yesterday)
+let dummyDayBeforeYesterdayWordBook = WordBook(words: [cake, run, go, love, make, complicated, lucky], createdAt: dayBeforeYesterday)
+
+
+let dummyHomeStatus = HomeStatus(numOfStudyBooks: 3,
+                                 numOfStudyWords: 100,
+                                 secondsOfStudyTime: TimeInterval(198),
+                                 numOfReviewBooks: 10,
+                                 numOfReviewWords: 200,
+                                 secondsOfReviewTime: TimeInterval(363),
+                                 studyWordBooks: [dummyTodayWordBook, dummyYesterdayWordBook, dummyDayBeforeYesterdayWordBook],
+                                 reviewWordBooks: [dummyWordBook, dummyWordBook, dummyWordBook])

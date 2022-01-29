@@ -22,4 +22,5 @@ struct Meaning {
 struct WordBook {
     let id = UUID()
     let words: [Word]
+    let createdAt: Date
 }
