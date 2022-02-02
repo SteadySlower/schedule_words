@@ -13,28 +13,31 @@ class ListTestController: UIViewController {
     
     // MARK: Properties
     
-    var viewModel = ListTestViewModel(wordBook: dummyTodayWordBook)
-        //🚫 dummy code
+    var viewModel: ListTestViewModel
     
     let tableView = UITableView()
     let scoreBoard = TestScoreBoard()
     
     // MARK: Lifecycle
     
-//    init(wordBook: WordBook) {
-//        self.viewModel = listTestViewModel(wordBook: wordBook)
-//        super.init(nibName: nil, bundle: nil)
-//    }
-//
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
+    init(wordBook: WordBook) {
+        self.viewModel = ListTestViewModel(wordBook: wordBook)
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
         configureTableView()
         configureScoreBoard()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
     }
     
     // MARK: Selectors
@@ -82,7 +85,8 @@ extension ListTestController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as? ListTestCell else { return UITableViewCell() }
-        cell.word = viewModel.undefinedWords[indexPath.row]
+        let word = viewModel.words[indexPath.row]
+        cell.viewModel = ListTestCellViewModel(word: word)
         return cell
     }
 }
@@ -95,7 +99,8 @@ extension ListTestController: UITableViewDelegate {
         // indexPath로 cell 객체 구하기
         guard let cell = tableView.visibleCells.filter({ cell in
             let listCell = cell as! ListTestCell
-            return listCell.word!.id == self.viewModel.undefinedWords[indexPath.row].id
+            let word = listCell.viewModel!.word
+            return word.id == self.viewModel.words[indexPath.row].id
         }).first as? ListTestCell else { return }
         // cell 뒤집기
         UIView.transition(with: cell,
@@ -115,11 +120,11 @@ extension ListTestController: UITableViewDelegate {
         let imageSize = tableView.visibleCells.first?.bounds.height ?? 50
         
         // viewModel에서 처리하기 위해서 해당 word
-        let word = viewModel.undefinedWords[indexPath.row]
+        let word = viewModel.words[indexPath.row]
         
         // 스와이프 되었을 때 실행할 동작
         let action = UIContextualAction(style: .normal, title: nil) { _, _, completionHandler in
-            self.viewModel.moveWordToSuccess(word: word)
+            self.viewModel.moveWordToSuccess(success: word)
             tableView.deleteRows(at: [indexPath], with: .fade)
             self.configureScoreBoard()
             completionHandler(true)
@@ -140,10 +145,10 @@ extension ListTestController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let word = viewModel.undefinedWords[indexPath.row]
+        let word = viewModel.words[indexPath.row]
         let imageSize = tableView.visibleCells.first?.bounds.height ?? 50
         let action = UIContextualAction(style: .normal, title: nil) { _, view, completionHandler in
-            self.viewModel.moveWordToFail(word: word)
+            self.viewModel.moveWordToFail(fail: word)
             tableView.deleteRows(at: [indexPath], with: .fade)
             self.configureScoreBoard()
             completionHandler(true)

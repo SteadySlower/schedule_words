@@ -25,11 +25,20 @@ class HomeController: UIViewController {
         super.viewDidLoad()
         configureUI()
         configureTableView()
+        configureNavigationBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureHomeStatusView()
+    }
+    
+    // MARK: Selectors
+    
+    @objc func showWordInputController() {
+        let input = WordInputController()
+        input.modalPresentationStyle = .overFullScreen
+        self.present(input, animated: true, completion: nil)
     }
     
     // MARK: Helpers
@@ -64,6 +73,36 @@ class HomeController: UIViewController {
         tableView.register(HomeListCell.self, forCellReuseIdentifier: reuseIdentifier)
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
+    }
+    
+    func configureNavigationBar() {
+        self.navigationItem.title = "홈화면"
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "추가", style: .plain, target: self, action: #selector(showWordInputController))
+    }
+    
+    func showActionSheet(cell: HomeListCell) {
+        guard let wordBook = cell.viewModel?.wordBook else { return }
+        guard let actionSheetTitle = cell.viewModel?.actionSheetTitle else { return }
+        
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25, weight: .heavy), NSAttributedString.Key.foregroundColor: UIColor.blue]
+        let titleAttrString = NSMutableAttributedString(string: actionSheetTitle, attributes: attributes)
+        actionSheet.setValue(titleAttrString, forKey: "attributedTitle")
+        
+        let studyAction = UIAlertAction(title: "공부 하기", style: .default) { _ in
+            let studyController = ListStudyController(wordBook: wordBook)
+            self.navigationController?.pushViewController(studyController, animated: true)
+        }
+        let testAction = UIAlertAction(title: "테스트 하기", style: .default) { _ in
+            let testController = ListTestController(wordBook: wordBook) //🚫 study용 컨트롤러로 수정하기
+            self.navigationController?.pushViewController(testController, animated: true)
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: .destructive, handler: nil)
+        actionSheet.addAction(studyAction)
+        actionSheet.addAction(testAction)
+        actionSheet.addAction(cancelAction)
+        self.present(actionSheet, animated: true, completion: nil)
     }
 }
 
@@ -104,9 +143,11 @@ extension HomeController: UITableViewDataSource {
 extension HomeController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            
+            guard let cell = tableView.cellForRow(at: indexPath) as? HomeListCell else { return }
+            showActionSheet(cell: cell)
         } else if indexPath.section == 1 {
-
+            guard let cell = tableView.cellForRow(at: indexPath) as? HomeListCell else { return }
+            showActionSheet(cell: cell)
         }
     }
 }

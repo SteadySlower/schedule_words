@@ -7,10 +7,16 @@
 
 import Foundation
 
+enum WordTestResult {
+    case undefined, success, fail
+}
+
 struct Word {
     let id = UUID()
     let spelling: String
     let meanings: [Meaning]
+    var didChecked: Bool = false
+    var testResult: WordTestResult = .undefined
 }
 
 struct Meaning {
@@ -21,6 +27,6 @@ struct Meaning {
 
 struct WordBook {
     let id = UUID()
-    let words: [Word]
+    var words: [Word]
     let createdAt: Date
 }

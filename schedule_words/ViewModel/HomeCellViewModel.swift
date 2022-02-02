@@ -29,14 +29,19 @@ struct HomeCellViewModel {
     var tagCircleColor: CGColor {
         let dateGap = Utilities().getDaysFromToday(date: wordBook.createdAt)
         
-        switch dateGap {
-        case 0:
+        if dateGap == 0 {
             return UIColor.green.cgColor
-        case 1:
+        } else if dateGap == 1 {
             return UIColor.yellow.cgColor
-        case 2:
+        } else if dateGap == 2 {
             return UIColor.red.cgColor
-        default:
+        } else if dateGap <= 7 {
+            return UIColor.green.cgColor
+        } else if dateGap <= 14 {
+            return UIColor.yellow.cgColor
+        } else if dateGap <= 28 {
+            return UIColor.red.cgColor
+        } else {
             return UIColor.black.cgColor
         }
     }
@@ -55,5 +60,20 @@ struct HomeCellViewModel {
     
     var numOfStudyLabelString: String {
         return "3회독"
+    }
+    
+    var actionSheetTitle: String {
+        let dateGap = Utilities().getDaysFromToday(date: wordBook.createdAt)
+        
+        switch dateGap {
+        case 0:
+            return "오늘 단어장"
+        case 1:
+            return "어제 단어장"
+        case 2:
+            return "그제 단어장"
+        default:
+            return "+\(dateGap)일 단어장"
+        }
     }
 }
