@@ -42,7 +42,7 @@ class WordInputController: UIViewController {
         return button
     }()
     
-    private let wordTextField: UITextField = {
+    private lazy var wordTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "단어를 입력하세요."
         tf.borderStyle = .roundedRect
@@ -50,15 +50,17 @@ class WordInputController: UIViewController {
         tf.addTarget(self, action: #selector(wordTextFieldValueChanged(sender:)), for: .editingChanged)
         tf.autocapitalizationType = .none
         tf.becomeFirstResponder()
+        tf.delegate = self
         return tf
     }()
     
-    private let meaningTextField: UITextField = {
+    private lazy var meaningTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "뜻을 추가하세요."
         tf.borderStyle = .roundedRect
         tf.adjustsFontSizeToFitWidth = true
         tf.autocapitalizationType = .none
+        tf.delegate = self
         return tf
     }()
     
@@ -129,18 +131,23 @@ class WordInputController: UIViewController {
     }
     
     @objc private func addMeaningTapped() {
+        // 에러: 뜻이 이미 3개 이상일 때
         if meanings.count >= 3 {
-            // TODO: 3개 이상이면 alert 띄우기
+            showErrorAlert(error: .tooManyMeanings)
             return
         }
-        // TODO: validate meaning
         
+        // 에러: 한글이 아닌 뜻을 입력할 때
         guard let meaning = meaningTextField.text else { return }
-        if meaning != "" {
-            meanings.append(meaning)
-            meaningTextField.text = ""
-            configureMeaningLabels()
+        guard meaning != "" else { return }
+        guard Utilities().validateMeaningInput(input: meaning) == true else {
+            showErrorAlert(error: .meaningValidationFailure)
+            return
         }
+        
+        meanings.append(meaning)
+        meaningTextField.text = ""
+        configureMeaningLabels()
     }
     
     // MARK: Helpers
@@ -224,6 +231,7 @@ class WordInputController: UIViewController {
     
     private func configureMeaningLabels() {
         var meaningsSlice = meanings[meanings.indices]
+        
         let firstMeaning = meaningsSlice.popFirst()
         let secondMeaning = meaningsSlice.popFirst()
         let thirdMeaning = meaningsSlice.popFirst()
@@ -232,13 +240,35 @@ class WordInputController: UIViewController {
         secondInputMeaningLabel.meaning = secondMeaning
         thirdInputMeaningLabel.meaning = thirdMeaning
     }
+    
+    private func showErrorAlert(error: WordInputError) {
+        let alert = UIAlertController(title: "에러", message: error.message, preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        alert.addAction(cancel)
+        self.present(alert, animated: true, completion: nil)
+    }
 }
+
+// MARK: InputMeaningLabelDelegate
 
 extension WordInputController: InputMeaningLabelDelegate {
     func removeButtonTapped(sender: InputMeaningLabel) {
-        print("remove button tapped in index #\(sender.index!)")
         guard let index = sender.index else { return }
         meanings.remove(at: index)
         configureMeaningLabels()
+    }
+}
+
+// MARK: UITextFieldDelegate
+
+extension WordInputController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == wordTextField {
+            textField.resignFirstResponder()
+            meaningTextField.becomeFirstResponder()
+        } else if textField == meaningTextField {
+            self.addMeaningTapped()
+        }
+        return true
     }
 }

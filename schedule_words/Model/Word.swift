@@ -17,6 +17,7 @@ struct Word {
     let meanings: [Meaning]
     var didChecked: Bool = false
     var testResult: WordTestResult = .undefined
+    //let createdAt: Date
 }
 
 struct Meaning {
