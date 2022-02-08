@@ -111,7 +111,6 @@ class WordInputController: UIViewController {
     init() {
         self.viewModel = WordInputViewModel()
         super.init(nibName: nil, bundle: nil)
-        print("DEBUG: wordInputController init")
     }
     
     required init?(coder: NSCoder) {
@@ -124,10 +123,6 @@ class WordInputController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         configureUI()
-    }
-    
-    deinit {
-        print("DEBUG: wordInputController deinit")
     }
     
     // MARK: Selector

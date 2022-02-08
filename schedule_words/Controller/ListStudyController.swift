@@ -22,15 +22,10 @@ class ListStudyController: UIViewController {
     init(wordBook: WordBook) {
         self.viewModel = ListStudyViewModel(wordBook: wordBook)
         super.init(nibName: nil, bundle: nil)
-        print("DEBUG: ListStudyController init")
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    deinit {
-        print("DEBUG: ListStudyController deinit")
     }
     
     override func viewDidLoad() {

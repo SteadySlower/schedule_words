@@ -57,7 +57,6 @@ class InputMeaningLabel: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        print("DEBUG: InputMeaningLabel init")
     }
     
     required init?(coder: NSCoder) {
@@ -67,10 +66,6 @@ class InputMeaningLabel: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         configureUI()
-    }
-    
-    deinit {
-        print("DEBUG: InputMeaningLabel deinit")
     }
     
     // MARK: Selector

@@ -28,7 +28,7 @@ class ListStudyCell: UITableViewCell {
         }
     }
     
-    var delegate: ListStudyCellDelegate?
+    weak var delegate: ListStudyCellDelegate?
     
     let wordLabel: UILabel = {
         let label = UILabel()
