@@ -11,7 +11,7 @@ class WordInputController: UIViewController {
     
     // MARK: Properties
     
-    private var meanings = [String]()
+    private var viewModel: WordInputViewModel
     
     private let inputBox: UIView = {
         let view = UIView()
@@ -20,7 +20,8 @@ class WordInputController: UIViewController {
         return view
     }()
     
-    private let registerButton: UIButton = {
+    // ()로 끝나면 리턴하고 끝나기 때문에
+    private lazy var registerButton: UIButton = {
         let button = UIButton()
         button.setTitle("추가", for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -31,7 +32,7 @@ class WordInputController: UIViewController {
         return button
     }()
     
-    private let cancelButton: UIButton = {
+    private lazy var cancelButton: UIButton = {
         let button = UIButton()
         button.setTitle("취소", for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -64,7 +65,7 @@ class WordInputController: UIViewController {
         return tf
     }()
     
-    private let meaningAddingButton: UIButton = {
+    private lazy var meaningAddingButton: UIButton = {
         let button = UIButton()
         button.setTitle("+", for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -106,13 +107,27 @@ class WordInputController: UIViewController {
     }()
     
     // MARK: LifeCycle
-
+    
+    init() {
+        self.viewModel = WordInputViewModel()
+        super.init(nibName: nil, bundle: nil)
+        print("DEBUG: wordInputController init")
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     override func viewWillLayoutSubviews() {
         configureUI()
+    }
+    
+    deinit {
+        print("DEBUG: wordInputController deinit")
     }
     
     // MARK: Selector
@@ -131,23 +146,18 @@ class WordInputController: UIViewController {
     }
     
     @objc private func addMeaningTapped() {
-        // 에러: 뜻이 이미 3개 이상일 때
-        if meanings.count >= 3 {
-            showErrorAlert(error: .tooManyMeanings)
-            return
-        }
-        
-        // 에러: 한글이 아닌 뜻을 입력할 때
+        // 입력 내용이 없으면 return
         guard let meaning = meaningTextField.text else { return }
         guard meaning != "" else { return }
-        guard Utilities().validateMeaningInput(input: meaning) == true else {
-            showErrorAlert(error: .meaningValidationFailure)
-            return
-        }
         
-        meanings.append(meaning)
-        meaningTextField.text = ""
-        configureMeaningLabels()
+        let error = viewModel.addMeaning(newMeaning: meaning)
+        
+        if let error = error {
+            showErrorAlert(error: error)
+        } else {
+            meaningTextField.text = ""
+            configureMeaningLabels()
+        }
     }
     
     // MARK: Helpers
@@ -230,15 +240,11 @@ class WordInputController: UIViewController {
     }
     
     private func configureMeaningLabels() {
-        var meaningsSlice = meanings[meanings.indices]
+        let labelTexts = viewModel.meaningLabelText
         
-        let firstMeaning = meaningsSlice.popFirst()
-        let secondMeaning = meaningsSlice.popFirst()
-        let thirdMeaning = meaningsSlice.popFirst()
-        
-        firstInputMeaningLabel.meaning = firstMeaning
-        secondInputMeaningLabel.meaning = secondMeaning
-        thirdInputMeaningLabel.meaning = thirdMeaning
+        firstInputMeaningLabel.meaning = labelTexts.0
+        secondInputMeaningLabel.meaning = labelTexts.1
+        thirdInputMeaningLabel.meaning = labelTexts.2
     }
     
     private func showErrorAlert(error: WordInputError) {
@@ -254,7 +260,7 @@ class WordInputController: UIViewController {
 extension WordInputController: InputMeaningLabelDelegate {
     func removeButtonTapped(sender: InputMeaningLabel) {
         guard let index = sender.index else { return }
-        meanings.remove(at: index)
+        viewModel.removeMeaning(at: index)
         configureMeaningLabels()
     }
 }
