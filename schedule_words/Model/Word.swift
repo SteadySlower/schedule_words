@@ -7,8 +7,8 @@
 
 import Foundation
 
-enum WordTestResult {
-    case undefined, success, fail
+enum WordTestResult: Int16 {
+    case undefined = 0, success, fail
 }
 
 struct Word {
@@ -30,4 +30,5 @@ struct WordBook {
     let id = UUID()
     var words: [Word]
     let createdAt: Date
+    // var next
 }

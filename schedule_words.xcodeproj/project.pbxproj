@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		062A66F427B25C9A006ACA5F /* WordInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062A66F327B25C9A006ACA5F /* WordInputViewModel.swift */; };
-		062A671A27B53603006ACA5F /* schedule_words.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 062A671827B53602006ACA5F /* schedule_words.xcdatamodeld */; };
+		062A672127BA093B006ACA5F /* schedule_words.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 062A671F27BA093B006ACA5F /* schedule_words.xcdatamodeld */; };
+		062A672327BA119C006ACA5F /* WordDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062A672227BA119C006ACA5F /* WordDAO.swift */; };
 		0639A2E627A4008E009EFC83 /* HomeStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0639A2E527A4008E009EFC83 /* HomeStatusView.swift */; };
 		0639A2E827A40FFF009EFC83 /* HomeStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0639A2E727A40FFF009EFC83 /* HomeStatus.swift */; };
 		065B26FD27A533F400E355BD /* HomeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065B26FC27A533F400E355BD /* HomeListCell.swift */; };
@@ -40,7 +41,8 @@
 
 /* Begin PBXFileReference section */
 		062A66F327B25C9A006ACA5F /* WordInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordInputViewModel.swift; sourceTree = "<group>"; };
-		062A671927B53603006ACA5F /* schedule_words.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = schedule_words.xcdatamodel; sourceTree = "<group>"; };
+		062A672027BA093B006ACA5F /* schedule_words.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = schedule_words.xcdatamodel; sourceTree = "<group>"; };
+		062A672227BA119C006ACA5F /* WordDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordDAO.swift; sourceTree = "<group>"; };
 		0639A2E527A4008E009EFC83 /* HomeStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatusView.swift; sourceTree = "<group>"; };
 		0639A2E727A40FFF009EFC83 /* HomeStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatus.swift; sourceTree = "<group>"; };
 		065B26FC27A533F400E355BD /* HomeListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListCell.swift; sourceTree = "<group>"; };
@@ -142,7 +144,7 @@
 				06DCEC19279FDCA0000E3255 /* Assets.xcassets */,
 				06DCEC1B279FDCA0000E3255 /* LaunchScreen.storyboard */,
 				06DCEC1E279FDCA0000E3255 /* Info.plist */,
-				062A671827B53602006ACA5F /* schedule_words.xcdatamodeld */,
+				062A671F27BA093B006ACA5F /* schedule_words.xcdatamodeld */,
 			);
 			path = schedule_words;
 			sourceTree = "<group>";
@@ -188,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				065B270E27AB5EDD00E355BD /* WordService.swift */,
+				062A672227BA119C006ACA5F /* WordDAO.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 				06C2383527A0E85B00CF4A13 /* TestScoreBoard.swift in Sources */,
 				06DCEC11279FDC9E000E3255 /* AppDelegate.swift in Sources */,
 				065B270527A576B600E355BD /* ListStudyViewModel.swift in Sources */,
+				062A672327BA119C006ACA5F /* WordDAO.swift in Sources */,
 				06C2383B27A15BD600CF4A13 /* DummyWords.swift in Sources */,
 				065B26FF27A547ED00E355BD /* HomeCellViewModel.swift in Sources */,
 				065B270B27AA8DA900E355BD /* InputMeaningLabel.swift in Sources */,
@@ -287,7 +291,7 @@
 				06C2382E27A0C3D800CF4A13 /* ListTestController.swift in Sources */,
 				06C2383F27A1692100CF4A13 /* ListTestCellViewModel.swift in Sources */,
 				06DCEC13279FDC9E000E3255 /* SceneDelegate.swift in Sources */,
-				062A671A27B53603006ACA5F /* schedule_words.xcdatamodeld in Sources */,
+				062A672127BA093B006ACA5F /* schedule_words.xcdatamodeld in Sources */,
 				06C2383327A0C80200CF4A13 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -371,6 +375,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -425,6 +430,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -510,14 +516,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		062A671827B53602006ACA5F /* schedule_words.xcdatamodeld */ = {
+		062A671F27BA093B006ACA5F /* schedule_words.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				062A671927B53603006ACA5F /* schedule_words.xcdatamodel */,
+				062A672027BA093B006ACA5F /* schedule_words.xcdatamodel */,
 			);
-			currentVersion = 062A671927B53603006ACA5F /* schedule_words.xcdatamodel */;
+			currentVersion = 062A672027BA093B006ACA5F /* schedule_words.xcdatamodel */;
 			path = schedule_words.xcdatamodeld;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 			versionGroupType = wrapper.xcdatamodel;
 		};
 /* End XCVersionGroup section */
