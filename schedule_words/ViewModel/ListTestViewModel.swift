@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ListTestResult {
+fileprivate enum ListTestResult {
     case success(index: Int)
     case fail(index: Int)
 }

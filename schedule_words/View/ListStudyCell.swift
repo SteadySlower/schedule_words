@@ -114,6 +114,7 @@ class ListStudyCell: UITableViewCell {
         } else {
             var fontSize: CGFloat
             
+            // TODO: font size viewModel이 담당하도록
             switch viewModel?.word.meanings.count {
             case 1: fontSize = 30
             case 2: fontSize = 20
@@ -123,6 +124,8 @@ class ListStudyCell: UITableViewCell {
             
             wordLabel.font = UIFont.systemFont(ofSize: fontSize)
             wordLabel.text = viewModel?.meaningLabelText
+            
+            // TODO: checkBox displayMode가 meaning일 때는 hidden
         }
         
         checkBox.isSelected = viewModel?.checkBoxIsSelected ?? false

@@ -6,29 +6,26 @@
 //
 
 import Foundation
+import CoreData
 
 enum WordTestResult: Int16 {
     case undefined = 0, success, fail
 }
 
 struct Word {
-    let id = UUID()
+    let id: NSManagedObjectID
     let spelling: String
     let meanings: [Meaning]
     var didChecked: Bool = false
     var testResult: WordTestResult = .undefined
-    //let createdAt: Date
 }
 
 struct Meaning {
-    let id = UUID()
-//    let wordId: UUID
+    let id: NSManagedObjectID
     let description: String
 }
 
 struct WordBook {
-    let id = UUID()
+    let id: NSManagedObjectID
     var words: [Word]
-    let createdAt: Date
-    // var next
 }
