@@ -114,7 +114,7 @@ class HomeStatusView: UIView {
     
 }
 
-class HomeStatusViewUnit: UIView {
+fileprivate class HomeStatusViewUnit: UIView {
     
     // MARK: Properties
     

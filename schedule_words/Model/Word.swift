@@ -28,4 +28,5 @@ struct Meaning {
 struct WordBook {
     let id: NSManagedObjectID
     var words: [Word]
+    let createdAt: Date
 }

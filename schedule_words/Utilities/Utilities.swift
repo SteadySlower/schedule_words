@@ -15,6 +15,18 @@ class Utilities {
         return Calendar.current.dateComponents([.day], from: date, to: today).day!
     }
     
+    // 오늘 날짜 범위 리턴
+    
+    func getTodayRange() -> (dateFrom: Date, dateTo: Date) {
+        var calendar = Calendar.current
+        calendar.timeZone = NSTimeZone.local
+        
+        let dateFrom = calendar.startOfDay(for: Date())
+        let dateTo = calendar.date(byAdding: .day, value: 1, to: dateFrom)!
+        
+        return (dateFrom: dateFrom, dateTo: dateTo)
+    }
+    
     // 단어장 리스트에 모든 단어 세기
     func countWords(wordBooks: [WordBook]) -> Int {
         var result = 0
@@ -41,7 +53,6 @@ class Utilities {
         }
         return true
     }
-    
     
     // 의미 입력 형식적 조건 만족하는지 확인
     func validateMeaningInput(input: String) -> Bool {

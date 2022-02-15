@@ -11,11 +11,12 @@ import Foundation
 class MOParser {
     func parseWordBook(rawData: WordBookMO) -> WordBook {
         let id = rawData.objectID
+        let createdAt = rawData.createdAt!
         let wordMOs = rawData.words!.array as! [WordMO]
         let words = wordMOs.map { wordMO in
             self.parseWord(rawData: wordMO)
         }
-        return WordBook(id: id, words: words)
+        return WordBook(id: id, words: words, createdAt: createdAt)
     }
     
     private func parseWord(rawData: WordMO) -> Word {
