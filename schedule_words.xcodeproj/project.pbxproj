@@ -10,7 +10,7 @@
 		062A66F427B25C9A006ACA5F /* WordInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062A66F327B25C9A006ACA5F /* WordInputViewModel.swift */; };
 		062A672127BA093B006ACA5F /* schedule_words.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 062A671F27BA093B006ACA5F /* schedule_words.xcdatamodeld */; };
 		062A672327BA119C006ACA5F /* WordDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062A672227BA119C006ACA5F /* WordDAO.swift */; };
-		062A672527BA2272006ACA5F /* MOParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062A672427BA2272006ACA5F /* MOParser.swift */; };
+		062A672527BA2272006ACA5F /* MOParser(deprecated).swift in Sources */ = {isa = PBXBuildFile; fileRef = 062A672427BA2272006ACA5F /* MOParser(deprecated).swift */; };
 		0639A2E627A4008E009EFC83 /* HomeStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0639A2E527A4008E009EFC83 /* HomeStatusView.swift */; };
 		0639A2E827A40FFF009EFC83 /* HomeStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0639A2E727A40FFF009EFC83 /* HomeStatus.swift */; };
 		065B26FD27A533F400E355BD /* HomeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065B26FC27A533F400E355BD /* HomeListCell.swift */; };
@@ -44,7 +44,7 @@
 		062A66F327B25C9A006ACA5F /* WordInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordInputViewModel.swift; sourceTree = "<group>"; };
 		062A672027BA093B006ACA5F /* schedule_words.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = schedule_words.xcdatamodel; sourceTree = "<group>"; };
 		062A672227BA119C006ACA5F /* WordDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordDAO.swift; sourceTree = "<group>"; };
-		062A672427BA2272006ACA5F /* MOParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MOParser.swift; sourceTree = "<group>"; };
+		062A672427BA2272006ACA5F /* MOParser(deprecated).swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MOParser(deprecated).swift"; sourceTree = "<group>"; };
 		0639A2E527A4008E009EFC83 /* HomeStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatusView.swift; sourceTree = "<group>"; };
 		0639A2E727A40FFF009EFC83 /* HomeStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatus.swift; sourceTree = "<group>"; };
 		065B26FC27A533F400E355BD /* HomeListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListCell.swift; sourceTree = "<group>"; };
@@ -91,7 +91,6 @@
 			isa = PBXGroup;
 			children = (
 				062A672227BA119C006ACA5F /* WordDAO.swift */,
-				062A672427BA2272006ACA5F /* MOParser.swift */,
 			);
 			path = DAO;
 			sourceTree = "<group>";
@@ -118,6 +117,7 @@
 		06C2383927A15BC700CF4A13 /* Dev */ = {
 			isa = PBXGroup;
 			children = (
+				062A672427BA2272006ACA5F /* MOParser(deprecated).swift */,
 				06C2383A27A15BD600CF4A13 /* DummyWords.swift */,
 			);
 			path = Dev;
@@ -287,7 +287,7 @@
 				065B270527A576B600E355BD /* ListStudyViewModel.swift in Sources */,
 				062A672327BA119C006ACA5F /* WordDAO.swift in Sources */,
 				06C2383B27A15BD600CF4A13 /* DummyWords.swift in Sources */,
-				062A672527BA2272006ACA5F /* MOParser.swift in Sources */,
+				062A672527BA2272006ACA5F /* MOParser(deprecated).swift in Sources */,
 				065B26FF27A547ED00E355BD /* HomeCellViewModel.swift in Sources */,
 				065B270B27AA8DA900E355BD /* InputMeaningLabel.swift in Sources */,
 				065B26FD27A533F400E355BD /* HomeListCell.swift in Sources */,

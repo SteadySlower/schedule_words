@@ -50,8 +50,24 @@ class WordDAO {
     }
     
     // 단어 오늘 단어장에 넣기
-    func insertTodayWord(word: Word) -> Bool {
-        guard let todayWordBookMO = fetchWordBookByObjectID(objectID: <#T##NSManagedObjectID#>)
+    func insertTodayWord(word: Word, todayWordBookID id: NSManagedObjectID) -> Bool {
+        guard let wordBookObject = fetchWordBookMOByID(objectID: id) else {
+            return false
+        }
+        
+        let today = Date()
+        let wordObject = NSEntityDescription.insertNewObject(forEntityName: "Word", into: context) as! WordMO
+        
+        wordObject.spelling = word.spelling
+        wordObject.createdAt = today
+        wordObject.updatedAt = today
+        wordObject.didChecked = false
+        wordObject.testResult = WordTestResult.fail.rawValue
+        
+        wordBookObject.addToWords(wordObject)
+        
+        
+        
     }
     
     // MARK: Helpers
@@ -101,7 +117,7 @@ class WordDAO {
         return predicate
     }
     
-    private func fetchWordBookByObjectID(objectID: NSManagedObjectID) -> WordBookMO? {
+    private func fetchWordBookMOByID(objectID: NSManagedObjectID) -> WordBookMO? {
         let fetchRequest: NSFetchRequest<WordBookMO> = WordBookMO.fetchRequest()
         let predicate = NSPredicate(format: "%K == %@", #keyPath(WordBookMO.objectID), objectID)
         fetchRequest.predicate = predicate
