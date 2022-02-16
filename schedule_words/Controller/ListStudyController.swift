@@ -13,14 +13,14 @@ class ListStudyController: UIViewController {
     
     // MARK: Properties
     
-    var viewModel: ListStudyViewModel
+    var viewModel: StudyListViewModel
     
     let tableView = UITableView()
     
     // MARK: Lifecycle
     
     init(wordBook: WordBook) {
-        self.viewModel = ListStudyViewModel(wordBook: wordBook)
+        self.viewModel = StudyListViewModel(wordBook: wordBook)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -49,7 +49,7 @@ class ListStudyController: UIViewController {
     func configureTableView() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(ListStudyCell.self, forCellReuseIdentifier: reuseIdentifier)
+        tableView.register(StudyListCell.self, forCellReuseIdentifier: reuseIdentifier)
         tableView.selectionFollowsFocus = true
         tableView.separatorStyle = .none
         tableView.isUserInteractionEnabled = true
@@ -64,9 +64,9 @@ extension ListStudyController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as? ListStudyCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as? StudyListCell else { return UITableViewCell() }
         let word = viewModel.wordBook.words[indexPath.row]
-        cell.viewModel = ListStudyCellViewModel(word: word)
+        cell.viewModel = StudyListCellViewModel(word: word)
         cell.delegate = self
         return cell
     }
@@ -79,10 +79,10 @@ extension ListStudyController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // indexPath로 cell 객체 구하기
         guard let cell = tableView.visibleCells.filter({ cell in
-            let listCell = cell as! ListStudyCell
+            let listCell = cell as! StudyListCell
             let word = listCell.viewModel!.word
             return word.id == self.viewModel.wordBook.words[indexPath.row].id
-        }).first as? ListStudyCell else { return }
+        }).first as? StudyListCell else { return }
         // cell 뒤집기
         UIView.transition(with: cell,
                     duration: 1,
@@ -110,7 +110,7 @@ extension ListStudyController {
 
 // MARK: ListStudyCellDelegate
 
-extension ListStudyController: ListStudyCellDelegate {
+extension ListStudyController: StudyListCellDelegate {
     func boxChecked(word: Word) {
         guard let index = viewModel.moveWordToChecked(checked: word) else { return }
         let indexPath = IndexPath(row: index, section: 0)

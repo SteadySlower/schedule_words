@@ -1,13 +1,13 @@
 //
-//  ListTestCellViewModel.swift
+//  ListStudyCellViewModel.swift
 //  schedule_words
 //
-//  Created by JW Moon on 2022/01/26.
+//  Created by JW Moon on 2022/01/29.
 //
 
 import Foundation
 
-struct ListTestCellViewModel {
+struct StudyListCellViewModel {
     let word: Word
     
     var wordLabelText: String {
@@ -24,5 +24,9 @@ struct ListTestCellViewModel {
             }
         }
         return text
+    }
+    
+    var checkBoxIsSelected: Bool {
+        return word.didChecked
     }
 }

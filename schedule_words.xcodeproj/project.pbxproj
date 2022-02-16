@@ -16,22 +16,22 @@
 		065B26FD27A533F400E355BD /* HomeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065B26FC27A533F400E355BD /* HomeListCell.swift */; };
 		065B26FF27A547ED00E355BD /* HomeCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065B26FE27A547ED00E355BD /* HomeCellViewModel.swift */; };
 		065B270127A56B0700E355BD /* ListStudyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065B270027A56B0700E355BD /* ListStudyController.swift */; };
-		065B270327A56B5A00E355BD /* ListStudyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065B270227A56B5A00E355BD /* ListStudyCell.swift */; };
-		065B270527A576B600E355BD /* ListStudyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065B270427A576B600E355BD /* ListStudyViewModel.swift */; };
-		065B270727A581D000E355BD /* ListStudyCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065B270627A581D000E355BD /* ListStudyCellViewModel.swift */; };
+		065B270327A56B5A00E355BD /* StudyListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065B270227A56B5A00E355BD /* StudyListCell.swift */; };
+		065B270527A576B600E355BD /* StudyListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065B270427A576B600E355BD /* StudyListViewModel.swift */; };
+		065B270727A581D000E355BD /* StudyListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065B270627A581D000E355BD /* StudyListCellViewModel.swift */; };
 		065B270927A9708100E355BD /* WordInputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065B270827A9708100E355BD /* WordInputController.swift */; };
 		065B270B27AA8DA900E355BD /* InputMeaningLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065B270A27AA8DA900E355BD /* InputMeaningLabel.swift */; };
 		065B270D27AAA32000E355BD /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065B270C27AAA32000E355BD /* Errors.swift */; };
 		065B270F27AB5EDD00E355BD /* WordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065B270E27AB5EDD00E355BD /* WordService.swift */; };
 		06A77D8B27A41B39000CE965 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A77D8A27A41B39000CE965 /* Utilities.swift */; };
 		06C2382E27A0C3D800CF4A13 /* ListTestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2382D27A0C3D800CF4A13 /* ListTestController.swift */; };
-		06C2383027A0C5C100CF4A13 /* ListTestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2382F27A0C5C100CF4A13 /* ListTestCell.swift */; };
+		06C2383027A0C5C100CF4A13 /* TestListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2382F27A0C5C100CF4A13 /* TestListCell.swift */; };
 		06C2383327A0C80200CF4A13 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2383227A0C80200CF4A13 /* Constants.swift */; };
 		06C2383527A0E85B00CF4A13 /* TestScoreBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2383427A0E85B00CF4A13 /* TestScoreBoard.swift */; };
 		06C2383827A15B1E00CF4A13 /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2383727A15B1E00CF4A13 /* Word.swift */; };
 		06C2383B27A15BD600CF4A13 /* DummyWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2383A27A15BD600CF4A13 /* DummyWords.swift */; };
-		06C2383D27A164D800CF4A13 /* ListTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2383C27A164D800CF4A13 /* ListTestViewModel.swift */; };
-		06C2383F27A1692100CF4A13 /* ListTestCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2383E27A1692100CF4A13 /* ListTestCellViewModel.swift */; };
+		06C2383D27A164D800CF4A13 /* TestListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2383C27A164D800CF4A13 /* TestListViewModel.swift */; };
+		06C2383F27A1692100CF4A13 /* TestListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2383E27A1692100CF4A13 /* TestListCellViewModel.swift */; };
 		06DCEC11279FDC9E000E3255 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DCEC10279FDC9E000E3255 /* AppDelegate.swift */; };
 		06DCEC13279FDC9E000E3255 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DCEC12279FDC9E000E3255 /* SceneDelegate.swift */; };
 		06DCEC15279FDC9E000E3255 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DCEC14279FDC9E000E3255 /* HomeController.swift */; };
@@ -50,22 +50,22 @@
 		065B26FC27A533F400E355BD /* HomeListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListCell.swift; sourceTree = "<group>"; };
 		065B26FE27A547ED00E355BD /* HomeCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCellViewModel.swift; sourceTree = "<group>"; };
 		065B270027A56B0700E355BD /* ListStudyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStudyController.swift; sourceTree = "<group>"; };
-		065B270227A56B5A00E355BD /* ListStudyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStudyCell.swift; sourceTree = "<group>"; };
-		065B270427A576B600E355BD /* ListStudyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStudyViewModel.swift; sourceTree = "<group>"; };
-		065B270627A581D000E355BD /* ListStudyCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStudyCellViewModel.swift; sourceTree = "<group>"; };
+		065B270227A56B5A00E355BD /* StudyListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyListCell.swift; sourceTree = "<group>"; };
+		065B270427A576B600E355BD /* StudyListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyListViewModel.swift; sourceTree = "<group>"; };
+		065B270627A581D000E355BD /* StudyListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyListCellViewModel.swift; sourceTree = "<group>"; };
 		065B270827A9708100E355BD /* WordInputController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordInputController.swift; sourceTree = "<group>"; };
 		065B270A27AA8DA900E355BD /* InputMeaningLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputMeaningLabel.swift; sourceTree = "<group>"; };
 		065B270C27AAA32000E355BD /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		065B270E27AB5EDD00E355BD /* WordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordService.swift; sourceTree = "<group>"; };
 		06A77D8A27A41B39000CE965 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		06C2382D27A0C3D800CF4A13 /* ListTestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTestController.swift; sourceTree = "<group>"; };
-		06C2382F27A0C5C100CF4A13 /* ListTestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTestCell.swift; sourceTree = "<group>"; };
+		06C2382F27A0C5C100CF4A13 /* TestListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestListCell.swift; sourceTree = "<group>"; };
 		06C2383227A0C80200CF4A13 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		06C2383427A0E85B00CF4A13 /* TestScoreBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestScoreBoard.swift; sourceTree = "<group>"; };
 		06C2383727A15B1E00CF4A13 /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		06C2383A27A15BD600CF4A13 /* DummyWords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyWords.swift; sourceTree = "<group>"; };
-		06C2383C27A164D800CF4A13 /* ListTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTestViewModel.swift; sourceTree = "<group>"; };
-		06C2383E27A1692100CF4A13 /* ListTestCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTestCellViewModel.swift; sourceTree = "<group>"; };
+		06C2383C27A164D800CF4A13 /* TestListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestListViewModel.swift; sourceTree = "<group>"; };
+		06C2383E27A1692100CF4A13 /* TestListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestListCellViewModel.swift; sourceTree = "<group>"; };
 		06DCEC0D279FDC9E000E3255 /* schedule_words.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = schedule_words.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		06DCEC10279FDC9E000E3255 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		06DCEC12279FDC9E000E3255 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -175,11 +175,11 @@
 		06DCEC25279FDCEF000E3255 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				06C2382F27A0C5C100CF4A13 /* ListTestCell.swift */,
+				06C2382F27A0C5C100CF4A13 /* TestListCell.swift */,
 				06C2383427A0E85B00CF4A13 /* TestScoreBoard.swift */,
 				0639A2E527A4008E009EFC83 /* HomeStatusView.swift */,
 				065B26FC27A533F400E355BD /* HomeListCell.swift */,
-				065B270227A56B5A00E355BD /* ListStudyCell.swift */,
+				065B270227A56B5A00E355BD /* StudyListCell.swift */,
 				065B270A27AA8DA900E355BD /* InputMeaningLabel.swift */,
 			);
 			path = View;
@@ -188,11 +188,11 @@
 		06DCEC26279FDCFB000E3255 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				06C2383C27A164D800CF4A13 /* ListTestViewModel.swift */,
-				06C2383E27A1692100CF4A13 /* ListTestCellViewModel.swift */,
+				06C2383C27A164D800CF4A13 /* TestListViewModel.swift */,
+				06C2383E27A1692100CF4A13 /* TestListCellViewModel.swift */,
 				065B26FE27A547ED00E355BD /* HomeCellViewModel.swift */,
-				065B270427A576B600E355BD /* ListStudyViewModel.swift */,
-				065B270627A581D000E355BD /* ListStudyCellViewModel.swift */,
+				065B270427A576B600E355BD /* StudyListViewModel.swift */,
+				065B270627A581D000E355BD /* StudyListCellViewModel.swift */,
 				062A66F327B25C9A006ACA5F /* WordInputViewModel.swift */,
 			);
 			path = ViewModel;
@@ -278,13 +278,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				062A66F427B25C9A006ACA5F /* WordInputViewModel.swift in Sources */,
-				06C2383D27A164D800CF4A13 /* ListTestViewModel.swift in Sources */,
+				06C2383D27A164D800CF4A13 /* TestListViewModel.swift in Sources */,
 				06DCEC15279FDC9E000E3255 /* HomeController.swift in Sources */,
 				06C2383827A15B1E00CF4A13 /* Word.swift in Sources */,
 				06A77D8B27A41B39000CE965 /* Utilities.swift in Sources */,
 				06C2383527A0E85B00CF4A13 /* TestScoreBoard.swift in Sources */,
 				06DCEC11279FDC9E000E3255 /* AppDelegate.swift in Sources */,
-				065B270527A576B600E355BD /* ListStudyViewModel.swift in Sources */,
+				065B270527A576B600E355BD /* StudyListViewModel.swift in Sources */,
 				062A672327BA119C006ACA5F /* WordDAO.swift in Sources */,
 				06C2383B27A15BD600CF4A13 /* DummyWords.swift in Sources */,
 				062A672527BA2272006ACA5F /* MOParser(deprecated).swift in Sources */,
@@ -292,16 +292,16 @@
 				065B270B27AA8DA900E355BD /* InputMeaningLabel.swift in Sources */,
 				065B26FD27A533F400E355BD /* HomeListCell.swift in Sources */,
 				065B270927A9708100E355BD /* WordInputController.swift in Sources */,
-				06C2383027A0C5C100CF4A13 /* ListTestCell.swift in Sources */,
+				06C2383027A0C5C100CF4A13 /* TestListCell.swift in Sources */,
 				0639A2E827A40FFF009EFC83 /* HomeStatus.swift in Sources */,
-				065B270727A581D000E355BD /* ListStudyCellViewModel.swift in Sources */,
+				065B270727A581D000E355BD /* StudyListCellViewModel.swift in Sources */,
 				0639A2E627A4008E009EFC83 /* HomeStatusView.swift in Sources */,
 				065B270127A56B0700E355BD /* ListStudyController.swift in Sources */,
 				065B270F27AB5EDD00E355BD /* WordService.swift in Sources */,
-				065B270327A56B5A00E355BD /* ListStudyCell.swift in Sources */,
+				065B270327A56B5A00E355BD /* StudyListCell.swift in Sources */,
 				065B270D27AAA32000E355BD /* Errors.swift in Sources */,
 				06C2382E27A0C3D800CF4A13 /* ListTestController.swift in Sources */,
-				06C2383F27A1692100CF4A13 /* ListTestCellViewModel.swift in Sources */,
+				06C2383F27A1692100CF4A13 /* TestListCellViewModel.swift in Sources */,
 				06DCEC13279FDC9E000E3255 /* SceneDelegate.swift in Sources */,
 				062A672127BA093B006ACA5F /* schedule_words.xcdatamodeld in Sources */,
 				06C2383327A0C80200CF4A13 /* Constants.swift in Sources */,

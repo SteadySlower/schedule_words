@@ -13,7 +13,7 @@ class ListTestController: UIViewController {
     
     // MARK: Properties
     
-    var viewModel: ListTestViewModel
+    var viewModel: TestListViewModel
     
     let tableView = UITableView()
     let scoreBoard = TestScoreBoard()
@@ -21,7 +21,7 @@ class ListTestController: UIViewController {
     // MARK: Lifecycle
     
     init(wordBook: WordBook) {
-        self.viewModel = ListTestViewModel(wordBook: wordBook)
+        self.viewModel = TestListViewModel(wordBook: wordBook)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -64,7 +64,7 @@ class ListTestController: UIViewController {
     func configureTableView() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(ListTestCell.self, forCellReuseIdentifier: reuseIdentifier)
+        tableView.register(TestListCell.self, forCellReuseIdentifier: reuseIdentifier)
         tableView.selectionFollowsFocus = true
         tableView.separatorStyle = .none
         tableView.isUserInteractionEnabled = true
@@ -84,9 +84,9 @@ extension ListTestController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as? ListTestCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as? TestListCell else { return UITableViewCell() }
         let word = viewModel.words[indexPath.row]
-        cell.viewModel = ListTestCellViewModel(word: word)
+        cell.viewModel = TestListCellViewModel(word: word)
         return cell
     }
 }
@@ -98,10 +98,10 @@ extension ListTestController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // indexPath로 cell 객체 구하기
         guard let cell = tableView.visibleCells.filter({ cell in
-            let listCell = cell as! ListTestCell
+            let listCell = cell as! TestListCell
             let word = listCell.viewModel!.word
             return word.id == self.viewModel.words[indexPath.row].id
-        }).first as? ListTestCell else { return }
+        }).first as? TestListCell else { return }
         // cell 뒤집기
         UIView.transition(with: cell,
                     duration: 1,

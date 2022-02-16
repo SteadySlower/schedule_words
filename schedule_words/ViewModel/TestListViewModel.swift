@@ -7,12 +7,12 @@
 
 import Foundation
 
-fileprivate enum ListTestResult {
+fileprivate enum TestListResult {
     case success(index: Int)
     case fail(index: Int)
 }
 
-struct ListTestViewModel {
+struct TestListViewModel {
     
     private var wordBook: WordBook {
         didSet {
@@ -24,7 +24,7 @@ struct ListTestViewModel {
     
     var words: [Word]
     
-    private var testResults: [ListTestResult]
+    private var testResults: [TestListResult]
         // 테스트 결과를 저장해두고 실행취소할 때 사용한다.
     
     init(wordBook: WordBook) {
@@ -32,7 +32,7 @@ struct ListTestViewModel {
         self.words = wordBook.words.filter({ word in
             word.testResult == .undefined
         })
-        self.testResults = [ListTestResult]()
+        self.testResults = [TestListResult]()
     }
     
     var numOfCells: Int {

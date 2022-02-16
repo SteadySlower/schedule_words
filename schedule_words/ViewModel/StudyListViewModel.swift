@@ -9,21 +9,21 @@ import Foundation
 
 import Foundation
 
-enum ListStudyResult {
+enum StudyListResult {
     case check(index: Int)
     case uncheck(index: Int)
 }
 
-struct ListStudyViewModel {
+struct StudyListViewModel {
     
     var wordBook: WordBook
     
-    private var checkResults: [ListStudyResult]
+    private var checkResults: [StudyListResult]
         // 테스트 결과를 저장해두고 실행취소할 때 사용한다.
     
     init(wordBook: WordBook) {
         self.wordBook = wordBook
-        self.checkResults = [ListStudyResult]()
+        self.checkResults = [StudyListResult]()
         
     }
     
