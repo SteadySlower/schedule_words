@@ -13,7 +13,7 @@ enum WordTestResult: Int16 {
 }
 
 struct Word {
-    let id: NSManagedObjectID
+    let id: NSManagedObjectID?
     let spelling: String
     let meanings: [Meaning]
     var didChecked: Bool = false
@@ -29,20 +29,33 @@ struct Word {
         self.didChecked = MO.didChecked
         self.testResult = WordTestResult(rawValue: MO.testResult) ?? .undefined
     }
+    
+    //🚫 더미데이터용 init
+    init(spelling: String, meanings: [Meaning]) {
+        self.id = nil
+        self.spelling = spelling
+        self.meanings = meanings
+    }
 }
 
 struct Meaning {
-    let id: NSManagedObjectID
+    let id: NSManagedObjectID?
     let description: String
     
     init(MO: MeaningMO) {
         self.id = MO.objectID
         self.description = MO.content ?? ""
     }
+    
+    //🚫 더미데이터용 init
+    init(description: String) {
+        self.id = nil
+        self.description = description
+    }
 }
 
 struct WordBook {
-    let id: NSManagedObjectID
+    let id: NSManagedObjectID?
     var words: [Word]
     let createdAt: Date
     
@@ -63,5 +76,12 @@ struct WordBook {
         } else {
             self.words = [Word]()
         }
+    }
+    
+    //🚫 더미데이터용 init
+    init(words: [Word], createdAt: Date) {
+        self.id = nil
+        self.words = words
+        self.createdAt = createdAt
     }
 }
