@@ -13,7 +13,7 @@ enum WordTestResult: Int16 {
 }
 
 struct Word {
-    let id: NSManagedObjectID?
+    let id: NSManagedObjectID
     let spelling: String
     let meanings: [Meaning]
     var didChecked: Bool = false
@@ -29,13 +29,6 @@ struct Word {
         self.didChecked = MO.didChecked
         self.testResult = WordTestResult(rawValue: MO.testResult) ?? .undefined
     }
-    
-    //🚫 더미데이터용 init
-    init(spelling: String, meanings: [Meaning]) {
-        self.id = nil
-        self.spelling = spelling
-        self.meanings = meanings
-    }
 }
 
 struct Meaning {
@@ -46,12 +39,6 @@ struct Meaning {
         self.id = MO.objectID
         self.description = MO.content ?? ""
     }
-    
-    //🚫 더미데이터용 init
-    init(description: String) {
-        self.id = nil
-        self.description = description
-    }
 }
 
 struct WordBook {
@@ -59,7 +46,7 @@ struct WordBook {
     var words: [Word]
     let createdAt: Date
     
-    // 오늘 만들어진 단어장인지 확인하는 property -> 새로운 단어는 오늘 단어장에 저장하기 위해서 확인함
+    // 오늘 만들어진 단어장인지 확인하는 property -> 새로운 단어는 오늘 단어장에 저장하기 위해서 필요
     var isToday: Bool {
         var calendar = Calendar.current
         calendar.timeZone = NSTimeZone.local
@@ -76,12 +63,5 @@ struct WordBook {
         } else {
             self.words = [Word]()
         }
-    }
-    
-    //🚫 더미데이터용 init
-    init(words: [Word], createdAt: Date) {
-        self.id = nil
-        self.words = words
-        self.createdAt = createdAt
     }
 }

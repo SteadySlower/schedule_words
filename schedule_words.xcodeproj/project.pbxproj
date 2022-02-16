@@ -11,6 +11,7 @@
 		062A672127BA093B006ACA5F /* schedule_words.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 062A671F27BA093B006ACA5F /* schedule_words.xcdatamodeld */; };
 		062A672327BA119C006ACA5F /* WordDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062A672227BA119C006ACA5F /* WordDAO.swift */; };
 		062A672527BA2272006ACA5F /* MOParser(deprecated).swift in Sources */ = {isa = PBXBuildFile; fileRef = 062A672427BA2272006ACA5F /* MOParser(deprecated).swift */; };
+		062A672C27BCC4CB006ACA5F /* Inputs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062A672B27BCC4CB006ACA5F /* Inputs.swift */; };
 		0639A2E627A4008E009EFC83 /* HomeStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0639A2E527A4008E009EFC83 /* HomeStatusView.swift */; };
 		0639A2E827A40FFF009EFC83 /* HomeStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0639A2E727A40FFF009EFC83 /* HomeStatus.swift */; };
 		065B26FD27A533F400E355BD /* HomeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065B26FC27A533F400E355BD /* HomeListCell.swift */; };
@@ -45,6 +46,7 @@
 		062A672027BA093B006ACA5F /* schedule_words.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = schedule_words.xcdatamodel; sourceTree = "<group>"; };
 		062A672227BA119C006ACA5F /* WordDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordDAO.swift; sourceTree = "<group>"; };
 		062A672427BA2272006ACA5F /* MOParser(deprecated).swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MOParser(deprecated).swift"; sourceTree = "<group>"; };
+		062A672B27BCC4CB006ACA5F /* Inputs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inputs.swift; sourceTree = "<group>"; };
 		0639A2E527A4008E009EFC83 /* HomeStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatusView.swift; sourceTree = "<group>"; };
 		0639A2E727A40FFF009EFC83 /* HomeStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatus.swift; sourceTree = "<group>"; };
 		065B26FC27A533F400E355BD /* HomeListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListCell.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				06C2383727A15B1E00CF4A13 /* Word.swift */,
+				062A672B27BCC4CB006ACA5F /* Inputs.swift */,
 				0639A2E727A40FFF009EFC83 /* HomeStatus.swift */,
 				065B270C27AAA32000E355BD /* Errors.swift */,
 			);
@@ -294,6 +297,7 @@
 				065B270927A9708100E355BD /* WordInputController.swift in Sources */,
 				06C2383027A0C5C100CF4A13 /* TestListCell.swift in Sources */,
 				0639A2E827A40FFF009EFC83 /* HomeStatus.swift in Sources */,
+				062A672C27BCC4CB006ACA5F /* Inputs.swift in Sources */,
 				065B270727A581D000E355BD /* StudyListCellViewModel.swift in Sources */,
 				0639A2E627A4008E009EFC83 /* HomeStatusView.swift in Sources */,
 				065B270127A56B0700E355BD /* ListStudyController.swift in Sources */,

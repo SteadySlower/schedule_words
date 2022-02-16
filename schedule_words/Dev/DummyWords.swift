@@ -7,46 +7,43 @@
 
 import Foundation
 
-private let cakeMeaning = Meaning(description: "케이크")
-private let cake = Word(spelling: "cake", meanings: [cakeMeaning])
+fileprivate let cakeMeaning = MeaningInput(description: "케이크")
+fileprivate let cake = WordInput(spelling: "cake", meanings: [cakeMeaning])
 
-private let runMeaning1 = Meaning(description: "달리다")
-private let runMeaning2 = Meaning(description: "운영하다")
-private let run = Word(spelling: "run", meanings: [runMeaning1, runMeaning2])
+fileprivate let runMeaning1 = MeaningInput(description: "달리다")
+fileprivate let runMeaning2 = MeaningInput(description: "운영하다")
+fileprivate let run = WordInput(spelling: "run", meanings: [runMeaning1, runMeaning2])
 
-private let goMeaning = Meaning(description: "가다")
-private let go = Word(spelling: "go", meanings: [goMeaning])
+fileprivate let goMeaning = MeaningInput(description: "가다")
+fileprivate let go = WordInput(spelling: "go", meanings: [goMeaning])
 
-private let loveMeaning = Meaning(description: "사랑")
-private let love = Word(spelling: "love", meanings: [loveMeaning])
+fileprivate let loveMeaning = MeaningInput(description: "사랑")
+fileprivate let love = WordInput(spelling: "love", meanings: [loveMeaning])
 
-private let makeMeaning1 = Meaning(description: "만들다")
-private let makeMeaning2 = Meaning(description: "해내다")
-private let makeMeaning3 = Meaning(description: "벌다")
-private let make = Word(spelling: "make", meanings: [makeMeaning1, makeMeaning2, makeMeaning3])
+fileprivate let makeMeaning1 = MeaningInput(description: "만들다")
+fileprivate let makeMeaning2 = MeaningInput(description: "해내다")
+fileprivate let makeMeaning3 = MeaningInput(description: "벌다")
+fileprivate let make = WordInput(spelling: "make", meanings: [makeMeaning1, makeMeaning2, makeMeaning3])
 
-private let complicatedMeaning = Meaning(description: "복잡한")
-private let complicated = Word(spelling: "complicated", meanings: [complicatedMeaning])
+fileprivate let complicatedMeaning = MeaningInput(description: "복잡한")
+fileprivate let complicated = WordInput(spelling: "complicated", meanings: [complicatedMeaning])
 
-private let luckyMeaning = Meaning(description: "운이 좋은")
-private let lucky = Word(spelling: "lucky", meanings: [luckyMeaning])
+fileprivate let luckyMeaning = MeaningInput(description: "운이 좋은")
+fileprivate let lucky = WordInput(spelling: "lucky", meanings: [luckyMeaning])
 
-let today = Date()
-let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: today)!
-let dayBeforeYesterday = Calendar.current.date(byAdding: .day, value: -2, to: today)!
+fileprivate let today = Date()
+fileprivate let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: today)!
+fileprivate let dayBeforeYesterday = Calendar.current.date(byAdding: .day, value: -2, to: today)!
 
-let dayPlusWeek = Calendar.current.date(byAdding: .day, value: -7, to: today)!
-let dayPlusTwoWeeks = Calendar.current.date(byAdding: .day, value: -14, to: today)!
-let dayPlusMonth = Calendar.current.date(byAdding: .day, value: -28, to: today)!
+fileprivate let dayPlusWeek = Calendar.current.date(byAdding: .day, value: -7, to: today)!
+fileprivate let dayPlusTwoWeeks = Calendar.current.date(byAdding: .day, value: -14, to: today)!
+fileprivate let dayPlusMonth = Calendar.current.date(byAdding: .day, value: -28, to: today)!
 
-let dummyTodayWordBook = WordBook(words: [cake, run, go, love, make, complicated, lucky], createdAt: today)
-let dummyYesterdayWordBook = WordBook(words: [cake, run, go, love, make, complicated, lucky], createdAt: yesterday)
-let dummyDayBeforeYesterdayWordBook = WordBook(words: [cake, run, go, love, make, complicated, lucky], createdAt: dayBeforeYesterday)
+fileprivate let dummyTodayWordBook = WordBookInput(words: [cake, run, go, love, make, complicated, lucky], createdAt: today)
+fileprivate let dummyYesterdayWordBook = WordBookInput(words: [cake, run, go, love, make, complicated, lucky], createdAt: yesterday)
+fileprivate let dummyDayBeforeYesterdayWordBook = WordBookInput(words: [cake, run, go, love, make, complicated, lucky], createdAt: dayBeforeYesterday)
 
-let dummyWeekWordBook = WordBook(words: [cake, run, go, love, make, complicated, lucky], createdAt: dayPlusWeek)
-let dummyTwoWeekWordBook = WordBook(words: [cake, run, go, love, make, complicated, lucky], createdAt: dayPlusTwoWeeks)
-let dummyMonthWordBook = WordBook(words: [cake, run, go, love, make, complicated, lucky], createdAt: dayPlusMonth)
+fileprivate let dummyWeekWordBook = WordBookInput(words: [cake, run, go, love, make, complicated, lucky], createdAt: dayPlusWeek)
+fileprivate let dummyTwoWeekWordBook = WordBookInput(words: [cake, run, go, love, make, complicated, lucky], createdAt: dayPlusTwoWeeks)
+fileprivate let dummyMonthWordBook = WordBookInput(words: [cake, run, go, love, make, complicated, lucky], createdAt: dayPlusMonth)
 
-
-let dummyHomeStatus = HomeStatus(studyWordBooks: [dummyTodayWordBook, dummyYesterdayWordBook, dummyDayBeforeYesterdayWordBook],
-                                 reviewWordBooks: [dummyWeekWordBook, dummyTwoWeekWordBook, dummyMonthWordBook])

@@ -16,7 +16,7 @@ struct TestListViewModel {
     
     private var wordBook: WordBook {
         didSet {
-            words = wordBook.words.filter({ word in
+            self.words = wordBook.words.filter({ word in
                 word.testResult == .undefined
             })
         }
