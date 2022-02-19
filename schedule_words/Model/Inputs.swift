@@ -7,8 +7,6 @@
 
 import Foundation
 
-//⭐️ 만들고 커밋해!
-
 struct WordInput {
     let spelling: String
     let meanings: [MeaningInput]

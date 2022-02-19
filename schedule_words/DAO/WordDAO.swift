@@ -9,50 +9,52 @@ import Foundation
 import CoreData
 import UIKit
 
-// TODO: 더미데이터 끝나면 file private으로 바꾸기
 enum WordBookStatus: Int16 {
     case study = 0, review, invalid
 }
+
+// DAO는 만들때 좀 더 범용적인 메소드들을 만들고 구체적인 비지니스 로직은 Service에 가도록 수정
 
 class WordDAO {
     
     static let shared = WordDAO()
     
     // 컨텍스트 appDelegate에서 가져오기
+        // 외부에서 주입?
     private lazy var context: NSManagedObjectContext = {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         return appDelegate.persistentContainer.viewContext
     }()
     
-    
-    // 홈 화면에 표시될 단어장들을 표시하기
-    func fetchHomeStatus() -> HomeStatus {
-        let studyWordBooks = fetchWordBooks(status: .study)
-        let reviewWordBooks = fetchWordBooks(status: .review)
-        return HomeStatus(studyWordBooks: studyWordBooks, reviewWordBooks: reviewWordBooks)
-    }
-    
-    // 오늘 단어장 만들기 -> 앱 실행시 User Default에 저장된 오늘 날짜 확인해보고 다르면 새로운 단어장 만들때 사용
-    func insertTodayWordBook() -> Bool {
-        let today = Date()
-        let object = NSEntityDescription.insertNewObject(forEntityName: "WordBook", into: context) as! WordBookMO
-        object.createdAt = today
-        object.updatedAt = today
-        object.status = 0
+    // 단어장 상태에 맞추어 단어장 가져오기
+    func fetchWordBooks(status: WordBookStatus) -> [WordBook] {
+        
+        var wordBooks = [WordBook]()
+        
+        let fetchRequest: NSFetchRequest<WordBookMO> = WordBookMO.fetchRequest()
+        
+        let createdAtDesc = NSSortDescriptor(key: "createdAt", ascending: false)
+        fetchRequest.sortDescriptors = [createdAtDesc]
+        
+        fetchRequest.predicate = getWordBookPredicate(status: status)
         
         do {
-            try context.save()
-            return true
+            let wordBookMOs = try self.context.fetch(fetchRequest)
+            
+            for wordBookMO in wordBookMOs {
+                let wordBook = WordBook(MO: wordBookMO)
+                wordBooks.append(wordBook)
+            }
+            
         } catch let error as NSError {
-            context.rollback()
             NSLog("CoreData Error: %s", error.localizedDescription)
-            return false
         }
+        
+        return wordBooks
     }
     
-    // 임의의 날짜에 임의의 단어장 만들기 (for dev)
-        // TODO: 더미데이터 만들기용 -> 삭제
-    func insertWordBook(wordBook: WordBook, status: WordBookStatus) -> Bool {
+    // 임의의 날짜에 임의의 단어장 만들기
+    func insertWordBook(wordBook: WordBookInput, status: WordBookStatus) -> Bool {
         let wordBookObject = NSEntityDescription.insertNewObject(forEntityName: "WordBook", into: context) as! WordBookMO
         wordBookObject.createdAt = wordBook.createdAt
         wordBookObject.updatedAt = wordBook.createdAt
@@ -72,8 +74,8 @@ class WordDAO {
         }
     }
     
-    // 단어 오늘 단어장에 넣기
-    func insertTodayWord(word: Word, todayWordBookID id: NSManagedObjectID) -> Bool {
+    // 단어를 단어장에 넣기
+    func insertWord(word: WordInput, WordBookID id: NSManagedObjectID) -> Bool {
         guard let wordBookObject = fetchWordBookMOByID(objectID: id) else {
             return false
         }
@@ -103,33 +105,31 @@ class WordDAO {
         }
     }
     
-    // MARK: Helpers
-    
-    private func fetchWordBooks(status: WordBookStatus) -> [WordBook] {
-        
-        var wordBooks = [WordBook]()
-        
+    // 특정 날짜에 만들어진 단어장의 ID 반환
+    func findWordBookID(createdAt: Date) -> NSManagedObjectID? {
         let fetchRequest: NSFetchRequest<WordBookMO> = WordBookMO.fetchRequest()
         
-        let createdAtDesc = NSSortDescriptor(key: "createdAt", ascending: false)
-        fetchRequest.sortDescriptors = [createdAtDesc]
+        var predicate = NSPredicate()
         
-        fetchRequest.predicate = getWordBookPredicate(status: status)
+        let todayDateRange = Utilities().getTodayRange()
+        let fromPredicate = NSPredicate(format: "%@ >= %K", todayDateRange.dateFrom as NSDate, #keyPath(WordBookMO.createdAt))
+        let toPredicate = NSPredicate(format: "%K < %@", #keyPath(WordBookMO.createdAt), todayDateRange.dateTo as NSDate)
+        predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [fromPredicate, toPredicate])
+        
+        fetchRequest.predicate = predicate
         
         do {
             let wordBookMOs = try self.context.fetch(fetchRequest)
-            
-            for wordBookMO in wordBookMOs {
-                let wordBook = WordBook(MO: wordBookMO)
-                wordBooks.append(wordBook)
-            }
+            let todayWordBookMO = wordBookMOs[0]
+            return todayWordBookMO.objectID
             
         } catch let error as NSError {
             NSLog("CoreData Error: %s", error.localizedDescription)
+            return nil
         }
-        
-        return wordBooks
     }
+    
+    // MARK: Helpers
     
     private func getWordBookPredicate(status: WordBookStatus) -> NSPredicate {
         
@@ -140,6 +140,7 @@ class WordDAO {
         } else if status == .review {
             let statusPredicate = NSPredicate(format: "%K == %d", #keyPath(WordBookMO.status), status.rawValue)
             let todayDateRange = Utilities().getTodayRange()
+            // TODO: 여기 nextReviewDate 이전은 모두 가져오도록 수정하고 WordBook model에 didFinish 넣기
             let fromPredicate = NSPredicate(format: "%@ >= %K", todayDateRange.dateFrom as NSDate, #keyPath(WordBookMO.nextReviewDate))
             let toPredicate = NSPredicate(format: "%K < %@", #keyPath(WordBookMO.nextReviewDate), todayDateRange.dateTo as NSDate)
             predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [statusPredicate, fromPredicate, toPredicate])
@@ -162,7 +163,7 @@ class WordDAO {
         }
     }
     
-    private func createMeaningMOs(meanings: [Meaning]) -> NSOrderedSet {
+    private func createMeaningMOs(meanings: [MeaningInput]) -> NSOrderedSet {
         let today = Date()
         var meaningMOs = [MeaningMO]()
         
@@ -178,7 +179,7 @@ class WordDAO {
     }
     
     // TODO: 더미데이터용
-    private func createWordMOs(words: [Word], createdAt: Date) -> NSOrderedSet {
+    private func createWordMOs(words: [WordInput], createdAt: Date) -> NSOrderedSet {
         var wordMOs = [WordMO]()
         
         for word in words {

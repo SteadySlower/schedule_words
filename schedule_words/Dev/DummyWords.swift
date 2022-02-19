@@ -47,3 +47,9 @@ fileprivate let dummyWeekWordBook = WordBookInput(words: [cake, run, go, love, m
 fileprivate let dummyTwoWeekWordBook = WordBookInput(words: [cake, run, go, love, make, complicated, lucky], createdAt: dayPlusTwoWeeks)
 fileprivate let dummyMonthWordBook = WordBookInput(words: [cake, run, go, love, make, complicated, lucky], createdAt: dayPlusMonth)
 
+fileprivate let studyDummyBooks = [dummyTodayWordBook, dummyYesterdayWordBook, dummyDayBeforeYesterdayWordBook]
+fileprivate let reviewDummyBooks = [dummyWeekWordBook, dummyTwoWeekWordBook, dummyMonthWordBook]
+
+class DummyDataWriter {
+    
+}

@@ -60,6 +60,7 @@
 		065B270C27AAA32000E355BD /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		065B270E27AB5EDD00E355BD /* WordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordService.swift; sourceTree = "<group>"; };
 		06A77D8A27A41B39000CE965 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		06BC58B127C0C442005C8AA0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		06C2382D27A0C3D800CF4A13 /* ListTestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTestController.swift; sourceTree = "<group>"; };
 		06C2382F27A0C5C100CF4A13 /* TestListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestListCell.swift; sourceTree = "<group>"; };
 		06C2383227A0C80200CF4A13 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -97,6 +98,13 @@
 			path = DAO;
 			sourceTree = "<group>";
 		};
+		06BC58B227C0E7F3005C8AA0 /* readme_img */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = readme_img;
+			sourceTree = "<group>";
+		};
 		06C2383127A0C7F200CF4A13 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +137,8 @@
 		06DCEC04279FDC9E000E3255 = {
 			isa = PBXGroup;
 			children = (
+				06BC58B227C0E7F3005C8AA0 /* readme_img */,
+				06BC58B127C0C442005C8AA0 /* README.md */,
 				06DCEC0F279FDC9E000E3255 /* schedule_words */,
 				06DCEC0E279FDC9E000E3255 /* Products */,
 			);
