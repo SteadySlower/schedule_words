@@ -9,22 +9,21 @@ import Foundation
 
 struct HomeStatus {
     let numOfStudyBooks: Int
-    let numOfStudyWords: Int
-    var secondsOfStudyTime = TimeInterval(198)
-    
+    let numOfTotalStudyWords: Int
+    let numOfTodoStudyWords: Int
+
     let numOfReviewBooks: Int
-    let numOfReviewWords: Int
-    var secondsOfReviewTime = TimeInterval(363)
-    
-    let studyWordBooks: [WordBook]
-    let reviewWordBooks: [WordBook]
-    
+    let numOfTotalReviewWords: Int
+    let numOfTodoReviewWords: Int
+
     init(studyWordBooks: [WordBook], reviewWordBooks: [WordBook]) {
-        self.studyWordBooks = studyWordBooks
-        self.reviewWordBooks = reviewWordBooks
+        let utilities = Utilities()
         self.numOfStudyBooks = studyWordBooks.count
+        self.numOfTotalStudyWords = utilities.countTotalWords(wordBooks: studyWordBooks)
+        self.numOfTodoStudyWords = utilities.countTodoWords(wordBooks: studyWordBooks)
+        
         self.numOfReviewBooks = reviewWordBooks.count
-        self.numOfStudyWords = Utilities().countWords(wordBooks: studyWordBooks)
-        self.numOfReviewWords = Utilities().countWords(wordBooks: reviewWordBooks)
+        self.numOfTotalReviewWords = utilities.countTotalWords(wordBooks: reviewWordBooks)
+        self.numOfTodoReviewWords = utilities.countTodoWords(wordBooks: reviewWordBooks)
     }
 }

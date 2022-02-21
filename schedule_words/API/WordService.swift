@@ -13,10 +13,10 @@ struct WordService {
     let dao = WordDAO.shared
     
     // 홈 화면에 표시될 상태 표시
-    func fetchHomeStatus() -> HomeStatus {
+    func fetchHomeStatus() -> (studyWordBooks: [WordBook], reviewWordBooks: [WordBook]) {
         let studyWordBooks = dao.fetchWordBooks(status: .study)
         let reviewWordBooks = dao.fetchWordBooks(status: .review)
-        return HomeStatus(studyWordBooks: studyWordBooks, reviewWordBooks: reviewWordBooks)
+        return  (studyWordBooks: studyWordBooks, reviewWordBooks: reviewWordBooks)
     }
     
     // 오늘 단어장 만들기 -> 앱 실행시 User Default에 저장된 오늘 날짜 확인해보고 다르면 새로운 단어장 만들때 사용

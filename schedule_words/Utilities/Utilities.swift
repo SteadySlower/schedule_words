@@ -27,11 +27,24 @@ class Utilities {
         return (dateFrom: dateFrom, dateTo: dateTo)
     }
     
-    // 단어장 리스트에 모든 단어 세기
-    func countWords(wordBooks: [WordBook]) -> Int {
+    // 단어장에 모든 단어 세기
+    func countTotalWords(wordBooks: [WordBook]) -> Int {
         var result = 0
         for wordBook in wordBooks {
             result += wordBook.words.count
+        }
+        return result
+    }
+    
+    // 단어장에 시험에 통과 못한 단어만 세기
+    func countTodoWords(wordBooks: [WordBook]) -> Int {
+        var result = 0
+        for wordBook in wordBooks {
+            for word in wordBook.words {
+                if word.testResult != .success {
+                    result += 1
+                }
+            }
         }
         return result
     }
