@@ -7,7 +7,6 @@
 
 import Foundation
 
-//
 struct WordService {
     static let shared = WordService()
     

@@ -53,7 +53,7 @@ class WordDAO {
         return wordBooks
     }
     
-    // 임의의 날짜에 임의의 단어장 만들기
+    //❗️더미데이터용: 임의의 날짜에 임의의 단어장 만들기
     func insertWordBook(wordBook: WordBookInput, status: WordBookStatus) -> Bool {
         let wordBookObject = NSEntityDescription.insertNewObject(forEntityName: "WordBook", into: context) as! WordBookMO
         wordBookObject.createdAt = wordBook.createdAt
