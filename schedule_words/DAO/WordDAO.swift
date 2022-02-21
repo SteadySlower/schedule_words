@@ -53,7 +53,7 @@ class WordDAO {
         return wordBooks
     }
     
-    //❗️더미데이터용: 임의의 날짜에 임의의 단어장 만들기
+    //TODO: 더미데이터용: 임의의 날짜에 임의의 단어장 만들기
     func insertWordBook(wordBook: WordBookInput, status: WordBookStatus) -> Bool {
         let wordBookObject = NSEntityDescription.insertNewObject(forEntityName: "WordBook", into: context) as! WordBookMO
         wordBookObject.createdAt = wordBook.createdAt
@@ -141,9 +141,8 @@ class WordDAO {
             let statusPredicate = NSPredicate(format: "%K == %d", #keyPath(WordBookMO.status), status.rawValue)
             let todayDateRange = Utilities().getTodayRange()
             // TODO: 여기 nextReviewDate 이전은 모두 가져오도록 수정하고 WordBook model에 didFinish 넣기
-            let fromPredicate = NSPredicate(format: "%@ >= %K", todayDateRange.dateFrom as NSDate, #keyPath(WordBookMO.nextReviewDate))
             let toPredicate = NSPredicate(format: "%K < %@", #keyPath(WordBookMO.nextReviewDate), todayDateRange.dateTo as NSDate)
-            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [statusPredicate, fromPredicate, toPredicate])
+            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [statusPredicate, toPredicate])
         }
         
         return predicate
@@ -198,4 +197,69 @@ class WordDAO {
         
         return NSOrderedSet(array: wordMOs)
     }
+    
+    // TODO: 더미데이터용 wordBook 전부 삭제 메소드
+    func resetWordBook() {
+        let fetchRequest: NSFetchRequest<WordBookMO> = WordBookMO.fetchRequest()
+        
+        fetchRequest.includesPropertyValues = false
+        // id만 가져오는 방법
+        
+        let wordBookMOs = try! context.fetch(fetchRequest)
+        
+        for wordBookMO in wordBookMOs {
+            context.delete(wordBookMO)
+        }
+        
+        try! context.save()
+    }
+    
+    func deleteAllWords() {
+        let fetchRequest: NSFetchRequest<WordMO> = WordMO.fetchRequest()
+        
+        fetchRequest.includesPropertyValues = false
+        // id만 가져오는 방법
+        
+        let WordMOs = try! context.fetch(fetchRequest)
+        
+        for WordMO in WordMOs {
+            context.delete(WordMO)
+        }
+        
+        try! context.save()
+    }
+    
+    func deleteAllMeanings() {
+        let fetchRequest: NSFetchRequest<MeaningMO> = MeaningMO.fetchRequest()
+        
+        fetchRequest.includesPropertyValues = false
+        // id만 가져오는 방법
+        
+        let MeaningMOs = try! context.fetch(fetchRequest)
+        
+        for MeaningMO in MeaningMOs {
+            context.delete(MeaningMO)
+        }
+        
+        try! context.save()
+    }
+    
+    func checkIfCascade() {
+        let wordFetchRequest: NSFetchRequest<WordMO> = WordMO.fetchRequest()
+        
+        wordFetchRequest.includesPropertyValues = false
+        
+        let wordMOs = try! context.fetch(wordFetchRequest)
+        
+        print("wordMO 갯수: \(wordMOs.count)")
+        
+        let meaningFetchRequest: NSFetchRequest<MeaningMO> = MeaningMO.fetchRequest()
+        
+        meaningFetchRequest.includesPropertyValues = false
+        
+        let meaningMOs = try! context.fetch(meaningFetchRequest)
+        
+        print("meaningMO 갯수: \(meaningMOs.count)")
+    }
+    
 }

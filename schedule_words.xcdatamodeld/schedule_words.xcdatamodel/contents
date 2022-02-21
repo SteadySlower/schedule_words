@@ -4,7 +4,7 @@
         <attribute name="content" optional="YES" attributeType="String"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="word" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Word" inverseName="meanings" inverseEntity="Word"/>
+        <relationship name="word" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Word" inverseName="meanings" inverseEntity="Word"/>
     </entity>
     <entity name="Word" representedClassName="WordMO" syncable="YES" codeGenerationType="class">
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -12,19 +12,19 @@
         <attribute name="spelling" optional="YES" attributeType="String"/>
         <attribute name="testResult" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="meanings" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Meaning" inverseName="word" inverseEntity="Meaning"/>
-        <relationship name="wordBook" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="WordBook" inverseName="words" inverseEntity="WordBook"/>
+        <relationship name="meanings" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Meaning" inverseName="word" inverseEntity="Meaning"/>
+        <relationship name="wordBook" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WordBook" inverseName="words" inverseEntity="WordBook"/>
     </entity>
     <entity name="WordBook" representedClassName="WordBookMO" syncable="YES" codeGenerationType="class">
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="nextReviewDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="words" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Word" inverseName="wordBook" inverseEntity="Word"/>
+        <relationship name="words" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Word" inverseName="wordBook" inverseEntity="Word"/>
     </entity>
     <elements>
-        <element name="Word" positionX="-54" positionY="-9" width="128" height="14"/>
         <element name="Meaning" positionX="-36" positionY="36" width="128" height="89"/>
+        <element name="Word" positionX="-54" positionY="-9" width="128" height="134"/>
         <element name="WordBook" positionX="413.06640625" positionY="65.3359375" width="128" height="104"/>
     </elements>
 </model>

@@ -15,12 +15,13 @@ class HomeController: UIViewController {
     
     let statusView = HomeStatusView()
     
-    let homeStatus = dummyHomeStatus
+    var homeStatus: HomeStatus?
+    //TODO: force upwrapping 문제 해결
     
     let tableView = UITableView()
     
     // MARK: LifeCycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
@@ -31,6 +32,7 @@ class HomeController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureHomeStatusView()
+        loadDummyData()
     }
     
     // MARK: Selectors
@@ -42,6 +44,13 @@ class HomeController: UIViewController {
     }
     
     // MARK: Helpers
+    
+    // 더미데이터 로드
+    func loadDummyData() {
+        let dummyDataWriter = DummyDataWriter()
+        dummyDataWriter.writeDummyData()
+        homeStatus = WordService.shared.fetchHomeStatus()
+    }
     
     func configureUI() {
         view.backgroundColor = .white
@@ -64,7 +73,7 @@ class HomeController: UIViewController {
     }
     
     func configureHomeStatusView() {
-        statusView.homeStatus = dummyHomeStatus
+        statusView.homeStatus = WordService.shared.fetchHomeStatus()
     }
     
     func configureTableView() {
@@ -95,7 +104,7 @@ class HomeController: UIViewController {
             self.navigationController?.pushViewController(studyController, animated: true)
         }
         let testAction = UIAlertAction(title: "테스트 하기", style: .default) { _ in
-            let testController = ListTestController(wordBook: wordBook) //🚫 study용 컨트롤러로 수정하기
+            let testController = ListTestController(wordBook: wordBook)
             self.navigationController?.pushViewController(testController, animated: true)
         }
         let cancelAction = UIAlertAction(title: "취소", style: .destructive, handler: nil)
@@ -121,8 +130,8 @@ extension HomeController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0: return homeStatus.numOfStudyBooks
-        case 1: return homeStatus.numOfReviewBooks
+        case 0: return homeStatus!.numOfStudyBooks
+        case 1: return homeStatus!.numOfReviewBooks
         default: return 0
         }
     }
@@ -130,10 +139,10 @@ extension HomeController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as? HomeListCell else { return UITableViewCell() }
         if indexPath.section == 0 {
-            let wordBook = homeStatus.studyWordBooks[indexPath.row]
+            let wordBook = homeStatus!.studyWordBooks[indexPath.row]
             cell.viewModel = HomeCellViewModel(wordBook: wordBook)
         } else if indexPath.section == 1 {
-            let wordBook = homeStatus.reviewWordBooks[indexPath.row]
+            let wordBook = homeStatus!.reviewWordBooks[indexPath.row]
             cell.viewModel = HomeCellViewModel(wordBook: wordBook)
         }
         return cell

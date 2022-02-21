@@ -53,42 +53,15 @@ fileprivate let studyDummyBooks = [dummyTodayWordBook, dummyYesterdayWordBook, d
 fileprivate let reviewDummyBooks = [dummyWeekWordBook, dummyTwoWeekWordBook, dummyMonthWordBook]
 
 class DummyDataWriter {
-    let dao = WordDAO.shared
+    private let dao = WordDAO.shared
     
     func writeDummyData() {
-        resetCoreData()
-        
+        dao.resetWordBook()        
         studyDummyBooks.forEach { wordBookInput in
             _ = dao.insertWordBook(wordBook: wordBookInput, status: .study)
         }
         reviewDummyBooks.forEach { wordBookInput in
             _ = dao.insertWordBook(wordBook: wordBookInput, status: .review)
-        }
-    }
-    
-    // 코어데이터 리셋
-    private func resetCoreData() {
-        // container 가져오기
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let storeContainer =
-        appDelegate.persistentContainer.persistentStoreCoordinator
-
-        for store in storeContainer.persistentStores {
-            try! storeContainer.destroyPersistentStore(
-                at: store.url!,
-                ofType: store.type,
-                options: nil
-            )
-        }
-        
-        // 컨테이너 다시 만들기
-        appDelegate.persistentContainer = NSPersistentContainer(
-            name: "schedule_words"
-        )
-        
-        // 로드하면 다시 만들어짐
-        appDelegate.persistentContainer.loadPersistentStores {
-            (store, error) in
         }
     }
 }
