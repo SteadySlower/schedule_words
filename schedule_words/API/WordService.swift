@@ -29,6 +29,7 @@ struct WordService {
     // 오늘의 단어장에 단어 넣기
     func insertTodayWord(word: WordInput) -> Bool {
         let today = Date()
+        
         guard let todayWordBookID = dao.findWordBookID(createdAt: today) else {
             return false
         }

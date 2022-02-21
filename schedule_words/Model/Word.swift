@@ -6,21 +6,20 @@
 //
 
 import Foundation
-import CoreData
 
 enum WordTestResult: Int16 {
     case undefined = 0, success, fail
 }
 
 struct Word {
-    let id: NSManagedObjectID
+    let id: String
     let spelling: String
     let meanings: [Meaning]
     var didChecked: Bool = false
     var testResult: WordTestResult = .undefined
     
     init(MO: WordMO) {
-        self.id = MO.objectID
+        self.id = MO.objectID.uriRepresentation().absoluteString
         self.spelling = MO.spelling ?? ""
         let meaningMOs = MO.meanings!.array as! [MeaningMO]
         self.meanings = meaningMOs.map { meaningMO in
@@ -32,17 +31,17 @@ struct Word {
 }
 
 struct Meaning {
-    let id: NSManagedObjectID?
+    let id: String
     let description: String
     
     init(MO: MeaningMO) {
-        self.id = MO.objectID
+        self.id = MO.objectID.uriRepresentation().absoluteString
         self.description = MO.content ?? ""
     }
 }
 
 struct WordBook {
-    let id: NSManagedObjectID?
+    let id: String
     var words: [Word]
     let createdAt: Date
     
@@ -54,7 +53,7 @@ struct WordBook {
     }
     
     init(MO: WordBookMO) {
-        self.id = MO.objectID
+        self.id = MO.objectID.uriRepresentation().absoluteString
         self.createdAt = MO.createdAt!
         if let wordMOs = MO.words?.array as? [WordMO] {
             self.words = wordMOs.map { wordMO in

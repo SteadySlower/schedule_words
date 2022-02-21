@@ -53,15 +53,34 @@ fileprivate let studyDummyBooks = [dummyTodayWordBook, dummyYesterdayWordBook, d
 fileprivate let reviewDummyBooks = [dummyWeekWordBook, dummyTwoWeekWordBook, dummyMonthWordBook]
 
 class DummyDataWriter {
+    
+    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     private let dao = WordDAO.shared
     
     func writeDummyData() {
-        dao.resetWordBook()        
+        resetWordBook()
         studyDummyBooks.forEach { wordBookInput in
             _ = dao.insertWordBook(wordBook: wordBookInput, status: .study)
         }
         reviewDummyBooks.forEach { wordBookInput in
             _ = dao.insertWordBook(wordBook: wordBookInput, status: .review)
         }
+    }
+    
+    // wordBook 전부 삭제 메소드
+    private func resetWordBook() {
+        let fetchRequest: NSFetchRequest<WordBookMO> = WordBookMO.fetchRequest()
+        
+        fetchRequest.includesPropertyValues = false
+        // id만 가져오는 방법
+        
+        let wordBookMOs = try! context.fetch(fetchRequest)
+        
+        for wordBookMO in wordBookMOs {
+            context.delete(wordBookMO)
+        }
+        
+        try! context.save()
     }
 }
