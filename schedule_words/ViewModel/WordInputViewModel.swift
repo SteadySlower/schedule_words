@@ -25,6 +25,10 @@ struct WordInputViewModel {
         return (firstMeaning, secondMeaning, thirdMeaning)
     }
     
+    mutating func setSpelling(spelling: String) {
+        self.spelling = spelling
+    }
+    
     mutating func addMeaning(newMeaning: String) throws {
         // 에러: 뜻이 이미 3개 이상일 때
         guard meanings.count < 3 else {
@@ -41,5 +45,21 @@ struct WordInputViewModel {
     
     mutating func removeMeaning(at index: Int) {
         meanings.remove(at: index)
+    }
+    
+    func getWordInput() throws -> WordInput {
+        if spelling == "" {
+            throw WordInputError.noWord
+        }
+        
+        if meanings.isEmpty {
+            throw WordInputError.noMeaning
+        }
+        
+        let meaningInputs = meanings.map { meaning in
+            MeaningInput(description: meaning)
+        }
+        
+        return WordInput(spelling: spelling, meanings: meaningInputs)
     }
 }

@@ -7,11 +7,17 @@
 
 import UIKit
 
+protocol WordInputControllerDelegate: AnyObject {
+    func inputButtonTapped(input: WordInput)
+}
+
 class WordInputController: UIViewController {
     
     // MARK: Properties
     
     private var viewModel: WordInputViewModel
+    
+    let delegate: WordInputControllerDelegate
     
     private let inputBox: UIView = {
         let view = UIView()
@@ -20,7 +26,6 @@ class WordInputController: UIViewController {
         return view
     }()
     
-    // ()로 끝나면 리턴하고 끝나기 때문에
     private lazy var registerButton: UIButton = {
         let button = UIButton()
         button.setTitle("추가", for: .normal)
@@ -28,7 +33,7 @@ class WordInputController: UIViewController {
         button.titleLabel?.font = .systemFont(ofSize: 20)
         button.backgroundColor = UIColor(red: 0/256, green: 100/256, blue: 0/256, alpha: 0.5)
         button.layer.cornerRadius = 10
-        button.addTarget(self, action: #selector(registerInput), for: .touchUpInside)
+        button.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -39,7 +44,7 @@ class WordInputController: UIViewController {
         button.titleLabel?.font = .systemFont(ofSize: 20)
         button.backgroundColor = UIColor(red: 220/256, green: 20/256, blue: 60/256, alpha: 0.5)
         button.layer.cornerRadius = 10
-        button.addTarget(self, action: #selector(cancelInput), for: .touchUpInside)
+        button.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -108,8 +113,9 @@ class WordInputController: UIViewController {
     
     // MARK: LifeCycle
     
-    init() {
+    init(delegate: WordInputControllerDelegate) {
         self.viewModel = WordInputViewModel()
+        self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -127,32 +133,39 @@ class WordInputController: UIViewController {
     
     // MARK: Selector
     
-    @objc private func registerInput() {
-        dismiss(animated: true, completion: nil)
+    @objc private func registerButtonTapped() {
+        do {
+            let input = try viewModel.getWordInput()
+            delegate.inputButtonTapped(input: input)
+            dismiss(animated: true, completion: nil)
+        } catch let error {
+            showErrorAlert(error: error as! WordInputError)
+        }
     }
     
-    @objc private func cancelInput() {
+    @objc private func cancelButtonTapped() {
         dismiss(animated: true, completion: nil)
     }
     
     @objc private func wordTextFieldValueChanged(sender: UITextField) {
         guard let word = sender.text else { return }
         wordLabel.text = "단어: \(word)"
+        viewModel.setSpelling(spelling: word)
     }
-    
+   
     @objc private func addMeaningTapped() {
         // 입력 내용이 없으면 return
         guard let meaning = meaningTextField.text else { return }
         guard meaning != "" else { return }
         
-        let error = viewModel.addMeaning(newMeaning: meaning)
-        
-        if let error = error {
-            showErrorAlert(error: error)
-        } else {
+        do {
+            try viewModel.addMeaning(newMeaning: meaning)
             meaningTextField.text = ""
             configureMeaningLabels()
+        } catch let error {
+            showErrorAlert(error: error as! WordInputError)
         }
+
     }
     
     // MARK: Helpers

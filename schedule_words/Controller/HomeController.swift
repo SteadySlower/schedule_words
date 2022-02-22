@@ -37,7 +37,7 @@ class HomeController: UIViewController {
     // MARK: Selectors
     
     @objc func showWordInputController() {
-        let input = WordInputController()
+        let input = WordInputController(delegate: self)
         input.modalPresentationStyle = .overFullScreen
         self.present(input, animated: true, completion: nil)
     }
@@ -136,6 +136,12 @@ extension HomeController: UITableViewDelegate {
             guard let cell = tableView.cellForRow(at: indexPath) as? HomeListCell else { return }
             showActionSheet(cell: cell)
         }
+    }
+}
+
+extension HomeController: WordInputControllerDelegate {
+    func inputButtonTapped(input: WordInput) {
+        print(input)
     }
 }
 
