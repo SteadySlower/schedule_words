@@ -7,10 +7,6 @@
 
 import UIKit
 
-enum WordListCellDisplayMode {
-    case spelling, meaning
-}
-
 class TestListCell: UITableViewCell {
     
     // MARK: Properties

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum WordInputError {
+enum WordInputError: Error {
     case tooManyMeanings
     case noWord
     case noMeaning
