@@ -13,7 +13,7 @@ struct HomeViewModel {
     var studyWordBooks: [WordBook]
     var reviewWordBooks: [WordBook]
     
-    // MARK: LifeStyle
+    // MARK: LifeCycle
     init() {
         // FIXME: 더미데이터 write
         let dummyDataWriter = DummyDataWriter()
@@ -75,15 +75,6 @@ struct HomeViewModel {
             return "+\(dateGap)일 단어장"
         }
         
-    }
-    
-    func addNewWord(word: WordInput) {
-        //TODO: DB에 입력 실패 에러처리
-        let result = WordService.shared.insertTodayWord(word: word)
-        
-        if !result {
-            
-        }
     }
     
     // MARK: Helpers

@@ -94,11 +94,11 @@ class WordDAO {
         wordObject.didChecked = false
         wordObject.testResult = WordTestResult.fail.rawValue
         
-        wordBookObject.addToWords(wordObject)
-        wordBookObject.updatedAt = today
-        
         let meaningMOs = createMeaningMOs(meanings: word.meanings)
         wordObject.addToMeanings(meaningMOs)
+        
+        wordBookObject.addToWords(wordObject)
+        wordBookObject.updatedAt = today
         
         do {
             try context.save()
@@ -117,7 +117,7 @@ class WordDAO {
         var predicate = NSPredicate()
         
         let todayDateRange = Utilities().getTodayRange()
-        let fromPredicate = NSPredicate(format: "%@ >= %K", todayDateRange.dateFrom as NSDate, #keyPath(WordBookMO.createdAt))
+        let fromPredicate = NSPredicate(format: "%@ <= %K", todayDateRange.dateFrom as NSDate, #keyPath(WordBookMO.createdAt))
         let toPredicate = NSPredicate(format: "%K < %@", #keyPath(WordBookMO.createdAt), todayDateRange.dateTo as NSDate)
         predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [fromPredicate, toPredicate])
         
@@ -158,13 +158,9 @@ class WordDAO {
     // 오늘의 단어장에 단어 넣을 때 사용
     private func fetchWordBookMOByID(id: String) -> WordBookMO? {
         guard let objectID = context.persistentStoreCoordinator?.managedObjectID(forURIRepresentation: URL(string: id)!) else { return nil }
-        let fetchRequest: NSFetchRequest<WordBookMO> = WordBookMO.fetchRequest()
-        let predicate = NSPredicate(format: "%K == %@", #keyPath(WordBookMO.objectID), objectID)
-        fetchRequest.predicate = predicate
         
         do {
-            let rawData = try self.context.fetch(fetchRequest)
-            return rawData.first
+            return try context.existingObject(with: objectID) as! WordBookMO
         } catch let error as NSError {
             NSLog("CoreData Error: %s", error.localizedDescription)
             return nil

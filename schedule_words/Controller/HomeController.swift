@@ -17,7 +17,7 @@ class HomeController: UIViewController {
     
     let tableView = UITableView()
     
-    let viewModel = HomeViewModel()
+    var viewModel = HomeViewModel()
     
     // MARK: LifeCycle
     
@@ -30,6 +30,7 @@ class HomeController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        viewModel.updateViewModel()
         configureHomeStatusView()
         tableView.reloadData()
     }

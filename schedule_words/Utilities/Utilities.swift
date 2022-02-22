@@ -23,7 +23,6 @@ class Utilities {
         
         let dateFrom = calendar.startOfDay(for: Date())
         let dateTo = calendar.date(byAdding: .day, value: 1, to: dateFrom)!
-        
         return (dateFrom: dateFrom, dateTo: dateTo)
     }
     
