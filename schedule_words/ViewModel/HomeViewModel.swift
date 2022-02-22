@@ -16,8 +16,8 @@ struct HomeViewModel {
     // MARK: LifeCycle
     init() {
         // FIXME: 더미데이터 write
-        let dummyDataWriter = DummyDataWriter()
-        dummyDataWriter.writeDummyData()
+//        let dummyDataWriter = DummyDataWriter()
+//        dummyDataWriter.writeDummyData()
         
         let todayWordBookTuple = WordService.shared.fetchTodayWordBookTuple()
         self.studyWordBooks = todayWordBookTuple.studyWordBooks

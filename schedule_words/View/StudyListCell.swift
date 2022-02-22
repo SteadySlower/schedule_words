@@ -111,6 +111,7 @@ class StudyListCell: UITableViewCell {
         if displayMode == .spelling {
             wordLabel.font = UIFont.systemFont(ofSize: 30)
             wordLabel.text = viewModel?.wordLabelText
+            checkBox.isHidden = false
         } else {
             var fontSize: CGFloat
             
@@ -124,8 +125,8 @@ class StudyListCell: UITableViewCell {
             
             wordLabel.font = UIFont.systemFont(ofSize: fontSize)
             wordLabel.text = viewModel?.meaningLabelText
-            
-            // TODO: checkBox displayMode가 meaning일 때는 hidden
+
+            checkBox.isHidden = true
         }
         
         checkBox.isSelected = viewModel?.checkBoxIsSelected ?? false

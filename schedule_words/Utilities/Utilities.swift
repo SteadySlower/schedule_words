@@ -69,7 +69,7 @@ class Utilities {
     // 의미 입력 형식적 조건 만족하는지 확인
     func validateMeaningInput(input: String) -> Bool {
         let arr = Array(input)
-        let pattern = "^[가-힣ㄱ-ㅎㅏ-ㅣ0-9\\s]$"
+        let pattern = "^[가-힣ㄱ-ㅎㅏ-ㅣ0-9,/.!?\\s]$"
         if let regex = try? NSRegularExpression(pattern: pattern, options: .allowCommentsAndWhitespace) {
             var index = 0
             while index < arr.count {

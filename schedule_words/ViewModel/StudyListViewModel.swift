@@ -71,4 +71,10 @@ struct StudyListViewModel {
             return
         }
     }
+    
+    func updateCheckToDB() {
+        wordBook.words.forEach { word in
+            _ = WordService.shared.updateDidCheck(word: word)
+        }
+    }
 }

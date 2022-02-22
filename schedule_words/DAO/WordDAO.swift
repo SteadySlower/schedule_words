@@ -134,6 +134,40 @@ class WordDAO {
         }
     }
     
+    // didCheck 업데이트하기
+    func updateDidChecked(id: String, didChecked: Bool) -> Bool {
+        guard let wordMO = fetchWordMOByID(id: id) else { return false }
+        
+        wordMO.didChecked = didChecked
+        wordMO.updatedAt = Date()
+        
+        do {
+            try context.save()
+            return true
+        } catch {
+            context.rollback()
+            NSLog("CoreData Error: %s", error.localizedDescription)
+            return false
+        }
+    }
+    
+    // testResult 업데이트 하기
+    func updateTestResult(id: String, testResult: WordTestResult) -> Bool {
+        guard let wordMO = fetchWordMOByID(id: id) else { return false }
+        
+        wordMO.testResult = testResult.rawValue
+        wordMO.updatedAt = Date()
+        
+        do {
+            try context.save()
+            return true
+        } catch {
+            context.rollback()
+            NSLog("CoreData Error: %s", error.localizedDescription)
+            return false
+        }
+    }
+    
     // TODO: didFinish된 단어장들 nextReviewDate 갱신하기
     
     // MARK: Helpers
@@ -161,6 +195,18 @@ class WordDAO {
         
         do {
             return try context.existingObject(with: objectID) as? WordBookMO
+        } catch let error as NSError {
+            NSLog("CoreData Error: %s", error.localizedDescription)
+            return nil
+        }
+    }
+    
+    // 단어 내용 업데이트할 때 사용
+    private func fetchWordMOByID(id: String) -> WordMO? {
+        guard let objectID = context.persistentStoreCoordinator?.managedObjectID(forURIRepresentation: URL(string: id)!) else { return nil }
+        
+        do {
+            return try context.existingObject(with: objectID) as? WordMO
         } catch let error as NSError {
             NSLog("CoreData Error: %s", error.localizedDescription)
             return nil

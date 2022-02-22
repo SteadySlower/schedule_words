@@ -31,6 +31,7 @@ class HomeController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        reloadData()
     }
     
     // MARK: Selectors
@@ -97,11 +98,11 @@ class HomeController: UIViewController {
         actionSheet.setValue(titleAttrString, forKey: "attributedTitle")
         
         let studyAction = UIAlertAction(title: "공부 하기", style: .default) { _ in
-            let studyController = ListStudyController(wordBook: wordBook)
+            let studyController = StudyListController(wordBook: wordBook)
             self.navigationController?.pushViewController(studyController, animated: true)
         }
         let testAction = UIAlertAction(title: "테스트 하기", style: .default) { _ in
-            let testController = ListTestController(wordBook: wordBook)
+            let testController = TestListController(wordBook: wordBook)
             self.navigationController?.pushViewController(testController, animated: true)
         }
         let cancelAction = UIAlertAction(title: "취소", style: .destructive, handler: nil)

@@ -38,4 +38,11 @@ struct WordService {
         
         return result
     }
+    
+    // didCheck 업데이트하기
+    func updateDidCheck(word: Word) -> Bool {
+        let id = word.id
+        let didChecked = word.didChecked
+        return dao.updateDidChecked(id: id, didChecked: didChecked)
+    }
 }
