@@ -13,7 +13,7 @@ struct WordService {
     let dao = WordDAO.shared
     
     // 홈 화면에 표시될 상태 표시
-    func fetchHomeStatus() -> (studyWordBooks: [WordBook], reviewWordBooks: [WordBook]) {
+    func fetchTodayWordBookTuple() -> (studyWordBooks: [WordBook], reviewWordBooks: [WordBook]) {
         let studyWordBooks = dao.fetchWordBooks(status: .study)
         let reviewWordBooks = dao.fetchWordBooks(status: .review)
         return  (studyWordBooks: studyWordBooks, reviewWordBooks: reviewWordBooks)

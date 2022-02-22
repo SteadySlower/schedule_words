@@ -61,19 +61,4 @@ struct HomeCellViewModel {
     var numOfStudyLabelString: String {
         return "3회독"
     }
-    
-    var actionSheetTitle: String {
-        let dateGap = Utilities().getDaysFromToday(date: wordBook.createdAt)
-        
-        switch dateGap {
-        case 0:
-            return "오늘 단어장"
-        case 1:
-            return "어제 단어장"
-        case 2:
-            return "그제 단어장"
-        default:
-            return "+\(dateGap)일 단어장"
-        }
-    }
 }

@@ -15,10 +15,9 @@ class HomeController: UIViewController {
     
     let statusView = HomeStatusView()
     
-    var homeStatus: HomeStatus?
-    //TODO: force upwrapping 문제 해결
-    
     let tableView = UITableView()
+    
+    let viewModel = HomeViewModel()
     
     // MARK: LifeCycle
     
@@ -32,7 +31,7 @@ class HomeController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureHomeStatusView()
-        loadDummyData()
+        tableView.reloadData()
     }
     
     // MARK: Selectors
@@ -44,14 +43,6 @@ class HomeController: UIViewController {
     }
     
     // MARK: Helpers
-    
-    // 더미데이터 로드
-    func loadDummyData() {
-        let dummyDataWriter = DummyDataWriter()
-        dummyDataWriter.writeDummyData()
-        homeStatus = WordService.shared.fetchHomeStatus()
-    }
-    
     func configureUI() {
         view.backgroundColor = .white
         
@@ -73,7 +64,7 @@ class HomeController: UIViewController {
     }
     
     func configureHomeStatusView() {
-        statusView.homeStatus = WordService.shared.fetchHomeStatus()
+        statusView.homeStatus = viewModel.homeStatus
     }
     
     func configureTableView() {
@@ -91,7 +82,7 @@ class HomeController: UIViewController {
     
     func showActionSheet(cell: HomeListCell) {
         guard let wordBook = cell.viewModel?.wordBook else { return }
-        guard let actionSheetTitle = cell.viewModel?.actionSheetTitle else { return }
+        let actionSheetTitle = viewModel.actionSheetTitle(of: wordBook)
         
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -117,34 +108,21 @@ class HomeController: UIViewController {
 
 extension HomeController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return viewModel.numOfSections
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0: return "오늘 공부할 단어장"
-        case 1: return "오늘 복습할 단어장"
-        default: return ""
-        }
+        return viewModel.titleForSection(of: section)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0: return homeStatus!.numOfStudyBooks
-        case 1: return homeStatus!.numOfReviewBooks
-        default: return 0
-        }
+        return viewModel.numOfRows(of: section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as? HomeListCell else { return UITableViewCell() }
-        if indexPath.section == 0 {
-            let wordBook = homeStatus!.studyWordBooks[indexPath.row]
-            cell.viewModel = HomeCellViewModel(wordBook: wordBook)
-        } else if indexPath.section == 1 {
-            let wordBook = homeStatus!.reviewWordBooks[indexPath.row]
-            cell.viewModel = HomeCellViewModel(wordBook: wordBook)
-        }
+        guard let wordBook = viewModel.wordBookForHomeCell(of: indexPath) else { return UITableViewCell() }
+        cell.viewModel = HomeCellViewModel(wordBook: wordBook)
         return cell
     }
 }

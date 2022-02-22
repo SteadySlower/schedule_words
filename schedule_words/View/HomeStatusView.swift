@@ -8,23 +8,23 @@
 import Foundation
 import UIKit
 
-enum StatusViewUnitType {
+fileprivate enum StatusViewUnitType {
     case studyBooks
-    case studyWords
-    case studyTime
+    case studyTotalWords
+    case studyTodoWords
     
     case reviewBooks
-    case reviewWords
-    case reviewTime
+    case reviewTotalWords
+    case reviewTodoWords
     
     var titleText: String {
         switch self {
         case .studyBooks: return "학습 단어장"
-        case .studyWords: return "학습 단어"
-        case .studyTime: return "학습 시간"
+        case .studyTotalWords: return "모든 학습"
+        case .studyTodoWords: return "남은 학습"
         case .reviewBooks: return "복습 단어장"
-        case .reviewWords: return "복습 단어"
-        case .reviewTime: return "복습 시간"
+        case .reviewTotalWords: return "모든 복습"
+        case .reviewTodoWords: return "남은 복습"
         }
     }
 }
@@ -92,24 +92,24 @@ class HomeStatusView: UIView {
     
     private func configureUnits() {
         studyBookUnit.unitType = .studyBooks
-        studyWordUnit.unitType = .studyWords
-        studyTimeUnit.unitType = .studyTime
+        studyWordUnit.unitType = .studyTotalWords
+        studyTimeUnit.unitType = .studyTodoWords
         
         reviewBookUnit.unitType = .reviewBooks
-        reviewWordUnit.unitType = .reviewWords
-        reviewTimeUnit.unitType = .reviewTime
+        reviewWordUnit.unitType = .reviewTotalWords
+        reviewTimeUnit.unitType = .reviewTotalWords
     }
     
     private func configureStatus() {
         guard let homeStatus = homeStatus else { return }
         
         studyBookUnit.statString = "\(homeStatus.numOfStudyBooks)"
-        studyWordUnit.statString = "\(homeStatus.numOfStudyWords)"
-        studyTimeUnit.statString = "\(Int(homeStatus.secondsOfStudyTime / 60))분"
+        studyWordUnit.statString = "\(homeStatus.numOfTotalStudyWords)단어"
+        studyTimeUnit.statString = "\(homeStatus.numOfTodoStudyWords)분"
         
         reviewBookUnit.statString = "\(homeStatus.numOfReviewBooks)"
-        reviewWordUnit.statString = "\(homeStatus.numOfReviewWords)"
-        reviewTimeUnit.statString = "\(Int(homeStatus.secondsOfReviewTime / 60))분"
+        reviewWordUnit.statString = "\(homeStatus.numOfTotalReviewWords)단어"
+        reviewTimeUnit.statString = "\(homeStatus.numOfTodoReviewWords)단어"
     }
     
 }
@@ -140,7 +140,7 @@ fileprivate class HomeStatusViewUnit: UIView {
     private let statLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 30, weight: .heavy)
+        label.font = UIFont.systemFont(ofSize: 25, weight: .heavy)
         return label
     }()
     
@@ -184,10 +184,5 @@ fileprivate class HomeStatusViewUnit: UIView {
     private func configureStat() {
         guard let statString = statString else { return }
         statLabel.text = statString
-        
-        guard let unitType = unitType else { return }
-        if unitType == .studyTime || unitType == .reviewTime {
-            statLabel.font = UIFont.systemFont(ofSize: 25, weight: .heavy)
-        }
     }
 }
