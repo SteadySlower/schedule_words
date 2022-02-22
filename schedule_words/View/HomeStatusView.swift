@@ -105,7 +105,7 @@ class HomeStatusView: UIView {
         
         studyBookUnit.statString = "\(homeStatus.numOfStudyBooks)"
         studyWordUnit.statString = "\(homeStatus.numOfTotalStudyWords)단어"
-        studyTimeUnit.statString = "\(homeStatus.numOfTodoStudyWords)분"
+        studyTimeUnit.statString = "\(homeStatus.numOfTodoStudyWords)단어"
         
         reviewBookUnit.statString = "\(homeStatus.numOfReviewBooks)"
         reviewWordUnit.statString = "\(homeStatus.numOfTotalReviewWords)단어"

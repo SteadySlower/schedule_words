@@ -17,6 +17,7 @@
     </entity>
     <entity name="WordBook" representedClassName="WordBookMO" syncable="YES" codeGenerationType="class">
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="didFinish" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="nextReviewDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -25,6 +26,6 @@
     <elements>
         <element name="Meaning" positionX="-36" positionY="36" width="128" height="89"/>
         <element name="Word" positionX="-54" positionY="-9" width="128" height="134"/>
-        <element name="WordBook" positionX="413.06640625" positionY="65.3359375" width="128" height="104"/>
+        <element name="WordBook" positionX="413.06640625" positionY="65.3359375" width="128" height="119"/>
     </elements>
 </model>

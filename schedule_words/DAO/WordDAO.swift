@@ -63,6 +63,7 @@ class WordDAO {
         wordBookObject.createdAt = wordBook.createdAt
         wordBookObject.updatedAt = wordBook.createdAt
         wordBookObject.nextReviewDate = Date()
+        wordBookObject.didFinish = wordBook.didFinish
         wordBookObject.status = status.rawValue
         
         let wordMOs = createWordMOs(words: wordBook.words, createdAt: wordBook.createdAt)
@@ -133,6 +134,8 @@ class WordDAO {
         }
     }
     
+    // TODO: didFinish된 단어장들 nextReviewDate 갱신하기
+    
     // MARK: Helpers
     
     // HomeStatus를 불러올 때 사용
@@ -145,7 +148,6 @@ class WordDAO {
         } else if status == .review {
             let statusPredicate = NSPredicate(format: "%K == %d", #keyPath(WordBookMO.status), status.rawValue)
             let todayDateRange = Utilities().getTodayRange()
-            // TODO: 여기 nextReviewDate 이전은 모두 가져오도록 수정하고 WordBook model에 didFinish 넣기
             let toPredicate = NSPredicate(format: "%K < %@", #keyPath(WordBookMO.nextReviewDate), todayDateRange.dateTo as NSDate)
             predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [statusPredicate, toPredicate])
         }

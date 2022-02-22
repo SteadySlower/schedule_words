@@ -44,6 +44,7 @@ struct WordBook {
     let id: String
     var words: [Word]
     let createdAt: Date
+    var didFinish: Bool
     
     // 오늘 만들어진 단어장인지 확인하는 property -> 새로운 단어는 오늘 단어장에 저장하기 위해서 필요
     var isToday: Bool {
@@ -62,5 +63,6 @@ struct WordBook {
         } else {
             self.words = [Word]()
         }
+        self.didFinish = MO.didFinish
     }
 }

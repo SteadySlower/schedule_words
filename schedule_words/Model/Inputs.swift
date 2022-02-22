@@ -16,8 +16,8 @@ struct MeaningInput {
     let description: String
 }
 
-// TODO: 더미 데이터용
 struct WordBookInput {
     let words: [WordInput]
     let createdAt: Date
+    let didFinish = false
 }

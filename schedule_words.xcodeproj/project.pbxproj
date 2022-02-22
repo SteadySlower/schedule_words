@@ -40,6 +40,7 @@
 		06DCEC1A279FDCA0000E3255 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06DCEC19279FDCA0000E3255 /* Assets.xcassets */; };
 		06DCEC1D279FDCA0000E3255 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06DCEC1B279FDCA0000E3255 /* LaunchScreen.storyboard */; };
 		06FD8C2B27C3A865001ED21D /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FD8C2A27C3A865001ED21D /* HomeViewModel.swift */; };
+		06FD8C2F27C4DF89001ED21D /* CellDisplayMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FD8C2E27C4DF89001ED21D /* CellDisplayMode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +80,7 @@
 		06DCEC1C279FDCA0000E3255 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		06DCEC1E279FDCA0000E3255 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		06FD8C2A27C3A865001ED21D /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		06FD8C2E27C4DF89001ED21D /* CellDisplayMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellDisplayMode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 				062A672B27BCC4CB006ACA5F /* Inputs.swift */,
 				0639A2E727A40FFF009EFC83 /* HomeStatus.swift */,
 				065B270C27AAA32000E355BD /* Errors.swift */,
+				06FD8C2E27C4DF89001ED21D /* CellDisplayMode.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 				065B270927A9708100E355BD /* WordInputController.swift in Sources */,
 				06C2383027A0C5C100CF4A13 /* TestListCell.swift in Sources */,
 				0639A2E827A40FFF009EFC83 /* HomeStatus.swift in Sources */,
+				06FD8C2F27C4DF89001ED21D /* CellDisplayMode.swift in Sources */,
 				062A672C27BCC4CB006ACA5F /* Inputs.swift in Sources */,
 				065B270727A581D000E355BD /* StudyListCellViewModel.swift in Sources */,
 				0639A2E627A4008E009EFC83 /* HomeStatusView.swift in Sources */,
