@@ -38,6 +38,7 @@ class TestListController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        viewModel.updateTestResult()
     }
     
     // MARK: Selectors

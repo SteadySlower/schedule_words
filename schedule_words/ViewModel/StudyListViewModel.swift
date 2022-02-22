@@ -72,7 +72,8 @@ struct StudyListViewModel {
         }
     }
     
-    func updateCheckToDB() {
+    func updateDidCheck() {
+        // TODO: false 일 경우 에러 처리
         wordBook.words.forEach { word in
             _ = WordService.shared.updateDidCheck(word: word)
         }

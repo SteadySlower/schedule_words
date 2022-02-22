@@ -36,7 +36,7 @@ class StudyListController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        viewModel.updateCheckToDB()
+        viewModel.updateDidCheck()
     }
     
     // MARK: Helpers

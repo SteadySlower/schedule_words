@@ -45,4 +45,11 @@ struct WordService {
         let didChecked = word.didChecked
         return dao.updateDidChecked(id: id, didChecked: didChecked)
     }
+    
+    // testResult 업데이트하기
+    func updateTestResult(word: Word) -> Bool {
+        let id = word.id
+        let testResult = word.testResult
+        return dao.updateTestResult(id: id, testResult: testResult)
+    }
 }
