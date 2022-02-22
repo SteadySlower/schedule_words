@@ -1,5 +1,5 @@
 //
-//  ListStudyController.swift
+//  StudyListController.swift
 //  schedule_words
 //
 //  Created by JW Moon on 2022/01/29.
@@ -9,7 +9,7 @@ import UIKit
 
 private let reuseIdentifier = "studyCell"
 
-class ListStudyController: UIViewController {
+class StudyListController: UIViewController {
     
     // MARK: Properties
     
@@ -32,6 +32,11 @@ class ListStudyController: UIViewController {
         super.viewDidLoad()
         configureUI()
         configureTableView()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        viewModel.updateCheckToDB()
     }
     
     // MARK: Helpers
@@ -58,7 +63,7 @@ class ListStudyController: UIViewController {
 
 // MARK: UITableViewDataSource
 
-extension ListStudyController: UITableViewDataSource {
+extension StudyListController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numOfCells
     }
@@ -74,7 +79,7 @@ extension ListStudyController: UITableViewDataSource {
 
 // MARK: UITableViewDelegate
 
-extension ListStudyController: UITableViewDelegate {
+extension StudyListController: UITableViewDelegate {
     // 터치시 단어 뜻이 보이도록
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // indexPath로 cell 객체 구하기
@@ -99,7 +104,7 @@ extension ListStudyController: UITableViewDelegate {
 // MARK: motionEnded
 
 // 흔들면 실행 취소
-extension ListStudyController {
+extension StudyListController {
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
             viewModel.undo()
@@ -110,7 +115,7 @@ extension ListStudyController {
 
 // MARK: ListStudyCellDelegate
 
-extension ListStudyController: StudyListCellDelegate {
+extension StudyListController: StudyListCellDelegate {
     func boxChecked(word: Word) {
         guard let index = viewModel.moveWordToChecked(checked: word) else { return }
         let indexPath = IndexPath(row: index, section: 0)

@@ -1,5 +1,5 @@
 //
-//  ListTestViewController.swift
+//  TestListViewController.swift
 //  schedule_words
 //
 //  Created by JW Moon on 2022/01/26.
@@ -9,7 +9,7 @@ import UIKit
 
 private let reuseIdentifier = "testCell"
 
-class ListTestController: UIViewController {
+class TestListController: UIViewController {
     
     // MARK: Properties
     
@@ -78,7 +78,7 @@ class ListTestController: UIViewController {
 
 // MARK: UITableViewDataSource
 
-extension ListTestController: UITableViewDataSource {
+extension TestListController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numOfCells
     }
@@ -93,7 +93,7 @@ extension ListTestController: UITableViewDataSource {
 
 // MARK: UITableViewDelegate
 
-extension ListTestController: UITableViewDelegate {
+extension TestListController: UITableViewDelegate {
     // 터치시 단어 뜻이 보이도록
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // indexPath로 cell 객체 구하기
@@ -167,7 +167,7 @@ extension ListTestController: UITableViewDelegate {
 // MARK: motionEnded
 
 // 흔들면 실행 취소
-extension ListTestController {
+extension TestListController {
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
             guard let index = viewModel.undo() else { return }
