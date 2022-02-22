@@ -25,26 +25,31 @@ class HomeController: UIViewController {
         super.viewDidLoad()
         configureUI()
         configureTableView()
+        configureHomeStatusView()
         configureNavigationBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.updateViewModel()
-        configureHomeStatusView()
-        tableView.reloadData()
     }
     
     // MARK: Selectors
     
     @objc func showWordInputController() {
-        let input = WordInputController()
+        let input = WordInputController(homeViewController: self)
         input.modalPresentationStyle = .overFullScreen
         self.present(input, animated: true, completion: nil)
     }
     
     // MARK: Helpers
-    func configureUI() {
+    
+    func reloadData() {
+        viewModel.updateViewModel()
+        configureHomeStatusView()
+        tableView.reloadData()
+    }
+    
+    private func configureUI() {
         view.backgroundColor = .white
         
         let statusViewHeight = view.frame.height * 0.2
@@ -64,11 +69,11 @@ class HomeController: UIViewController {
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
     }
     
-    func configureHomeStatusView() {
+    private func configureHomeStatusView() {
         statusView.homeStatus = viewModel.homeStatus
     }
     
-    func configureTableView() {
+    private func configureTableView() {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(HomeListCell.self, forCellReuseIdentifier: reuseIdentifier)
@@ -76,12 +81,12 @@ class HomeController: UIViewController {
         tableView.showsVerticalScrollIndicator = false
     }
     
-    func configureNavigationBar() {
+    private func configureNavigationBar() {
         self.navigationItem.title = "홈화면"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "추가", style: .plain, target: self, action: #selector(showWordInputController))
     }
     
-    func showActionSheet(cell: HomeListCell) {
+    private func showActionSheet(cell: HomeListCell) {
         guard let wordBook = cell.viewModel?.wordBook else { return }
         let actionSheetTitle = viewModel.actionSheetTitle(of: wordBook)
         

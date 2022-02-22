@@ -160,7 +160,7 @@ class WordDAO {
         guard let objectID = context.persistentStoreCoordinator?.managedObjectID(forURIRepresentation: URL(string: id)!) else { return nil }
         
         do {
-            return try context.existingObject(with: objectID) as! WordBookMO
+            return try context.existingObject(with: objectID) as? WordBookMO
         } catch let error as NSError {
             NSLog("CoreData Error: %s", error.localizedDescription)
             return nil

@@ -13,6 +13,8 @@ class WordInputController: UIViewController {
     
     private var viewModel: WordInputViewModel
     
+    weak var homeViewController: HomeController?
+    
     private let inputBox: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -107,8 +109,9 @@ class WordInputController: UIViewController {
     
     // MARK: LifeCycle
     
-    init() {
+    init(homeViewController: HomeController) {
         self.viewModel = WordInputViewModel()
+        self.homeViewController = homeViewController
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -129,6 +132,7 @@ class WordInputController: UIViewController {
     @objc private func registerButtonTapped() {
         do {
             try viewModel.addNewWord()
+            homeViewController?.reloadData()
             dismiss(animated: true, completion: nil)
         } catch let error {
             showErrorAlert(error: error as! WordInputError)
