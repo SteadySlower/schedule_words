@@ -7,17 +7,11 @@
 
 import UIKit
 
-protocol WordInputControllerDelegate: AnyObject {
-    func inputButtonTapped(input: WordInput)
-}
-
 class WordInputController: UIViewController {
     
     // MARK: Properties
     
     private var viewModel: WordInputViewModel
-    
-    let delegate: WordInputControllerDelegate
     
     private let inputBox: UIView = {
         let view = UIView()
@@ -113,9 +107,8 @@ class WordInputController: UIViewController {
     
     // MARK: LifeCycle
     
-    init(delegate: WordInputControllerDelegate) {
+    init() {
         self.viewModel = WordInputViewModel()
-        self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -135,8 +128,7 @@ class WordInputController: UIViewController {
     
     @objc private func registerButtonTapped() {
         do {
-            let input = try viewModel.getWordInput()
-            delegate.inputButtonTapped(input: input)
+            try viewModel.addNewWord()
             dismiss(animated: true, completion: nil)
         } catch let error {
             showErrorAlert(error: error as! WordInputError)

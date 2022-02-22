@@ -10,7 +10,7 @@ import Foundation
 struct WordService {
     static let shared = WordService()
     
-    let dao = WordDAO.shared
+    private let dao = WordDAO.shared
     
     // 홈 화면에 표시될 상태 표시
     func fetchTodayWordBookTuple() -> (studyWordBooks: [WordBook], reviewWordBooks: [WordBook]) {

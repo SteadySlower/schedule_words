@@ -77,6 +77,15 @@ struct HomeViewModel {
         
     }
     
+    func addNewWord(word: WordInput) {
+        //TODO: DB에 입력 실패 에러처리
+        let result = WordService.shared.insertTodayWord(word: word)
+        
+        if !result {
+            
+        }
+    }
+    
     // MARK: Helpers
     
     mutating func updateViewModel() {

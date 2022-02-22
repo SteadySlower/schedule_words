@@ -47,7 +47,7 @@ struct WordInputViewModel {
         meanings.remove(at: index)
     }
     
-    func getWordInput() throws -> WordInput {
+    func addNewWord() throws {
         if spelling == "" {
             throw WordInputError.noWord
         }
@@ -60,6 +60,12 @@ struct WordInputViewModel {
             MeaningInput(description: meaning)
         }
         
-        return WordInput(spelling: spelling, meanings: meaningInputs)
+        let wordInput = WordInput(spelling: spelling, meanings: meaningInputs)
+        
+        let result = WordService.shared.insertTodayWord(word: wordInput)
+        
+        if !result {
+            throw WordInputError.dbError
+        }
     }
 }

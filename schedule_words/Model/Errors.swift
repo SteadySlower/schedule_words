@@ -12,6 +12,7 @@ enum WordInputError: Error {
     case noWord
     case noMeaning
     case meaningValidationFailure
+    case dbError
     
     var message: String {
         switch self {
@@ -23,6 +24,8 @@ enum WordInputError: Error {
             return "뜻을 하나 이상 입력해주세요."
         case .meaningValidationFailure:
             return "뜻은 한글로 입력해주세요."
+        case .dbError:
+            return "데이터 베이스에 저장을 실패하였습니다."
         }
     }
 }

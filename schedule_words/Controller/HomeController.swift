@@ -37,7 +37,7 @@ class HomeController: UIViewController {
     // MARK: Selectors
     
     @objc func showWordInputController() {
-        let input = WordInputController(delegate: self)
+        let input = WordInputController()
         input.modalPresentationStyle = .overFullScreen
         self.present(input, animated: true, completion: nil)
     }
@@ -139,9 +139,4 @@ extension HomeController: UITableViewDelegate {
     }
 }
 
-extension HomeController: WordInputControllerDelegate {
-    func inputButtonTapped(input: WordInput) {
-        print(input)
-    }
-}
 
