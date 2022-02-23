@@ -58,7 +58,15 @@ struct HomeCellViewModel {
         return "\(numOfWords)단어"
     }
     
-    var numOfStudyLabelString: String {
-        return "3회독"
+    var passRatioLabelString: String {
+        let numOfPassedWords = wordBook.words.filter { word in
+            word.testResult == .success
+        }.count
+        
+        let numOfTotalWords = wordBook.words.count
+        
+        let passRatio = (Double(numOfPassedWords) / Double(numOfTotalWords)) * 100
+        
+        return "\(Int(passRatio))%"
     }
 }

@@ -8,7 +8,6 @@
     </entity>
     <entity name="Word" representedClassName="WordMO" syncable="YES" codeGenerationType="class">
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="didChecked" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="spelling" optional="YES" attributeType="String"/>
         <attribute name="testResult" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -25,7 +24,7 @@
     </entity>
     <elements>
         <element name="Meaning" positionX="-36" positionY="36" width="128" height="89"/>
-        <element name="Word" positionX="-54" positionY="-9" width="128" height="134"/>
+        <element name="Word" positionX="-54" positionY="-9" width="128" height="119"/>
         <element name="WordBook" positionX="413.06640625" positionY="65.3359375" width="128" height="119"/>
     </elements>
 </model>

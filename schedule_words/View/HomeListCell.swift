@@ -32,15 +32,13 @@ class HomeListCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         label.sizeToFit()
-        label.text = "30단어"
         return label
     }()
     
-    private let numOfStudyLabel: UILabel = {
+    private let passRatioLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         label.sizeToFit()
-        label.text = "3회독"
         return label
     }()
     
@@ -90,16 +88,16 @@ class HomeListCell: UITableViewCell {
         numOfWordsLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -40).isActive = true
         numOfWordsLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -15).isActive = true
         
-        addSubview(numOfStudyLabel)
-        numOfStudyLabel.translatesAutoresizingMaskIntoConstraints = false
-        numOfStudyLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -40).isActive = true
-        numOfStudyLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 15).isActive = true
+        addSubview(passRatioLabel)
+        passRatioLabel.translatesAutoresizingMaskIntoConstraints = false
+        passRatioLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -40).isActive = true
+        passRatioLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 15).isActive = true
     }
     
     private func configureLabels() {
         dateLabel.text = viewModel?.dateLabelString
         numOfWordsLabel.text = viewModel?.numOfWordsLabelString
-        numOfStudyLabel.text = viewModel?.numOfStudyLabelString
+        passRatioLabel.text = viewModel?.passRatioLabelString
     }
 }
 
