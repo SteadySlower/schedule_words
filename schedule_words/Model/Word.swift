@@ -15,7 +15,6 @@ struct Word {
     let id: String
     let spelling: String
     let meanings: [Meaning]
-    var didChecked: Bool = false
     var testResult: WordTestResult = .undefined
     
     init(MO: WordMO) {
@@ -25,7 +24,6 @@ struct Word {
         self.meanings = meaningMOs.map { meaningMO in
             Meaning(MO: meaningMO)
         }
-        self.didChecked = MO.didChecked
         self.testResult = WordTestResult(rawValue: MO.testResult) ?? .undefined
     }
 }

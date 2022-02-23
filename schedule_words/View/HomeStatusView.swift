@@ -62,7 +62,7 @@ class HomeStatusView: UIView {
         configureUI()
     }
     
-    // MARK: Properties
+    // MARK: Helpers
     
     private func configureUI() {
         

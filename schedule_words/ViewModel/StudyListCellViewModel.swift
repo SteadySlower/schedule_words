@@ -25,8 +25,4 @@ struct StudyListCellViewModel {
         }
         return text
     }
-    
-    var checkBoxIsSelected: Bool {
-        return word.didChecked
-    }
 }

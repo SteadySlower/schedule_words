@@ -7,11 +7,6 @@
 
 import UIKit
 
-protocol StudyListCellDelegate: AnyObject {
-    func boxChecked(word: Word)
-    func boxUnchecked(word: Word)
-}
-
 class StudyListCell: UITableViewCell {
     
     // MARK: Properties
@@ -28,25 +23,11 @@ class StudyListCell: UITableViewCell {
         }
     }
     
-    weak var delegate: StudyListCellDelegate?
-    
     let wordLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.numberOfLines = 0
         return label
-    }()
-    
-    let checkBox: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "square"), for: .normal)
-        button.setImage(UIImage(systemName: "checkmark.square"), for: .selected)
-        button.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        button.contentVerticalAlignment = .fill
-        button.contentHorizontalAlignment = .fill
-        button.addTarget(self, action: #selector(checkBoxTapped), for: .touchUpInside)
-        return button
     }()
     
     // MARK: LifeCycle
@@ -71,18 +52,6 @@ class StudyListCell: UITableViewCell {
         displayMode = .spelling
     }
     
-    // MARK: Selectors
-    
-    @objc func checkBoxTapped() {
-        guard let word = viewModel?.word else { return }
-        
-        if checkBox.isSelected == true {
-            delegate?.boxUnchecked(word: word)
-        } else {
-            delegate?.boxChecked(word: word)
-        }
-    }
-    
     // MARK: Helpers
     
     func configureUI() {
@@ -94,24 +63,18 @@ class StudyListCell: UITableViewCell {
         
         self.layer.cornerRadius = 20
         
-        addSubview(checkBox)
-        checkBox.translatesAutoresizingMaskIntoConstraints = false
-        checkBox.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        checkBox.rightAnchor.constraint(equalTo: rightAnchor, constant: -30).isActive = true
-        
         addSubview(wordLabel)
         wordLabel.translatesAutoresizingMaskIntoConstraints = false
         wordLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
         wordLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         wordLabel.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        wordLabel.rightAnchor.constraint(equalTo:checkBox.rightAnchor).isActive = true
+        wordLabel.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
     }
 
     func configure() {
         if displayMode == .spelling {
             wordLabel.font = UIFont.systemFont(ofSize: 30)
             wordLabel.text = viewModel?.wordLabelText
-            checkBox.isHidden = false
         } else {
             var fontSize: CGFloat
             
@@ -125,11 +88,7 @@ class StudyListCell: UITableViewCell {
             
             wordLabel.font = UIFont.systemFont(ofSize: fontSize)
             wordLabel.text = viewModel?.meaningLabelText
-
-            checkBox.isHidden = true
         }
-        
-        checkBox.isSelected = viewModel?.checkBoxIsSelected ?? false
     }
     
     func toggleDisplayMode() {

@@ -91,7 +91,6 @@ class WordDAO {
         wordObject.spelling = word.spelling
         wordObject.createdAt = today
         wordObject.updatedAt = today
-        wordObject.didChecked = false
         wordObject.testResult = WordTestResult.fail.rawValue
         
         let meaningMOs = createMeaningMOs(meanings: word.meanings)
@@ -131,23 +130,6 @@ class WordDAO {
         } catch let error as NSError {
             NSLog("CoreData Error: %s", error.localizedDescription)
             return nil
-        }
-    }
-    
-    // didCheck 업데이트하기
-    func updateDidChecked(id: String, didChecked: Bool) -> Bool {
-        guard let wordMO = fetchWordMOByID(id: id) else { return false }
-        
-        wordMO.didChecked = didChecked
-        wordMO.updatedAt = Date()
-        
-        do {
-            try context.save()
-            return true
-        } catch {
-            context.rollback()
-            NSLog("CoreData Error: %s", error.localizedDescription)
-            return false
         }
     }
     
@@ -238,7 +220,6 @@ class WordDAO {
             wordObject.createdAt = createdAt
             wordObject.updatedAt = createdAt
             wordObject.spelling = word.spelling
-            wordObject.didChecked = false
             wordObject.testResult = WordTestResult.undefined.rawValue
             
             let meaningMOs = createMeaningMOs(meanings: word.meanings)

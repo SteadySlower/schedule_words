@@ -17,6 +17,8 @@ class StudyListController: UIViewController {
     
     let tableView = UITableView()
     
+    let undoButton = FloatingUndoButton()
+    
     // MARK: Lifecycle
     
     init(wordBook: WordBook) {
@@ -36,11 +38,14 @@ class StudyListController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        viewModel.updateDidCheck()
     }
     
+    // MARK: Selectors
+    
+    @objc
+    
     // MARK: Helpers
-    func configureUI() {
+    private func configureUI() {
         view.backgroundColor = .white
         
         view.addSubview(tableView)
@@ -49,15 +54,24 @@ class StudyListController: UIViewController {
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        
+        view.addSubview(undoButton)
+        undoButton.translatesAutoresizingMaskIntoConstraints = false
+        undoButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 10).isActive = true
+        undoButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 10).isActive = true
     }
     
-    func configureTableView() {
+    private func configureTableView() {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(StudyListCell.self, forCellReuseIdentifier: reuseIdentifier)
         tableView.selectionFollowsFocus = true
         tableView.separatorStyle = .none
         tableView.isUserInteractionEnabled = true
+    }
+    
+    private func configureFloatingUndoButton() {
+        // TODO: selector 만들고 연결
     }
 }
 
@@ -72,7 +86,6 @@ extension StudyListController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as? StudyListCell else { return UITableViewCell() }
         let word = viewModel.wordBook.words[indexPath.row]
         cell.viewModel = StudyListCellViewModel(word: word)
-        cell.delegate = self
         return cell
     }
 }
@@ -98,34 +111,6 @@ extension StudyListController: UITableViewDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             cell.toggleDisplayMode()
        }
-    }
-}
-
-// MARK: motionEnded
-
-// 흔들면 실행 취소
-extension StudyListController {
-    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-        if motion == .motionShake {
-            viewModel.undo()
-            tableView.reloadData()
-        }
-    }
-}
-
-// MARK: ListStudyCellDelegate
-
-extension StudyListController: StudyListCellDelegate {
-    func boxChecked(word: Word) {
-        guard let index = viewModel.moveWordToChecked(checked: word) else { return }
-        let indexPath = IndexPath(row: index, section: 0)
-        tableView.reloadRows(at: [indexPath], with: .none)
-    }
-    
-    func boxUnchecked(word: Word) {
-        guard let index = viewModel.moveWordToUnchecked(unchecked: word) else { return }
-        let indexPath = IndexPath(row: index, section: 0)
-        tableView.reloadRows(at: [indexPath], with: .none)
     }
 }
 
