@@ -95,8 +95,7 @@ class HomeController: UIViewController {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: settingImage, style: .plain, target: self, action: #selector(showSettingController))
     }
     
-    private func showActionSheet(cell: HomeListCell) {
-        guard let wordBook = cell.viewModel?.wordBook else { return }
+    private func showActionSheet(wordBook: WordBook) {
         let actionSheetTitle = viewModel.actionSheetTitle(of: wordBook)
         
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -150,12 +149,15 @@ extension HomeController: UITableViewDataSource {
 
 extension HomeController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        guard let cell = tableView.cellForRow(at: indexPath) as? HomeListCell else { return }
+        guard let wordBook = cell.viewModel?.wordBook else { return }
+        
         if indexPath.section == 0 {
-            guard let cell = tableView.cellForRow(at: indexPath) as? HomeListCell else { return }
-            showActionSheet(cell: cell)
+            showActionSheet(wordBook: wordBook)
         } else if indexPath.section == 1 {
-            guard let cell = tableView.cellForRow(at: indexPath) as? HomeListCell else { return }
-            showActionSheet(cell: cell)
+            let test = TestListController(wordBook: wordBook)
+            self.navigationController?.pushViewController(test, animated: true)
         }
     }
 }

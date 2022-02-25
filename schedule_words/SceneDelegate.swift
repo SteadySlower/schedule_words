@@ -17,6 +17,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
         window?.rootViewController = UINavigationController(rootViewController: HomeController())
         window?.makeKeyAndVisible()
+        
+        // FIXME: 더미데이터 write
+//        let dummyDataWriter = DummyDataWriter()
+//        dummyDataWriter.writeDummyData()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

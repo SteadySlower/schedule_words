@@ -38,6 +38,21 @@ class TestListViewModel {
         self.testResults = [TestListResult]()
     }
     
+    var canFinish: Bool {
+        switch wordBook.status {
+        case .review:
+            return displayingWords.isEmpty
+        case .study:
+            if wordBook.isLastStudyDay {
+                return displayingWords.isEmpty
+            } else {
+                return false
+            }
+        default:
+            return false
+        }
+    }
+    
     var numOfCells: Int {
         return displayingWords.count
     }

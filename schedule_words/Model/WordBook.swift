@@ -7,13 +7,16 @@
 
 import Foundation
 
+enum WordBookStatus: Int16 {
+    case study = 0, review, invalid
+}
+
 struct WordBook {
     let id: String
     var words: [Word]
     let createdAt: Date
-    var didFinish: Bool
+    let status: WordBookStatus
     
-    // FIXME: 이제 필요 없을듯?
     // 오늘 만들어진 단어장인지 확인하는 property -> 새로운 단어는 오늘 단어장에 저장하기 위해서 필요
     var isToday: Bool {
         var calendar = Calendar.current
@@ -21,6 +24,13 @@ struct WordBook {
         return calendar.isDateInToday(createdAt)
     }
     
+    var isLastStudyDay: Bool {
+        var calendar = Calendar.current
+        calendar.timeZone = NSTimeZone.local
+        let twoDaysBefore = calendar.date(byAdding: .day, value: -2, to: Date())!
+        return calendar.isDate(createdAt, inSameDayAs: twoDaysBefore)
+    }
+        
     init(MO: WordBookMO) {
         self.id = MO.objectID.uriRepresentation().absoluteString
         self.createdAt = MO.createdAt!
@@ -31,7 +41,7 @@ struct WordBook {
         } else {
             self.words = [Word]()
         }
-        self.didFinish = MO.didFinish
+        self.status = WordBookStatus(rawValue: MO.status)!
     }
     
     mutating func prepareForTest() {

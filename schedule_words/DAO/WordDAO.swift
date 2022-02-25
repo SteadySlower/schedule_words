@@ -9,10 +9,6 @@ import Foundation
 import CoreData
 import UIKit
 
-enum WordBookStatus: Int16 {
-    case study = 0, review, invalid
-}
-
 // DAO는 만들때 좀 더 범용적인 메소드들을 만들고 구체적인 비지니스 로직은 Service에 가도록 수정
 
 class WordDAO {
@@ -63,7 +59,6 @@ class WordDAO {
         wordBookObject.createdAt = wordBook.createdAt
         wordBookObject.updatedAt = wordBook.createdAt
         wordBookObject.nextReviewDate = Date()
-        wordBookObject.didFinish = wordBook.didFinish
         wordBookObject.status = status.rawValue
         
         let wordMOs = createWordMOs(words: wordBook.words, createdAt: wordBook.createdAt)
@@ -150,7 +145,27 @@ class WordDAO {
         }
     }
     
-    // TODO: didFinish된 단어장들 nextReviewDate 갱신하기
+    // TODO: 날짜 넘어갈 때 status 업데이트 하기
+        // 1. 오늘 단어장 만들기
+        // 2. 3일차 단어 중에 success가 아닌 단어들은 첫날 단어장으로 옮기기
+        // 3. 3일차 단어장 nextReviewDate 바꾸고 invalid 처리
+        // 3. 복습단어장 중에 didFinish가 true인 단어장들은 완료 처리
+    func updateStatus(id: String, status: WordBookStatus, nextReviewDate: Date) -> Bool {
+        guard let wordBookMO = fetchWordBookMOByID(id: id) else { return false }
+        
+        wordBookMO.status = status.rawValue
+        wordBookMO.nextReviewDate = nextReviewDate
+        wordBookMO.updatedAt = Date()
+        
+        do {
+            try context.save()
+            return true
+        } catch {
+            context.rollback()
+            NSLog("CoreData Error: %s", error.localizedDescription)
+            return false
+        }
+    }
     
     // MARK: Helpers
     

@@ -45,4 +45,18 @@ struct WordService {
         let testResult = word.testResult
         return dao.updateTestResult(id: id, testResult: testResult)
     }
+    
+    // TODO: 날짜 넘어갈 때 state 업데이트
+    func updateStatus() -> Bool {
+        // 오늘 단어장 가져와서 마지막 단어장은 복습 처리하고 두 단어장은 그대로 유지
+        let studyWordBooks = dao.fetchWordBooks(status: .study)
+        
+            // 3일차 단어장에서 success가 아니면 오늘 단어장으로 옮기기
+        
+        
+        // 복습 단어장들 가져와서 done인 것은 다음 복습으로 넘기고 undone인 것은 그대로 두기
+        let reviewWordBooks = dao.fetchWordBooks(status: .review)
+        
+        return false
+    }
 }

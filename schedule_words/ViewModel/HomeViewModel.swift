@@ -14,11 +14,7 @@ class HomeViewModel {
     var reviewWordBooks: [WordBook]
     
     // MARK: LifeCycle
-    init() {
-        // FIXME: 더미데이터 write
-//        let dummyDataWriter = DummyDataWriter()
-//        dummyDataWriter.writeDummyData()
-        
+    init() {        
         let todayWordBookTuple = WordService.shared.fetchTodayWordBookTuple()
         self.studyWordBooks = todayWordBookTuple.studyWordBooks
         self.reviewWordBooks = todayWordBookTuple.reviewWordBooks

@@ -101,6 +101,18 @@ class TestListController: UIViewController {
     private func configureUndoButton() {
         undoButton.isHidden = viewModel.undoButtonIsHidden
     }
+    
+    private func showFinishAlert() {
+        let alert = UIAlertController(title: "테스트 완료", message: "현재 단어장을 완료 처리합니다.\n맞은 단어는 다음 복습으로 틀린 단어는 오늘 단어장으로 이동합니다.", preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        let finish = UIAlertAction(title: "완료 처리", style: .destructive) { _ in
+            print("완료 처리")
+            self.navigationController?.popViewController(animated: true)
+        }
+        alert.addAction(cancel)
+        alert.addAction(finish)
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 // MARK: UITableViewDataSource
@@ -109,7 +121,6 @@ extension TestListController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numOfCells
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as? TestListCell else { return UITableViewCell() }
         let word = viewModel.displayingWords[indexPath.row]
@@ -155,6 +166,9 @@ extension TestListController: UITableViewDelegate {
             tableView.deleteRows(at: [indexPath], with: .fade)
             self.configureScoreBoard()
             self.configureUndoButton()
+            if self.viewModel.canFinish {
+                self.showFinishAlert()
+            }
             completionHandler(true)
         }
         
@@ -180,6 +194,9 @@ extension TestListController: UITableViewDelegate {
             tableView.deleteRows(at: [indexPath], with: .fade)
             self.configureScoreBoard()
             self.configureUndoButton()
+            if self.viewModel.canFinish {
+                self.showFinishAlert()
+            }
             completionHandler(true)
         }
         
