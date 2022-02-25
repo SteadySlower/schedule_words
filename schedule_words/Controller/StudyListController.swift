@@ -17,8 +17,6 @@ class StudyListController: UIViewController {
     
     let tableView = UITableView()
     
-    let undoButton = FloatingUndoButton()
-    
     // MARK: Lifecycle
     
     init(wordBook: WordBook) {
@@ -40,10 +38,6 @@ class StudyListController: UIViewController {
         super.viewWillDisappear(animated)
     }
     
-    // MARK: Selectors
-    
-    @objc
-    
     // MARK: Helpers
     private func configureUI() {
         view.backgroundColor = .white
@@ -54,11 +48,6 @@ class StudyListController: UIViewController {
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        
-        view.addSubview(undoButton)
-        undoButton.translatesAutoresizingMaskIntoConstraints = false
-        undoButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 10).isActive = true
-        undoButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 10).isActive = true
     }
     
     private func configureTableView() {
@@ -68,10 +57,6 @@ class StudyListController: UIViewController {
         tableView.selectionFollowsFocus = true
         tableView.separatorStyle = .none
         tableView.isUserInteractionEnabled = true
-    }
-    
-    private func configureFloatingUndoButton() {
-        // TODO: selector 만들고 연결
     }
 }
 

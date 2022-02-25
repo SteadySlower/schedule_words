@@ -15,13 +15,20 @@ class TestListController: UIViewController {
     
     var viewModel: TestListViewModel
     
-    let tableView = UITableView()
     let scoreBoard = TestScoreBoard()
+    
+    let tableView = UITableView()
+    
+    lazy var undoButton: UIButton = {
+        let button = UIButton(configuration: FLOATING_UNDO_BUTTON_CONFIGURATION, primaryAction: nil)
+        button.addTarget(self, action: #selector(undoButtonTapped), for: .touchUpInside)
+        return button
+    }()
     
     // MARK: Lifecycle
     
-    init(wordBook: WordBook) {
-        self.viewModel = TestListViewModel(wordBook: wordBook)
+    init(wordBook: WordBook, testMode: TestMode) {
+        self.viewModel = TestListViewModel(wordBook: wordBook, testMode: testMode)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -32,8 +39,9 @@ class TestListController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        configureTableView()
         configureScoreBoard()
+        configureTableView()
+        configureUndoButton()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -43,8 +51,16 @@ class TestListController: UIViewController {
     
     // MARK: Selectors
     
+    @objc func undoButtonTapped() {
+        guard let index = viewModel.undo() else { return }
+        configureScoreBoard()
+        let indexPath = IndexPath(row: index, section: 0)
+        tableView.insertRows(at: [indexPath], with: .fade)
+        configureUndoButton()
+    }
+    
     // MARK: Helpers
-    func configureUI() {
+    private func configureUI() {
         view.backgroundColor = .white
         
         view.addSubview(scoreBoard)
@@ -60,9 +76,16 @@ class TestListController: UIViewController {
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        
+        view.addSubview(undoButton)
+        undoButton.translatesAutoresizingMaskIntoConstraints = false
+        undoButton.widthAnchor.constraint(equalToConstant: 70).isActive = true
+        undoButton.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        undoButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -15).isActive = true
+        undoButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15).isActive = true
     }
     
-    func configureTableView() {
+    private func configureTableView() {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(TestListCell.self, forCellReuseIdentifier: reuseIdentifier)
@@ -71,10 +94,13 @@ class TestListController: UIViewController {
         tableView.isUserInteractionEnabled = true
     }
     
-    func configureScoreBoard() {
+    private func configureScoreBoard() {
         scoreBoard.scores = viewModel.scores
     }
-
+    
+    private func configureUndoButton() {
+        undoButton.isHidden = viewModel.undoButtonIsHidden
+    }
 }
 
 // MARK: UITableViewDataSource
@@ -86,7 +112,7 @@ extension TestListController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as? TestListCell else { return UITableViewCell() }
-        let word = viewModel.words[indexPath.row]
+        let word = viewModel.displayingWords[indexPath.row]
         cell.viewModel = TestListCellViewModel(word: word)
         return cell
     }
@@ -101,7 +127,7 @@ extension TestListController: UITableViewDelegate {
         guard let cell = tableView.visibleCells.filter({ cell in
             let listCell = cell as! TestListCell
             let word = listCell.viewModel!.word
-            return word.id == self.viewModel.words[indexPath.row].id
+            return word.id == self.viewModel.displayingWords[indexPath.row].id
         }).first as? TestListCell else { return }
         // cell 뒤집기
         UIView.transition(with: cell,
@@ -121,13 +147,14 @@ extension TestListController: UITableViewDelegate {
         let imageSize = tableView.visibleCells.first?.bounds.height ?? 50
         
         // viewModel에서 처리하기 위해서 해당 word
-        let word = viewModel.words[indexPath.row]
+        let word = viewModel.displayingWords[indexPath.row]
         
         // 스와이프 되었을 때 실행할 동작
         let action = UIContextualAction(style: .normal, title: nil) { _, _, completionHandler in
             self.viewModel.moveWordToSuccess(success: word)
             tableView.deleteRows(at: [indexPath], with: .fade)
             self.configureScoreBoard()
+            self.configureUndoButton()
             completionHandler(true)
         }
         
@@ -146,12 +173,13 @@ extension TestListController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let word = viewModel.words[indexPath.row]
+        let word = viewModel.displayingWords[indexPath.row]
         let imageSize = tableView.visibleCells.first?.bounds.height ?? 50
         let action = UIContextualAction(style: .normal, title: nil) { _, view, completionHandler in
             self.viewModel.moveWordToFail(fail: word)
             tableView.deleteRows(at: [indexPath], with: .fade)
             self.configureScoreBoard()
+            self.configureUndoButton()
             completionHandler(true)
         }
         
@@ -165,16 +193,16 @@ extension TestListController: UITableViewDelegate {
     }
 }
 
-// MARK: motionEnded
+// MARK: motionEnded (deprecated)
 
-// 흔들면 실행 취소
-extension TestListController {
-    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-        if motion == .motionShake {
-            guard let index = viewModel.undo() else { return }
-            configureScoreBoard()
-            let indexPath = IndexPath(row: index, section: 0)
-            tableView.insertRows(at: [indexPath], with: .fade)
-        }
-    }
-}
+//// 흔들면 실행 취소
+//extension TestListController {
+//    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+//        if motion == .motionShake {
+//            guard let index = viewModel.undo() else { return }
+//            configureScoreBoard()
+//            let indexPath = IndexPath(row: index, section: 0)
+//            tableView.insertRows(at: [indexPath], with: .fade)
+//        }
+//    }
+//}
