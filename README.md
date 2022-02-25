@@ -26,6 +26,14 @@
     - 복습 시간을 미리 정해놓으면 복습할 단어장과 단어 갯수를 포함한 알람을 제공하는 기능
     - 특정 공간에 도착하면 위와 동일한 알람을 제공하는 기능
 
+# 사용 기술 💻
+- Swift
+- UIKit (StoryBoard 없이 순수 코드로 UI 구현)
+- MVVM, Singleton, Delegate
+- Core Data
+- [SideMenu](https://github.com/jonkykong/SideMenu)
+- Xcode, iOS simulator
+
 # 기능 스크린샷 📷
 
 ## 단어 학습 및 테스트 기능
