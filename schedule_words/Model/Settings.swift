@@ -30,9 +30,9 @@ enum SettingType {
     
     private var firstSegmentText: String {
         switch self {
-        case .testMode: return "전체"
+        case .testMode: return "통과 제외"
         case .testWordsOrder: return "랜덤"
-        case .studyMode: return  "전체"
+        case .studyMode: return  "통과 제외"
         case .studyWordsOrder: return "랜덤"
         case .autoCompletion: return "자동"
         }
@@ -40,9 +40,9 @@ enum SettingType {
     
     private var secondSegmentText: String {
         switch self {
-        case .testMode: return "통과 제외"
+        case .testMode: return "전체"
         case .testWordsOrder: return "원래대로"
-        case .studyMode: return  "통과 제외"
+        case .studyMode: return  "전체"
         case .studyWordsOrder: return "원래대로"
         case .autoCompletion: return "수동"
         }

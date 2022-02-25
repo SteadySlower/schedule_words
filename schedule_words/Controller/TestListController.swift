@@ -27,8 +27,8 @@ class TestListController: UIViewController {
     
     // MARK: Lifecycle
     
-    init(wordBook: WordBook, testMode: ListingMode) {
-        self.viewModel = TestListViewModel(wordBook: wordBook, testMode: testMode)
+    init(wordBook: WordBook) {
+        self.viewModel = TestListViewModel(wordBook: wordBook)
         super.init(nibName: nil, bundle: nil)
     }
 

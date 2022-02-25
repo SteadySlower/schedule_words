@@ -106,12 +106,13 @@ class HomeController: UIViewController {
         actionSheet.setValue(titleAttrString, forKey: "attributedTitle")
         
         let studyAction = UIAlertAction(title: "공부 하기", style: .default) { _ in
-            let testController = StudyListController(wordBook: wordBook)
-            self.navigationController?.pushViewController(testController, animated: true)
+            let study = StudyListController(wordBook: wordBook)
+            self.navigationController?.pushViewController(study, animated: true)
         }
         
         let testAction = UIAlertAction(title: "테스트 하기", style: .default) { _ in
-            self.showTestModeAlert(wordBook: wordBook)
+            let test = TestListController(wordBook: wordBook)
+            self.navigationController?.pushViewController(test, animated: true)
         }
         
         let cancelAction = UIAlertAction(title: "취소", style: .destructive, handler: nil)
@@ -119,21 +120,6 @@ class HomeController: UIViewController {
         actionSheet.addAction(testAction)
         actionSheet.addAction(cancelAction)
         self.present(actionSheet, animated: true, completion: nil)
-    }
-    
-    func showTestModeAlert(wordBook: WordBook) {
-        let alert = UIAlertController(title: "테스트할 단어들을 선택하세요.", message: nil, preferredStyle: .alert)
-        let allAction = UIAlertAction(title: "전부", style: .default) { _ in
-            let testController = TestListController(wordBook: wordBook, testMode: .all)
-            self.navigationController?.pushViewController(testController, animated: true)
-        }
-        let onlyWrongAction = UIAlertAction(title: "틀린 것만", style: .default) { _ in
-            let testController = TestListController(wordBook: wordBook, testMode: .onlyFail)
-            self.navigationController?.pushViewController(testController, animated: true)
-        }
-        alert.addAction(allAction)
-        alert.addAction(onlyWrongAction)
-        self.present(alert, animated: true, completion: nil)
     }
 }
 

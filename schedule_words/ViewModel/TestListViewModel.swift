@@ -16,21 +16,24 @@ struct TestListViewModel {
     
     private var wordBook: WordBook
     
-    private let testMode: ListingMode
-    
     var displayingWords: [Word]
     
     private var testResults: [TestListResult]
         // 테스트 결과를 저장해두고 실행취소할 때 사용한다.
     
-    init(wordBook: WordBook, testMode: ListingMode) {
+    init(wordBook: WordBook) {
         self.wordBook = wordBook
-        self.wordBook.prepareForTest(testMode: testMode)
-        self.testMode = testMode
+        self.wordBook.prepareForTest()
         
-        self.displayingWords = wordBook.words.filter({ word in
+        self.displayingWords = self.wordBook.words.filter({ word in
             word.testResult == .undefined
         })
+        
+        let wordsOrder = UserSetting.shared.setting.testWordsOrder
+        
+        if wordsOrder == .random {
+            self.displayingWords.shuffle()
+        }
         
         self.testResults = [TestListResult]()
     }
