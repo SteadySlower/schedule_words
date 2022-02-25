@@ -39,9 +39,12 @@
 		06DCEC18279FDC9E000E3255 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06DCEC16279FDC9E000E3255 /* Main.storyboard */; };
 		06DCEC1A279FDCA0000E3255 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06DCEC19279FDCA0000E3255 /* Assets.xcassets */; };
 		06DCEC1D279FDCA0000E3255 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06DCEC1B279FDCA0000E3255 /* LaunchScreen.storyboard */; };
+		06EBA75727C8A680001A16D3 /* SideMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 06EBA75627C8A680001A16D3 /* SideMenu */; };
+		06EBA75927C8A717001A16D3 /* SettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EBA75827C8A717001A16D3 /* SettingController.swift */; };
+		06EBA75B27C8AE9C001A16D3 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EBA75A27C8AE9C001A16D3 /* SettingCell.swift */; };
+		06EBA75D27C8B129001A16D3 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EBA75C27C8B129001A16D3 /* SettingViewModel.swift */; };
 		06FD8C2B27C3A865001ED21D /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FD8C2A27C3A865001ED21D /* HomeViewModel.swift */; };
 		06FD8C2F27C4DF89001ED21D /* CellDisplayMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FD8C2E27C4DF89001ED21D /* CellDisplayMode.swift */; };
-		06FD8C3127C601D2001ED21D /* FloatingUndoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FD8C3027C601D2001ED21D /* FloatingUndoButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,9 +83,11 @@
 		06DCEC19279FDCA0000E3255 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		06DCEC1C279FDCA0000E3255 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		06DCEC1E279FDCA0000E3255 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		06EBA75827C8A717001A16D3 /* SettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingController.swift; sourceTree = "<group>"; };
+		06EBA75A27C8AE9C001A16D3 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
+		06EBA75C27C8B129001A16D3 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		06FD8C2A27C3A865001ED21D /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		06FD8C2E27C4DF89001ED21D /* CellDisplayMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellDisplayMode.swift; sourceTree = "<group>"; };
-		06FD8C3027C601D2001ED21D /* FloatingUndoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingUndoButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06EBA75727C8A680001A16D3 /* SideMenu in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,6 +194,7 @@
 				06C2382D27A0C3D800CF4A13 /* TestListController.swift */,
 				065B270027A56B0700E355BD /* StudyListController.swift */,
 				065B270827A9708100E355BD /* WordInputController.swift */,
+				06EBA75827C8A717001A16D3 /* SettingController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -201,7 +208,7 @@
 				065B26FC27A533F400E355BD /* HomeListCell.swift */,
 				065B270227A56B5A00E355BD /* StudyListCell.swift */,
 				065B270A27AA8DA900E355BD /* InputMeaningLabel.swift */,
-				06FD8C3027C601D2001ED21D /* FloatingUndoButton.swift */,
+				06EBA75A27C8AE9C001A16D3 /* SettingCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -211,6 +218,7 @@
 			children = (
 				06C2383C27A164D800CF4A13 /* TestListViewModel.swift */,
 				06C2383E27A1692100CF4A13 /* TestListCellViewModel.swift */,
+				06EBA75C27C8B129001A16D3 /* SettingViewModel.swift */,
 				065B26FE27A547ED00E355BD /* HomeCellViewModel.swift */,
 				065B270427A576B600E355BD /* StudyListViewModel.swift */,
 				065B270627A581D000E355BD /* StudyListCellViewModel.swift */,
@@ -244,6 +252,9 @@
 			dependencies = (
 			);
 			name = schedule_words;
+			packageProductDependencies = (
+				06EBA75627C8A680001A16D3 /* SideMenu */,
+			);
 			productName = schedule_words;
 			productReference = 06DCEC0D279FDC9E000E3255 /* schedule_words.app */;
 			productType = "com.apple.product-type.application";
@@ -272,6 +283,9 @@
 				Base,
 			);
 			mainGroup = 06DCEC04279FDC9E000E3255;
+			packageReferences = (
+				06EBA75527C8A680001A16D3 /* XCRemoteSwiftPackageReference "SideMenu" */,
+			);
 			productRefGroup = 06DCEC0E279FDC9E000E3255 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -319,12 +333,14 @@
 				0639A2E827A40FFF009EFC83 /* HomeStatus.swift in Sources */,
 				06FD8C2F27C4DF89001ED21D /* CellDisplayMode.swift in Sources */,
 				062A672C27BCC4CB006ACA5F /* Inputs.swift in Sources */,
+				06EBA75927C8A717001A16D3 /* SettingController.swift in Sources */,
 				065B270727A581D000E355BD /* StudyListCellViewModel.swift in Sources */,
 				0639A2E627A4008E009EFC83 /* HomeStatusView.swift in Sources */,
+				06EBA75D27C8B129001A16D3 /* SettingViewModel.swift in Sources */,
 				065B270127A56B0700E355BD /* StudyListController.swift in Sources */,
 				065B270F27AB5EDD00E355BD /* WordService.swift in Sources */,
 				065B270327A56B5A00E355BD /* StudyListCell.swift in Sources */,
-				06FD8C3127C601D2001ED21D /* FloatingUndoButton.swift in Sources */,
+				06EBA75B27C8AE9C001A16D3 /* SettingCell.swift in Sources */,
 				065B270D27AAA32000E355BD /* Errors.swift in Sources */,
 				06C2382E27A0C3D800CF4A13 /* TestListController.swift in Sources */,
 				06C2383F27A1692100CF4A13 /* TestListCellViewModel.swift in Sources */,
@@ -552,6 +568,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		06EBA75527C8A680001A16D3 /* XCRemoteSwiftPackageReference "SideMenu" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jonkykong/SideMenu.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		06EBA75627C8A680001A16D3 /* SideMenu */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 06EBA75527C8A680001A16D3 /* XCRemoteSwiftPackageReference "SideMenu" */;
+			productName = SideMenu;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		062A671F27BA093B006ACA5F /* schedule_words.xcdatamodeld */ = {

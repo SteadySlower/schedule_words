@@ -44,6 +44,7 @@ struct WordBook {
     let createdAt: Date
     var didFinish: Bool
     
+    // FIXME: 이제 필요 없을듯?
     // 오늘 만들어진 단어장인지 확인하는 property -> 새로운 단어는 오늘 단어장에 저장하기 위해서 필요
     var isToday: Bool {
         var calendar = Calendar.current
@@ -62,5 +63,34 @@ struct WordBook {
             self.words = [Word]()
         }
         self.didFinish = MO.didFinish
+    }
+    
+    mutating func prepareForTest(testMode: TestMode) {
+        switch testMode {
+        case .onlyFail:
+            resetTestFailResults()
+        case .all:
+            resetTestAllResults()
+        }
+    }
+    
+    private mutating func resetTestAllResults() {
+        self.words = self.words.map({ word in
+            var resetWord = word
+            resetWord.testResult = .undefined
+            return resetWord
+        })
+    }
+    
+    private mutating func resetTestFailResults() {
+        self.words = self.words.map({ word in
+            if word.testResult == .fail {
+                var resetWord = word
+                resetWord.testResult = .undefined
+                return resetWord
+            } else {
+                return word
+            }
+        })
     }
 }
