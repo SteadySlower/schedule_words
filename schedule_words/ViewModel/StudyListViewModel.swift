@@ -6,18 +6,33 @@
 //
 
 import Foundation
+import UIKit
 
-struct StudyListViewModel {
+class StudyListViewModel {
     
-    var wordBook: WordBook
+    var displayingWords: [Word]
     
     init(wordBook: WordBook) {
-        self.wordBook = wordBook
-        self.wordBook.words.shuffle()
+        let studyMode = UserSetting.shared.setting.studyMode
+        
+        switch studyMode {
+        case .onlyFail:
+            self.displayingWords = wordBook.words.filter({ word in
+                word.testResult != .success
+            })
+        case .all:
+            self.displayingWords = wordBook.words
+        }
+        
+        let wordsOrder = UserSetting.shared.setting.studyWordsOrder
+        
+        if wordsOrder == .random {
+            displayingWords.shuffle()
+        }
     }
     
     var numOfCells: Int {
-        return wordBook.words.count
+        return displayingWords.count
     }
 
 }
