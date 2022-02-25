@@ -12,23 +12,18 @@ fileprivate enum TestListResult {
     case fail(wordBookIndex: Int, displayIndex: Int)
 }
 
-enum TestMode {
-    case onlyFail
-    case all
-}
-
 struct TestListViewModel {
     
     private var wordBook: WordBook
     
-    private let testMode: TestMode
+    private let testMode: ListingMode
     
     var displayingWords: [Word]
     
     private var testResults: [TestListResult]
         // 테스트 결과를 저장해두고 실행취소할 때 사용한다.
     
-    init(wordBook: WordBook, testMode: TestMode) {
+    init(wordBook: WordBook, testMode: ListingMode) {
         self.wordBook = wordBook
         self.wordBook.prepareForTest(testMode: testMode)
         self.testMode = testMode

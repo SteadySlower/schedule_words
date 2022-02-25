@@ -42,6 +42,11 @@ class HomeController: UIViewController {
         self.present(input, animated: true, completion: nil)
     }
     
+    @objc func showSettingController() {
+        let setting = SettingContoller()
+        present(setting, animated: true, completion: nil)
+    }
+    
     // MARK: Helpers
     
     func reloadData() {
@@ -84,7 +89,10 @@ class HomeController: UIViewController {
     
     private func configureNavigationBar() {
         self.navigationItem.title = "홈화면"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "추가", style: .plain, target: self, action: #selector(showWordInputController))
+        let plusImage = UIImage(systemName: "plus")
+        let settingImage = UIImage(systemName: "gear")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: plusImage, style: .plain, target: self, action: #selector(showWordInputController))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: settingImage, style: .plain, target: self, action: #selector(showSettingController))
     }
     
     private func showActionSheet(cell: HomeListCell) {
@@ -98,20 +106,38 @@ class HomeController: UIViewController {
         actionSheet.setValue(titleAttrString, forKey: "attributedTitle")
         
         let studyAction = UIAlertAction(title: "공부 하기", style: .default) { _ in
-            let studyController = StudyListController(wordBook: wordBook)
-            self.navigationController?.pushViewController(studyController, animated: true)
-        }
-        let testAction = UIAlertAction(title: "테스트 하기", style: .default) { _ in
-            let testController = TestListController(wordBook: wordBook)
+            let testController = StudyListController(wordBook: wordBook)
             self.navigationController?.pushViewController(testController, animated: true)
         }
+        
+        let testAction = UIAlertAction(title: "테스트 하기", style: .default) { _ in
+            self.showTestModeAlert(wordBook: wordBook)
+        }
+        
         let cancelAction = UIAlertAction(title: "취소", style: .destructive, handler: nil)
         actionSheet.addAction(studyAction)
         actionSheet.addAction(testAction)
         actionSheet.addAction(cancelAction)
         self.present(actionSheet, animated: true, completion: nil)
     }
+    
+    func showTestModeAlert(wordBook: WordBook) {
+        let alert = UIAlertController(title: "테스트할 단어들을 선택하세요.", message: nil, preferredStyle: .alert)
+        let allAction = UIAlertAction(title: "전부", style: .default) { _ in
+            let testController = TestListController(wordBook: wordBook, testMode: .all)
+            self.navigationController?.pushViewController(testController, animated: true)
+        }
+        let onlyWrongAction = UIAlertAction(title: "틀린 것만", style: .default) { _ in
+            let testController = TestListController(wordBook: wordBook, testMode: .onlyFail)
+            self.navigationController?.pushViewController(testController, animated: true)
+        }
+        alert.addAction(allAction)
+        alert.addAction(onlyWrongAction)
+        self.present(alert, animated: true, completion: nil)
+    }
 }
+
+// MARK: UITableViewDataSource
 
 extension HomeController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -133,6 +159,8 @@ extension HomeController: UITableViewDataSource {
         return cell
     }
 }
+
+// MARK: UITableViewDelegate
 
 extension HomeController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

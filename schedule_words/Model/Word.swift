@@ -65,7 +65,7 @@ struct WordBook {
         self.didFinish = MO.didFinish
     }
     
-    mutating func prepareForTest(testMode: TestMode) {
+    mutating func prepareForTest(testMode: ListingMode) {
         switch testMode {
         case .onlyFail:
             resetTestFailResults()
