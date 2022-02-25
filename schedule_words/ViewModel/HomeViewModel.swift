@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct HomeViewModel {
+class HomeViewModel {
     
     // MARK: main data
     var studyWordBooks: [WordBook]
@@ -79,7 +79,7 @@ struct HomeViewModel {
     
     // MARK: Helpers
     
-    mutating func updateViewModel() {
+    func updateViewModel() {
         let todayWordBookTuple = WordService.shared.fetchTodayWordBookTuple()
         self.studyWordBooks = todayWordBookTuple.studyWordBooks
         self.reviewWordBooks = todayWordBookTuple.reviewWordBooks

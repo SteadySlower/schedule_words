@@ -12,7 +12,7 @@ fileprivate enum TestListResult {
     case fail(wordBookIndex: Int, displayIndex: Int)
 }
 
-struct TestListViewModel {
+class TestListViewModel {
     
     private var wordBook: WordBook
     
@@ -59,7 +59,7 @@ struct TestListViewModel {
         return testResults.isEmpty ? true : false
     }
     
-    mutating func moveWordToSuccess(success: Word) {
+    func moveWordToSuccess(success: Word) {
         let wordBookIndex = wordBook.words.firstIndex { word in
             success.id == word.id
         }
@@ -75,7 +75,7 @@ struct TestListViewModel {
         }
     }
     
-    mutating func moveWordToFail(fail: Word) {
+    func moveWordToFail(fail: Word) {
         let wordBookIndex = wordBook.words.firstIndex { word in
             fail.id == word.id
         }
@@ -91,7 +91,7 @@ struct TestListViewModel {
         }
     }
     
-    mutating func undo() -> Int? {
+    func undo() -> Int? {
         // TODO: Error throw 하도록 수정
         guard let latest = testResults.popLast() else { return nil }
         

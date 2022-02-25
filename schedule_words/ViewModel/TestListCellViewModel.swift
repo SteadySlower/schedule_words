@@ -7,8 +7,12 @@
 
 import Foundation
 
-struct TestListCellViewModel {
+class TestListCellViewModel {
     let word: Word
+    
+    init(word: Word) {
+        self.word = word
+    }
     
     var wordLabelText: String {
         return word.spelling

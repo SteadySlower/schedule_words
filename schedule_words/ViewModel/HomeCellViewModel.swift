@@ -8,8 +8,12 @@
 import Foundation
 import UIKit
 
-struct HomeCellViewModel {
+class HomeCellViewModel {
     let wordBook: WordBook
+    
+    init(wordBook: WordBook) {
+        self.wordBook = wordBook
+    }
     
     var tagCircleLabelString: String {
         let dateGap = Utilities().getDaysFromToday(date: wordBook.createdAt)
