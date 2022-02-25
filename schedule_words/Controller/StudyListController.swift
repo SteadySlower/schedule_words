@@ -69,7 +69,7 @@ extension StudyListController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as? StudyListCell else { return UITableViewCell() }
-        let word = viewModel.wordBook.words[indexPath.row]
+        let word = viewModel.displayingWords[indexPath.row]
         cell.viewModel = StudyListCellViewModel(word: word)
         return cell
     }
@@ -84,7 +84,7 @@ extension StudyListController: UITableViewDelegate {
         guard let cell = tableView.visibleCells.filter({ cell in
             let listCell = cell as! StudyListCell
             let word = listCell.viewModel!.word
-            return word.id == self.viewModel.wordBook.words[indexPath.row].id
+            return word.id == self.viewModel.displayingWords[indexPath.row].id
         }).first as? StudyListCell else { return }
         // cell 뒤집기
         UIView.transition(with: cell,

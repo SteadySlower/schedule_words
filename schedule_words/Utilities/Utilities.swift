@@ -48,39 +48,39 @@ class Utilities {
         return result
     }
     
-    // Word(spelling) 입력 형식적 조건 만족하는지 확인
-    func validateWordInput(input: String) -> Bool {
-        let arr = Array(input)
-        let pattern = "/^[a-zA-Z0-9]*$/"
-        if let regex = try? NSRegularExpression(pattern: pattern, options: .allowCommentsAndWhitespace) {
-            var index = 0
-            while index < arr.count {
-                let results = regex.matches(in: String(arr[index]), options: [], range: NSRange(location: 0, length: 1))
-                if results.count == 0 {
-                    return false
-                } else {
-                    index += 1
-                }
-            }
-        }
-        return true
-    }
-    
-    // 의미 입력 형식적 조건 만족하는지 확인
-    func validateMeaningInput(input: String) -> Bool {
-        let arr = Array(input)
-        let pattern = "^[가-힣ㄱ-ㅎㅏ-ㅣ0-9,/.!?\\s]$"
-        if let regex = try? NSRegularExpression(pattern: pattern, options: .allowCommentsAndWhitespace) {
-            var index = 0
-            while index < arr.count {
-                let results = regex.matches(in: String(arr[index]), options: [], range: NSRange(location: 0, length: 1))
-                if results.count == 0 {
-                    return false
-                } else {
-                    index += 1
-                }
-            }
-        }
-        return true
-    }
+//    // Word(spelling) 입력 형식적 조건 만족하는지 확인
+//    func validateWordInput(input: String) -> Bool {
+//        let arr = Array(input)
+//        let pattern = "/^[a-zA-Z0-9]*$/"
+//        if let regex = try? NSRegularExpression(pattern: pattern, options: .allowCommentsAndWhitespace) {
+//            var index = 0
+//            while index < arr.count {
+//                let results = regex.matches(in: String(arr[index]), options: [], range: NSRange(location: 0, length: 1))
+//                if results.count == 0 {
+//                    return false
+//                } else {
+//                    index += 1
+//                }
+//            }
+//        }
+//        return true
+//    }
+//
+//    // 의미 입력 형식적 조건 만족하는지 확인
+//    func validateMeaningInput(input: String) -> Bool {
+//        let arr = Array(input)
+//        let pattern = "^[가-힣ㄱ-ㅎㅏ-ㅣ0-9,/.!?\\s]$"
+//        if let regex = try? NSRegularExpression(pattern: pattern, options: .allowCommentsAndWhitespace) {
+//            var index = 0
+//            while index < arr.count {
+//                let results = regex.matches(in: String(arr[index]), options: [], range: NSRange(location: 0, length: 1))
+//                if results.count == 0 {
+//                    return false
+//                } else {
+//                    index += 1
+//                }
+//            }
+//        }
+//        return true
+//    }
 }

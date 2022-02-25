@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct WordInputViewModel {
+class WordInputViewModel {
     private var spelling: String = ""
     private var meanings: [String] = []
     
@@ -25,25 +25,20 @@ struct WordInputViewModel {
         return (firstMeaning, secondMeaning, thirdMeaning)
     }
     
-    mutating func setSpelling(spelling: String) {
+    func setSpelling(spelling: String) {
         self.spelling = spelling
     }
     
-    mutating func addMeaning(newMeaning: String) throws {
+    func addMeaning(newMeaning: String) throws {
         // 에러: 뜻이 이미 3개 이상일 때
         guard meanings.count < 3 else {
             throw WordInputError.tooManyMeanings
         }
         
-        // 에러: 한글이 아닌 뜻을 입력할 때
-        guard Utilities().validateMeaningInput(input: newMeaning) == true else {
-            throw WordInputError.meaningValidationFailure
-        }
-        
         meanings.append(newMeaning)
     }
     
-    mutating func removeMeaning(at index: Int) {
+    func removeMeaning(at index: Int) {
         meanings.remove(at: index)
     }
     
