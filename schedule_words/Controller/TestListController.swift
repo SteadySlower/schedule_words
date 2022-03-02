@@ -39,14 +39,10 @@ class TestListController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        configureNavigationBar()
         configureScoreBoard()
         configureTableView()
         configureUndoButton()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        viewModel.updateTestResult()
     }
     
     // MARK: Selectors
@@ -57,6 +53,11 @@ class TestListController: UIViewController {
         let indexPath = IndexPath(row: index, section: 0)
         tableView.insertRows(at: [indexPath], with: .fade)
         configureUndoButton()
+    }
+    
+    @objc func backNavigationButtonTapped() {
+        viewModel.updateTestResult()
+        self.navigationController?.popViewController(animated: true)
     }
     
     // MARK: Helpers
@@ -85,6 +86,11 @@ class TestListController: UIViewController {
         undoButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15).isActive = true
     }
     
+    private func configureNavigationBar() {
+        let leftButton =  UIBarButtonItem(title: "< 홈화면", style: .plain, target: self, action: #selector(backNavigationButtonTapped))
+        navigationItem.leftBarButtonItem = leftButton
+    }
+    
     private func configureTableView() {
         tableView.dataSource = self
         tableView.delegate = self
@@ -105,7 +111,7 @@ class TestListController: UIViewController {
     private func showFinishAlert() {
         let alert = UIAlertController(title: "테스트 완료", message: "현재 단어장을 완료 처리합니다.\n맞은 단어는 다음 복습으로 틀린 단어는 오늘 단어장으로 이동합니다.", preferredStyle: .alert)
         let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-        let finish = UIAlertAction(title: "완료 처리", style: .destructive) { _ in
+        let finish = UIAlertAction(title: "테스트 완료", style: .destructive) { _ in
             print("완료 처리")
             self.navigationController?.popViewController(animated: true)
         }
