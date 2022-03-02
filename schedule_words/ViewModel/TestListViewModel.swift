@@ -142,6 +142,6 @@ class TestListViewModel {
     }
     
     func finishWordBook() {
-        
+        _ = WordService.shared.finishWordBook(wordBook: wordBook)
     }
 }

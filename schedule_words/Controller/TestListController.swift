@@ -112,7 +112,7 @@ class TestListController: UIViewController {
         let alert = UIAlertController(title: "테스트 완료", message: "현재 단어장을 완료 처리합니다.\n맞은 단어는 다음 복습으로 틀린 단어는 오늘 단어장으로 이동합니다.", preferredStyle: .alert)
         let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         let finish = UIAlertAction(title: "테스트 완료", style: .destructive) { _ in
-            print("완료 처리")
+            self.viewModel.finishWordBook()
             self.navigationController?.popViewController(animated: true)
         }
         alert.addAction(cancel)
