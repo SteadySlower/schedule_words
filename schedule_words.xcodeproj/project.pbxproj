@@ -10,6 +10,7 @@
 		0614F8B727C8CD49006C9F1A /* UserSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0614F8B627C8CD49006C9F1A /* UserSetting.swift */; };
 		0614F8B927C8CE25006C9F1A /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0614F8B827C8CE24006C9F1A /* Settings.swift */; };
 		0614F8BB27C8E34B006C9F1A /* WordBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0614F8BA27C8E34B006C9F1A /* WordBook.swift */; };
+		0615D24627CF429E00E551F5 /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0615D24527CF429E00E551F5 /* CalendarService.swift */; };
 		062A66F427B25C9A006ACA5F /* WordInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062A66F327B25C9A006ACA5F /* WordInputViewModel.swift */; };
 		062A672127BA093B006ACA5F /* schedule_words.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 062A671F27BA093B006ACA5F /* schedule_words.xcdatamodeld */; };
 		062A672327BA119C006ACA5F /* WordDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062A672227BA119C006ACA5F /* WordDAO.swift */; };
@@ -54,6 +55,7 @@
 		0614F8B627C8CD49006C9F1A /* UserSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSetting.swift; sourceTree = "<group>"; };
 		0614F8B827C8CE24006C9F1A /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		0614F8BA27C8E34B006C9F1A /* WordBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordBook.swift; sourceTree = "<group>"; };
+		0615D24527CF429E00E551F5 /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
 		062A66F327B25C9A006ACA5F /* WordInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordInputViewModel.swift; sourceTree = "<group>"; };
 		062A672027BA093B006ACA5F /* schedule_words.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = schedule_words.xcdatamodel; sourceTree = "<group>"; };
 		062A672227BA119C006ACA5F /* WordDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordDAO.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 			children = (
 				065B270E27AB5EDD00E355BD /* WordService.swift */,
 				0614F8B627C8CD49006C9F1A /* UserSetting.swift */,
+				0615D24527CF429E00E551F5 /* CalendarService.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -337,6 +340,7 @@
 				065B270B27AA8DA900E355BD /* InputMeaningLabel.swift in Sources */,
 				06FD8C2B27C3A865001ED21D /* HomeViewModel.swift in Sources */,
 				0614F8BB27C8E34B006C9F1A /* WordBook.swift in Sources */,
+				0615D24627CF429E00E551F5 /* CalendarService.swift in Sources */,
 				065B26FD27A533F400E355BD /* HomeListCell.swift in Sources */,
 				065B270927A9708100E355BD /* WordInputController.swift in Sources */,
 				06C2383027A0C5C100CF4A13 /* TestListCell.swift in Sources */,

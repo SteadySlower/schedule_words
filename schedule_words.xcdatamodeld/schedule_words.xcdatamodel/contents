@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21C52" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21D62" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Meaning" representedClassName="MeaningMO" syncable="YES" codeGenerationType="class">
         <attribute name="content" optional="YES" attributeType="String"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -17,6 +17,7 @@
     <entity name="WordBook" representedClassName="WordBookMO" syncable="YES" codeGenerationType="class">
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="nextReviewDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="numOfReviews" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="words" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Word" inverseName="wordBook" inverseEntity="Word"/>
@@ -24,6 +25,6 @@
     <elements>
         <element name="Meaning" positionX="-36" positionY="36" width="128" height="89"/>
         <element name="Word" positionX="-54" positionY="-9" width="128" height="119"/>
-        <element name="WordBook" positionX="413.06640625" positionY="65.3359375" width="128" height="104"/>
+        <element name="WordBook" positionX="413.06640625" positionY="65.3359375" width="128" height="119"/>
     </elements>
 </model>
