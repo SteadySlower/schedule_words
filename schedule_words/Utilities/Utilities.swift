@@ -9,22 +9,7 @@ import Foundation
 
 class Utilities {
     
-    // 날짜 비교
-    func getDaysFromToday(date: Date) -> Int {
-        let today = Date()
-        return Calendar.current.dateComponents([.day], from: date, to: today).day!
-    }
-    
-    // 오늘 날짜 범위 리턴
-    
-    func getTodayRange() -> (dateFrom: Date, dateTo: Date) {
-        var calendar = Calendar.current
-        calendar.timeZone = NSTimeZone.local
-        
-        let dateFrom = calendar.startOfDay(for: Date())
-        let dateTo = calendar.date(byAdding: .day, value: 1, to: dateFrom)!
-        return (dateFrom: dateFrom, dateTo: dateTo)
-    }
+    // MARK: Counting Words
     
     // 단어장에 모든 단어 세기
     func countTotalWords(wordBooks: [WordBook]) -> Int {
