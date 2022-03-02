@@ -26,8 +26,8 @@ class CalendarService {
     // MARK: Initializer
     
     init() {
-        // 저장된 today가 없을 때
         guard let recorededToday = plist.object(forKey: "today") as? Date else {
+            // 저장된 today가 없을 때
             let today = Date()
             plist.set(Date() as NSDate, forKey: "today")
             self.today = today
@@ -55,10 +55,24 @@ class CalendarService {
     }
     
     // 오늘 날짜 범위 리턴
-    
     func getTodayRange() -> (dateFrom: Date, dateTo: Date) {
         let dateFrom = calendar.startOfDay(for: Date())
         let dateTo = calendar.date(byAdding: .day, value: 1, to: dateFrom)!
         return (dateFrom: dateFrom, dateTo: dateTo)
     }
+    
+    // 복습 날짜 리턴
+    func getNextReviewDate(numOfReviews: Int) -> Date? {
+        switch numOfReviews {
+        case 0: return calendar.date(byAdding: .day, value: 3, to: today)
+        case 1: return calendar.date(byAdding: .day, value: 4, to: today)
+        case 2: return calendar.date(byAdding: .day, value: 7, to: today)
+        case 3: return calendar.date(byAdding: .day, value: 14, to: today)
+        default: return nil
+        }
+    }
+    
+    // MARK: Dev
+    
+    // 오늘 날짜 변경하기
 }

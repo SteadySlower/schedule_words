@@ -14,12 +14,16 @@ fileprivate enum TestListResult {
 
 class TestListViewModel {
     
+    // MARK: Store Properties
+    
     private var wordBook: WordBook
     
     var displayingWords: [Word]
     
     private var testResults: [TestListResult]
         // 테스트 결과를 저장해두고 실행취소할 때 사용한다.
+    
+    // MARK: LifeCycle
     
     init(wordBook: WordBook) {
         self.wordBook = wordBook
@@ -37,6 +41,8 @@ class TestListViewModel {
         
         self.testResults = [TestListResult]()
     }
+    
+    // MARK: Computed Properties
     
     var canFinish: Bool {
         switch wordBook.status {
@@ -73,6 +79,8 @@ class TestListViewModel {
     var undoButtonIsHidden: Bool {
         return testResults.isEmpty ? true : false
     }
+    
+    // MARK: Methods (within TestVC)
     
     func moveWordToSuccess(success: Word) {
         let wordBookIndex = wordBook.words.firstIndex { word in
@@ -124,10 +132,16 @@ class TestListViewModel {
         }
     }
     
+    // MARK: Methods (out of TestVC)
+    
     func updateTestResult() {
         // TODO: false 일 경우 에러 처리
         wordBook.words.forEach { word in
             _ = WordService.shared.updateTestResult(word: word)
         }
+    }
+    
+    func finishWordBook() {
+        
     }
 }

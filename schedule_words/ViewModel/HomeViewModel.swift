@@ -58,7 +58,7 @@ class HomeViewModel {
     }
     
     func actionSheetTitle(of wordBook: WordBook) -> String {
-        let dateGap = Utilities().getDaysFromToday(date: wordBook.createdAt)
+        let dateGap = CalendarService.shared.getDaysFromToday(date: wordBook.createdAt)
         
         switch dateGap {
         case 0:

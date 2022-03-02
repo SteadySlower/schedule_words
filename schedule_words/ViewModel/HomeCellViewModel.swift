@@ -16,7 +16,7 @@ class HomeCellViewModel {
     }
     
     var tagCircleLabelString: String {
-        let dateGap = Utilities().getDaysFromToday(date: wordBook.createdAt)
+        let dateGap = CalendarService.shared.getDaysFromToday(date: wordBook.createdAt)
         
         switch dateGap {
         case 0:
@@ -31,7 +31,7 @@ class HomeCellViewModel {
     }
     
     var tagCircleColor: CGColor {
-        let dateGap = Utilities().getDaysFromToday(date: wordBook.createdAt)
+        let dateGap = CalendarService.shared.getDaysFromToday(date: wordBook.createdAt)
         
         if dateGap == 0 {
             return UIColor.green.cgColor

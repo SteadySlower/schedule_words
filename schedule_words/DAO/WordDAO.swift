@@ -58,8 +58,9 @@ class WordDAO {
         let wordBookObject = NSEntityDescription.insertNewObject(forEntityName: "WordBook", into: context) as! WordBookMO
         wordBookObject.createdAt = wordBook.createdAt
         wordBookObject.updatedAt = wordBook.createdAt
-        wordBookObject.nextReviewDate = Date()
+        wordBookObject.nextReviewDate = CalendarService.shared.today
         wordBookObject.status = status.rawValue
+        wordBookObject.numOfReviews = 0
         
         let wordMOs = createWordMOs(words: wordBook.words, createdAt: wordBook.createdAt)
         wordBookObject.addToWords(wordMOs)
@@ -80,7 +81,7 @@ class WordDAO {
             return false
         }
         
-        let today = Date()
+        let today = CalendarService.shared.today
         let wordObject = NSEntityDescription.insertNewObject(forEntityName: "Word", into: context) as! WordMO
         
         wordObject.spelling = word.spelling
@@ -110,7 +111,7 @@ class WordDAO {
         
         var predicate = NSPredicate()
         
-        let todayDateRange = Utilities().getTodayRange()
+        let todayDateRange = CalendarService.shared.getTodayRange()
         let fromPredicate = NSPredicate(format: "%@ <= %K", todayDateRange.dateFrom as NSDate, #keyPath(WordBookMO.createdAt))
         let toPredicate = NSPredicate(format: "%K < %@", #keyPath(WordBookMO.createdAt), todayDateRange.dateTo as NSDate)
         predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [fromPredicate, toPredicate])
@@ -133,8 +134,69 @@ class WordDAO {
         guard let wordMO = fetchWordMOByID(id: id) else { return false }
         
         wordMO.testResult = testResult.rawValue
-        wordMO.updatedAt = Date()
+        wordMO.updatedAt = CalendarService.shared.today
         
+        do {
+            try context.save()
+            return true
+        } catch {
+            context.rollback()
+            NSLog("CoreData Error: %s", error.localizedDescription)
+            return false
+        }
+    }
+    
+    // 단어 오늘로 넘기기
+    func moveWordToToday(word: Word) -> Bool {
+        // 오늘 단어장 ID와 MO
+            // TODO: 오늘 단어장 없으면 만들기
+        guard let todayID = findWordBookID(createdAt: CalendarService.shared.today) else { return false }
+        guard let todayWordBookMO = fetchWordBookMOByID(id: todayID) else { return false }
+        
+        // 현재 단어 MO 가져오기
+        guard let wordMO = fetchWordMOByID(id: word.id) else { return false }
+        
+        // 현재 단어 testResult .undefined로 리셋하기
+        wordMO.testResult = WordTestResult.undefined.rawValue
+        
+        // 새로운 단어장 연결하기
+        wordMO.wordBook = todayWordBookMO
+        
+        // 커밋
+        do {
+            try context.save()
+            return true
+        } catch {
+            context.rollback()
+            NSLog("CoreData Error: %s", error.localizedDescription)
+            return false
+        }
+    }
+    
+    // 단어장 finish 하기
+    func finishWordBook(wordBookID: String) -> Bool {
+        guard let toFinishMO = fetchWordBookMOByID(id: wordBookID) else { return false }
+        
+        // status와 복습횟수에 맞추어서 nextReviewDate 설정하기
+            // 공부 단어장의 경우 status 복습으로 바꾸기
+        if toFinishMO.status == 0 {
+            toFinishMO.status = WordBookStatus.review.rawValue
+            toFinishMO.nextReviewDate = CalendarService.shared.getNextReviewDate(numOfReviews: 0)
+            // 복습 단어장일 경우 복습횟수 추가하기
+        } else if toFinishMO.status == 1 {
+            let newNumOfReviews = toFinishMO.numOfReviews + 1
+            // 복습 횟수 3회 초과하면 archive 하기
+            if newNumOfReviews > 3 {
+                toFinishMO.status = WordBookStatus.archived.rawValue
+            } else {
+                toFinishMO.numOfReviews = newNumOfReviews
+                toFinishMO.nextReviewDate =  CalendarService.shared.getNextReviewDate(numOfReviews: Int(newNumOfReviews))
+            }
+        } else {
+            return false
+        }
+        
+        // 커밋
         do {
             try context.save()
             return true
@@ -155,7 +217,7 @@ class WordDAO {
         
         wordBookMO.status = status.rawValue
         wordBookMO.nextReviewDate = nextReviewDate
-        wordBookMO.updatedAt = Date()
+        wordBookMO.updatedAt = CalendarService.shared.today
         
         do {
             try context.save()
@@ -178,7 +240,7 @@ class WordDAO {
             predicate = NSPredicate(format: "%K == %d", #keyPath(WordBookMO.status), status.rawValue)
         } else if status == .review {
             let statusPredicate = NSPredicate(format: "%K == %d", #keyPath(WordBookMO.status), status.rawValue)
-            let todayDateRange = Utilities().getTodayRange()
+            let todayDateRange = CalendarService.shared.getTodayRange()
             let toPredicate = NSPredicate(format: "%K < %@", #keyPath(WordBookMO.nextReviewDate), todayDateRange.dateTo as NSDate)
             predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [statusPredicate, toPredicate])
         }
@@ -186,7 +248,6 @@ class WordDAO {
         return predicate
     }
     
-    // 오늘의 단어장에 단어 넣을 때 사용
     private func fetchWordBookMOByID(id: String) -> WordBookMO? {
         guard let objectID = context.persistentStoreCoordinator?.managedObjectID(forURIRepresentation: URL(string: id)!) else { return nil }
         
@@ -212,7 +273,7 @@ class WordDAO {
     
     // 단어장에 단어 넣을 때 사용
     private func createMeaningMOs(meanings: [MeaningInput]) -> NSOrderedSet {
-        let today = Date()
+        let today = CalendarService.shared.today
         var meaningMOs = [MeaningMO]()
         
         for meaning in meanings {

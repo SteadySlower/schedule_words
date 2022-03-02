@@ -33,7 +33,7 @@ fileprivate let complicated = WordInput(spelling: "complicated", meanings: [comp
 fileprivate let luckyMeaning = MeaningInput(description: "운이 좋은")
 fileprivate let lucky = WordInput(spelling: "lucky", meanings: [luckyMeaning])
 
-fileprivate let today = Date()
+fileprivate let today = CalendarService.shared.today
 fileprivate let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: today)!
 fileprivate let dayBeforeYesterday = Calendar.current.date(byAdding: .day, value: -2, to: today)!
 
