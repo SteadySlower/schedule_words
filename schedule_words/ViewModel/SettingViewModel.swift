@@ -11,13 +11,12 @@ class SettingViewModel {
     
     private var setting = UserSetting.shared.setting
     
-    let numOfSections = 3
+    let numOfSections = 2
     
     func titleForSection(of section: Int) -> String {
         switch section {
         case 0: return "테스트 설정"
         case 1: return "공부 설정"
-        case 2: return "단어장 완료 설정"
         default: return ""
         }
     }
@@ -26,7 +25,6 @@ class SettingViewModel {
         switch section {
         case 0: return 2
         case 1: return 2
-        case 2: return 1
         default: return 0
         }
     }
@@ -37,12 +35,11 @@ class SettingViewModel {
         
         if section == 0 {
             return row == 0 ? .testMode : .testWordsOrder
-        } else if section == 1 {
-            return row == 0 ? .studyMode : .studyWordsOrder
         } else {
-            return .autoCompletion
+            return row == 0 ? .studyMode : .studyWordsOrder
         }
     }
+
     
     func settingToggled(type: SettingType) {
         switch type {
@@ -54,8 +51,6 @@ class SettingViewModel {
             setting.studyMode.toggle()
         case .studyWordsOrder:
             setting.studyWordsOrder.toggle()
-        case .autoCompletion:
-            setting.autoCompletion.toggle()
         }
     }
     

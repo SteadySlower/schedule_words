@@ -63,17 +63,17 @@ struct WordService {
         
     }
     
-    // TODO: 날짜 넘어갈 때 state 업데이트
-    func updateStatus() -> Bool {
-        // 오늘 단어장 가져와서 마지막 단어장은 복습 처리하고 두 단어장은 그대로 유지
+    // 날짜 넘어갔을 때 실행할 코드
+    func setForNewDay() -> Bool {
+        // 학습 날짜 지난 단어장은 복습 단어장으로 보내기
         let studyWordBooks = dao.fetchWordBooks(status: .study)
         
-            // 3일차 단어장에서 success가 아니면 오늘 단어장으로 옮기기
+       studyWordBooks
+            .filter { wordBook in wordBook.isPassedStudyDay }
+            .forEach { wordBook in _ = finishWordBook(wordBook: wordBook) }
         
+        // 복습인데 다 
         
-        // 복습 단어장들 가져와서 done인 것은 다음 복습으로 넘기고 undone인 것은 그대로 두기
-        let reviewWordBooks = dao.fetchWordBooks(status: .review)
-        
-        return false
+        return true
     }
 }

@@ -12,7 +12,6 @@ enum SettingType {
     case testWordsOrder
     case studyMode
     case studyWordsOrder
-    case autoCompletion
     
     var description: String {
         switch self {
@@ -20,7 +19,6 @@ enum SettingType {
         case .testWordsOrder: return "단어 순서"
         case .studyMode: return  "단어 보기"
         case .studyWordsOrder: return "단어 순서"
-        case .autoCompletion: return "자동 완료"
         }
     }
     
@@ -34,7 +32,6 @@ enum SettingType {
         case .testWordsOrder: return "랜덤"
         case .studyMode: return  "통과 제외"
         case .studyWordsOrder: return "랜덤"
-        case .autoCompletion: return "자동"
         }
     }
     
@@ -44,7 +41,6 @@ enum SettingType {
         case .testWordsOrder: return "원래대로"
         case .studyMode: return  "전체"
         case .studyWordsOrder: return "원래대로"
-        case .autoCompletion: return "수동"
         }
     }
     
@@ -55,7 +51,6 @@ enum SettingType {
         case .testWordsOrder: return setting.testWordsOrder.rawValue
         case .studyMode: return  setting.studyMode.rawValue
         case .studyWordsOrder: return setting.studyWordsOrder.rawValue
-        case .autoCompletion: return setting.autoCompletion.rawValue
         }
     }
 }
@@ -65,7 +60,6 @@ struct Setting {
     var testWordsOrder: WordsOrder
     var studyMode: ListingMode
     var studyWordsOrder: WordsOrder
-    var autoCompletion: AutoCompletionType
     
     static let defaultSetting = Setting()
     
@@ -74,7 +68,6 @@ struct Setting {
         self.testWordsOrder = .random
         self.studyMode = .onlyFail
         self.studyWordsOrder = .random
-        self.autoCompletion = .auto
     }
     
     init(rawData: [String: Int]) {
@@ -82,7 +75,6 @@ struct Setting {
         self.testWordsOrder = WordsOrder(rawValue: rawData["testWordsOrder"]!)!
         self.studyMode = ListingMode(rawValue: rawData["studyMode"]!)!
         self.studyWordsOrder = WordsOrder(rawValue: rawData["studyWordsOrder"]!)!
-        self.autoCompletion = AutoCompletionType(rawValue: rawData["autoCompletion"]!)!
     }
     
     var rawData: [String: Int] {
@@ -91,7 +83,6 @@ struct Setting {
             "testWordsOrder": testWordsOrder.rawValue,
             "studyMode": studyMode.rawValue,
             "studyWordsOrder": studyWordsOrder.rawValue,
-            "autoCompletion": autoCompletion.rawValue,
         ]
     }
 }
@@ -123,18 +114,3 @@ enum WordsOrder: Int {
         }
     }
 }
-
-enum AutoCompletionType: Int {
-    case auto = 0
-    case manual
-    
-    mutating func toggle() {
-        switch self {
-        case .auto:
-            self = .manual
-        case .manual:
-            self = .auto
-        }
-    }
-}
-

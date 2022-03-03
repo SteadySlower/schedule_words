@@ -11,6 +11,7 @@
 		0614F8B927C8CE25006C9F1A /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0614F8B827C8CE24006C9F1A /* Settings.swift */; };
 		0614F8BB27C8E34B006C9F1A /* WordBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0614F8BA27C8E34B006C9F1A /* WordBook.swift */; };
 		0615D24627CF429E00E551F5 /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0615D24527CF429E00E551F5 /* CalendarService.swift */; };
+		0615D24A27CF4EF600E551F5 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0615D24927CF4EF600E551F5 /* DatePickerViewController.swift */; };
 		062A66F427B25C9A006ACA5F /* WordInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062A66F327B25C9A006ACA5F /* WordInputViewModel.swift */; };
 		062A672127BA093B006ACA5F /* schedule_words.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 062A671F27BA093B006ACA5F /* schedule_words.xcdatamodeld */; };
 		062A672327BA119C006ACA5F /* WordDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062A672227BA119C006ACA5F /* WordDAO.swift */; };
@@ -56,6 +57,7 @@
 		0614F8B827C8CE24006C9F1A /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		0614F8BA27C8E34B006C9F1A /* WordBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordBook.swift; sourceTree = "<group>"; };
 		0615D24527CF429E00E551F5 /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
+		0615D24927CF4EF600E551F5 /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		062A66F327B25C9A006ACA5F /* WordInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordInputViewModel.swift; sourceTree = "<group>"; };
 		062A672027BA093B006ACA5F /* schedule_words.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = schedule_words.xcdatamodel; sourceTree = "<group>"; };
 		062A672227BA119C006ACA5F /* WordDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordDAO.swift; sourceTree = "<group>"; };
@@ -139,10 +141,10 @@
 			children = (
 				06C2383727A15B1E00CF4A13 /* Word.swift */,
 				0614F8BA27C8E34B006C9F1A /* WordBook.swift */,
+				06FD8C2E27C4DF89001ED21D /* CellDisplayMode.swift */,
 				062A672B27BCC4CB006ACA5F /* Inputs.swift */,
 				0639A2E727A40FFF009EFC83 /* HomeStatus.swift */,
 				065B270C27AAA32000E355BD /* Errors.swift */,
-				06FD8C2E27C4DF89001ED21D /* CellDisplayMode.swift */,
 				0614F8B827C8CE24006C9F1A /* Settings.swift */,
 			);
 			path = Model;
@@ -153,6 +155,7 @@
 			children = (
 				062A672427BA2272006ACA5F /* MOParser(deprecated).swift */,
 				06C2383A27A15BD600CF4A13 /* DummyWords.swift */,
+				0615D24927CF4EF600E551F5 /* DatePickerViewController.swift */,
 			);
 			path = Dev;
 			sourceTree = "<group>";
@@ -335,6 +338,7 @@
 				065B270527A576B600E355BD /* StudyListViewModel.swift in Sources */,
 				062A672327BA119C006ACA5F /* WordDAO.swift in Sources */,
 				06C2383B27A15BD600CF4A13 /* DummyWords.swift in Sources */,
+				0615D24A27CF4EF600E551F5 /* DatePickerViewController.swift in Sources */,
 				062A672527BA2272006ACA5F /* MOParser(deprecated).swift in Sources */,
 				065B26FF27A547ED00E355BD /* HomeCellViewModel.swift in Sources */,
 				065B270B27AA8DA900E355BD /* InputMeaningLabel.swift in Sources */,

@@ -47,6 +47,26 @@ class HomeController: UIViewController {
         present(setting, animated: true, completion: nil)
     }
     
+    // FIXME: DEV
+    @objc func showCalendarController() {
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+
+        let datePickerController = DatePickerViewController()
+        actionSheet.setValue(datePickerController, forKey: "contentViewController")
+
+        let delay = UIAlertAction(title: "날짜 변경", style: .default) { _ in
+            let date = datePickerController.datePicker.date
+            CalendarService.shared.chanageToday(date: date)
+            self.reloadData()
+        }
+        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+
+        actionSheet.addAction(delay)
+        actionSheet.addAction(cancel)
+
+        self.present(actionSheet, animated: true, completion: nil)
+    }
+    
     // MARK: Helpers
     
     func reloadData() {
@@ -93,6 +113,11 @@ class HomeController: UIViewController {
         let settingImage = UIImage(systemName: "gear")
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: plusImage, style: .plain, target: self, action: #selector(showWordInputController))
         self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: settingImage, style: .plain, target: self, action: #selector(showSettingController))
+        
+        // FIXME: DEV
+        let calendarImage = UIImage(systemName: "calendar")
+        let calendarBarItem = UIBarButtonItem.init(image: calendarImage, style: .plain, target: self, action: #selector(showCalendarController))
+        self.navigationItem.rightBarButtonItems?.append(calendarBarItem)
     }
     
     private func showActionSheet(wordBook: WordBook) {
@@ -104,14 +129,14 @@ class HomeController: UIViewController {
         let titleAttrString = NSMutableAttributedString(string: actionSheetTitle, attributes: attributes)
         actionSheet.setValue(titleAttrString, forKey: "attributedTitle")
         
-        let studyAction = UIAlertAction(title: "공부 하기", style: .default) { _ in
+        let studyAction = UIAlertAction(title: "공부 하기", style: .default) { [weak self] _ in
             let study = StudyListController(wordBook: wordBook)
-            self.navigationController?.pushViewController(study, animated: true)
+            self?.navigationController?.pushViewController(study, animated: true)
         }
         
-        let testAction = UIAlertAction(title: "테스트 하기", style: .default) { _ in
+        let testAction = UIAlertAction(title: "테스트 하기", style: .default) { [weak self] _ in
             let test = TestListController(wordBook: wordBook)
-            self.navigationController?.pushViewController(test, animated: true)
+            self?.navigationController?.pushViewController(test, animated: true)
         }
         
         let cancelAction = UIAlertAction(title: "취소", style: .destructive, handler: nil)
