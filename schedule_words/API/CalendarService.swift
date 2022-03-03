@@ -21,7 +21,14 @@ class CalendarService {
         return calendar
     }()
     
-    let today: Date
+    // FIXME: DEV
+        // let으로 수정하고
+        // didSet 제거
+    var today: Date {
+        didSet {
+            plist.set(self.today as NSDate, forKey: "today")
+        }
+    }
     
     // MARK: Initializer
     
@@ -29,7 +36,7 @@ class CalendarService {
         guard let recorededToday = plist.object(forKey: "today") as? Date else {
             // 저장된 today가 없을 때
             let today = Date()
-            plist.set(Date() as NSDate, forKey: "today")
+            plist.set(today as NSDate, forKey: "today")
             self.today = today
             return
         }
@@ -42,7 +49,7 @@ class CalendarService {
             self.today = recorededToday
         } else {
             let today = Date()
-            plist.set(Date() as NSDate, forKey: "today")
+            plist.set(today as NSDate, forKey: "today")
             self.today = today
         }
     }
@@ -56,7 +63,7 @@ class CalendarService {
     
     // 오늘 날짜 범위 리턴
     func getTodayRange() -> (dateFrom: Date, dateTo: Date) {
-        let dateFrom = calendar.startOfDay(for: Date())
+        let dateFrom = calendar.startOfDay(for: today)
         let dateTo = calendar.date(byAdding: .day, value: 1, to: dateFrom)!
         return (dateFrom: dateFrom, dateTo: dateTo)
     }
@@ -72,7 +79,19 @@ class CalendarService {
         }
     }
     
+    // 오늘과 날짜 차이 반환
+    
+    func numberOfDaysBetween(_ from: Date, and to: Date) -> Int {
+        let fromDate = calendar.startOfDay(for: from)
+        let toDate = calendar.startOfDay(for: to)
+        let numberOfDays = calendar.dateComponents([.day], from: fromDate, to: toDate)
+        return numberOfDays.day!
+    }
+    
     // MARK: Dev
     
     // 오늘 날짜 변경하기
+    func chanageToday(date: Date) {
+        self.today = date
+    }
 }
