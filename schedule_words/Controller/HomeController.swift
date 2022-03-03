@@ -67,6 +67,15 @@ class HomeController: UIViewController {
         self.present(actionSheet, animated: true, completion: nil)
     }
     
+    @objc func dayPlusOne() {
+        var calendar = Calendar.current
+        calendar.timeZone = NSTimeZone.local
+        let today = CalendarService.shared.today
+        let tomorrow = calendar.date(byAdding: .day, value: 1, to: today)!
+        CalendarService.shared.chanageToday(date: tomorrow)
+        reloadData()
+    }
+    
     // MARK: Helpers
     
     func reloadData() {
@@ -116,7 +125,7 @@ class HomeController: UIViewController {
         
         // FIXME: DEV
         let calendarImage = UIImage(systemName: "calendar")
-        let calendarBarItem = UIBarButtonItem.init(image: calendarImage, style: .plain, target: self, action: #selector(showCalendarController))
+        let calendarBarItem = UIBarButtonItem.init(image: calendarImage, style: .plain, target: self, action: #selector(dayPlusOne))
         self.navigationItem.rightBarButtonItems?.append(calendarBarItem)
     }
     

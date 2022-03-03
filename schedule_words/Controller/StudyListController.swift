@@ -38,6 +38,21 @@ class StudyListController: UIViewController {
         super.viewWillDisappear(animated)
     }
     
+    // MARK: Selectors
+    
+    @objc func cellLongPressed(sender: UILongPressGestureRecognizer) {
+        if sender.state == UIGestureRecognizer.State.began {
+            let touchPoint = sender.location(in: self.tableView)
+            
+            guard let indexPath = tableView.indexPathForRow(at: touchPoint) else { return }
+            guard let cell = tableView.cellForRow(at: indexPath) as? StudyListCell else { return }
+            
+            guard let word = cell.viewModel?.word else { return }
+            
+            showLongPressAlert(word: word)
+        }
+    }
+    
     // MARK: Helpers
     private func configureUI() {
         view.backgroundColor = .white
@@ -57,6 +72,32 @@ class StudyListController: UIViewController {
         tableView.selectionFollowsFocus = true
         tableView.separatorStyle = .none
         tableView.isUserInteractionEnabled = true
+        
+        // 길게 누르면 수정할 수 있도록 세팅
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(cellLongPressed(sender:)))
+        tableView.addGestureRecognizer(longPressRecognizer)
+    }
+    
+    private func showLongPressAlert(word: Word) {
+        let title = word.spelling
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+        
+        let editAction = UIAlertAction(title: "수정하기", style: .default) { [weak self] _ in
+            let input = WordEditController(homeViewController: self)
+            input.modalPresentationStyle = .overFullScreen
+            self.present(input, animated: true, completion: nil)
+        }
+        
+        let deleteAction = UIAlertAction(title: "삭제하기", style: .destructive) { [weak self] _ in
+            print("삭제하기")
+        }
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        
+        alert.addAction(editAction)
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+        self.present(alert, animated: true, completion: nil)
     }
 }
 

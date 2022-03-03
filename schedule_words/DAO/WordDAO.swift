@@ -43,7 +43,15 @@ class WordDAO {
             
             for wordBookMO in wordBookMOs {
                 let wordBook = WordBook(MO: wordBookMO)
-                wordBooks.append(wordBook)
+                
+                // 단어가 없는 단어장은 보여주지 않고 Archive 처리한다.
+                if wordBook.words.isEmpty && !wordBook.isToday {
+                    // TODO: false 리턴하면 에러처리
+                    _ = self.archiveWordBook(wordBook: wordBook)
+                   
+                } else {
+                    wordBooks.append(wordBook)
+                }
             }
             
         } catch let error as NSError {
@@ -87,7 +95,7 @@ class WordDAO {
         wordObject.spelling = word.spelling
         wordObject.createdAt = today
         wordObject.updatedAt = today
-        wordObject.testResult = WordTestResult.fail.rawValue
+        wordObject.testResult = WordTestResult.undefined.rawValue
         
         let meaningMOs = createMeaningMOs(meanings: word.meanings)
         wordObject.addToMeanings(meaningMOs)
@@ -120,7 +128,7 @@ class WordDAO {
         
         do {
             let wordBookMOs = try self.context.fetch(fetchRequest)
-            let todayWordBookMO = wordBookMOs[0]
+            guard let todayWordBookMO = wordBookMOs.first else { return nil }
             return todayWordBookMO.objectID.uriRepresentation().absoluteString
             
         } catch let error as NSError {
@@ -149,9 +157,12 @@ class WordDAO {
     // 단어 오늘로 넘기기
     func moveWordToToday(word: Word) -> Bool {
         // 오늘 단어장 ID와 MO
-            // TODO: 오늘 단어장 없으면 만들기
-        guard let todayID = findWordBookID(createdAt: CalendarService.shared.today) else { return false }
-        guard let todayWordBookMO = fetchWordBookMOByID(id: todayID) else { return false }
+        var todayID = findWordBookID(createdAt: CalendarService.shared.today)
+        if todayID == nil {
+            _ = WordService.shared.createTodayWordBook()
+            todayID = findWordBookID(createdAt: CalendarService.shared.today)
+        }
+        guard let todayWordBookMO = fetchWordBookMOByID(id: todayID!) else { return false }
         
         // 현재 단어 MO 가져오기
         guard let wordMO = fetchWordMOByID(id: word.id) else { return false }
@@ -177,16 +188,23 @@ class WordDAO {
     func finishWordBook(wordBookID: String) -> Bool {
         guard let toFinishMO = fetchWordBookMOByID(id: wordBookID) else { return false }
         
+        // 단어 undefined로 리셋하기
+        guard let toResetWordMOs = toFinishMO.words?.array as? [WordMO] else { return false }
+        
+        toResetWordMOs.forEach { wordMO in
+            wordMO.testResult = WordTestResult.undefined.rawValue
+        }
+        
         // status와 복습횟수에 맞추어서 nextReviewDate 설정하기
             // 공부 단어장의 경우 status 복습으로 바꾸기
-        if toFinishMO.status == 0 {
+        if toFinishMO.status == WordBookStatus.study.rawValue {
             toFinishMO.status = WordBookStatus.review.rawValue
             toFinishMO.nextReviewDate = CalendarService.shared.getNextReviewDate(numOfReviews: 0)
             // 복습 단어장일 경우 복습횟수 추가하기
-        } else if toFinishMO.status == 1 {
+        } else if toFinishMO.status == WordBookStatus.review.rawValue {
             let newNumOfReviews = toFinishMO.numOfReviews + 1
             // 복습 횟수 3회 초과하면 archive 하기
-            if newNumOfReviews > 3 {
+            if newNumOfReviews > MAXIMUM_REVIEW_NUMBER {
                 toFinishMO.status = WordBookStatus.archived.rawValue
             } else {
                 toFinishMO.numOfReviews = newNumOfReviews
@@ -212,22 +230,22 @@ class WordDAO {
         // 2. 3일차 단어 중에 success가 아닌 단어들은 첫날 단어장으로 옮기기
         // 3. 3일차 단어장 nextReviewDate 바꾸고 invalid 처리
         // 3. 복습단어장 중에 didFinish가 true인 단어장들은 완료 처리
-    func updateStatus(id: String, status: WordBookStatus, nextReviewDate: Date) -> Bool {
-        guard let wordBookMO = fetchWordBookMOByID(id: id) else { return false }
-        
-        wordBookMO.status = status.rawValue
-        wordBookMO.nextReviewDate = nextReviewDate
-        wordBookMO.updatedAt = CalendarService.shared.today
-        
-        do {
-            try context.save()
-            return true
-        } catch {
-            context.rollback()
-            NSLog("CoreData Error: %s", error.localizedDescription)
-            return false
-        }
-    }
+//    func updateStatus(id: String, status: WordBookStatus, nextReviewDate: Date) -> Bool {
+//        guard let wordBookMO = fetchWordBookMOByID(id: id) else { return false }
+//
+//        wordBookMO.status = status.rawValue
+//        wordBookMO.nextReviewDate = nextReviewDate
+//        wordBookMO.updatedAt = CalendarService.shared.today
+//
+//        do {
+//            try context.save()
+//            return true
+//        } catch {
+//            context.rollback()
+//            NSLog("CoreData Error: %s", error.localizedDescription)
+//            return false
+//        }
+//    }
     
     // MARK: Helpers
     
@@ -248,7 +266,8 @@ class WordDAO {
         return predicate
     }
     
-    private func fetchWordBookMOByID(id: String) -> WordBookMO? {
+    // FIXME: 더미 데이터 작업 끝나면 private
+    func fetchWordBookMOByID(id: String) -> WordBookMO? {
         guard let objectID = context.persistentStoreCoordinator?.managedObjectID(forURIRepresentation: URL(string: id)!) else { return nil }
         
         do {
@@ -305,5 +324,20 @@ class WordDAO {
         }
         
         return NSOrderedSet(array: wordMOs)
+    }
+    
+    // 단어가 없는 단어장 바로 아카이브 처리
+    private func archiveWordBook(wordBook: WordBook) -> Bool {
+        guard let wordBookMO = fetchWordBookMOByID(id: wordBook.id) else { return false }
+        wordBookMO.status = WordBookStatus.archived.rawValue
+        
+        do {
+            try context.save()
+            return true
+        } catch {
+            context.rollback()
+            NSLog("CoreData Error: %s", error.localizedDescription)
+            return false
+        }
     }
 }

@@ -69,7 +69,8 @@ class DummyDataWriter {
     }
     
     // wordBook 전부 삭제 메소드
-    private func resetWordBook() {
+    func resetWordBook() {
+        
         let fetchRequest: NSFetchRequest<WordBookMO> = WordBookMO.fetchRequest()
         
         fetchRequest.includesPropertyValues = false
@@ -82,5 +83,47 @@ class DummyDataWriter {
         }
         
         try! context.save()
+    }
+    
+    func resetUserDefault() {
+        UserDefaults.standard.removeObject(forKey: "today")
+        UserDefaults.standard.removeObject(forKey: "setting")
+    }
+    
+    func insertTodayDummyWord() {
+        let dao = WordDAO.shared
+        let todayID = dao.findWordBookID(createdAt: CalendarService.shared.today)
+        guard let todayWordBookMO = dao.fetchWordBookMOByID(id: todayID!) else { return }
+        
+        let wordObject1 = NSEntityDescription.insertNewObject(forEntityName: "Word", into: context) as! WordMO
+        
+        wordObject1.spelling = "Left"
+        wordObject1.createdAt = today
+        wordObject1.updatedAt = today
+        wordObject1.testResult = WordTestResult.success.rawValue
+        
+        let meaningObject1 = NSEntityDescription.insertNewObject(forEntityName: "Meaning", into: context) as! MeaningMO
+        meaningObject1.content = "왼쪽"
+        meaningObject1.createdAt = today
+        meaningObject1.updatedAt = today
+
+        wordObject1.addToMeanings(meaningObject1)
+        wordObject1.wordBook = todayWordBookMO
+        
+        let wordObject2 = NSEntityDescription.insertNewObject(forEntityName: "Word", into: context) as! WordMO
+        
+        wordObject2.spelling = "Right"
+        wordObject2.createdAt = today
+        wordObject2.updatedAt = today
+        wordObject2.testResult = WordTestResult.fail.rawValue
+        
+        let meaningObject2 = NSEntityDescription.insertNewObject(forEntityName: "Meaning", into: context) as! MeaningMO
+        meaningObject2.content = "오른쪽"
+        meaningObject2.createdAt = today
+        meaningObject2.updatedAt = today
+
+        wordObject2.addToMeanings(meaningObject2)
+        wordObject2.wordBook = todayWordBookMO
+        
     }
 }

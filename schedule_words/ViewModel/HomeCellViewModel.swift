@@ -69,6 +69,8 @@ class HomeCellViewModel {
         
         let numOfTotalWords = wordBook.words.count
         
+        guard numOfTotalWords != 0 else { return "0%" }
+        
         let passRatio = (Double(numOfPassedWords) / Double(numOfTotalWords)) * 100
         
         return "\(Int(passRatio))%"

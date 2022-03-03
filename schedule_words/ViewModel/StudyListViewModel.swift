@@ -34,5 +34,13 @@ class StudyListViewModel {
     var numOfCells: Int {
         return displayingWords.count
     }
+    
+    func editWord() {
+        
+    }
+    
+    func deleteWord() {
+        
+    }
 
 }

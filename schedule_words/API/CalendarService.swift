@@ -21,6 +21,8 @@ class CalendarService {
         return calendar
     }()
     
+    
+    
     // FIXME: DEV
         // let으로 수정하고
         // didSet 제거
@@ -30,6 +32,8 @@ class CalendarService {
         }
     }
     
+    var isDayChanged: Bool
+    
     // MARK: Initializer
     
     init() {
@@ -38,6 +42,7 @@ class CalendarService {
             let today = Date()
             plist.set(today as NSDate, forKey: "today")
             self.today = today
+            self.isDayChanged = true
             return
         }
         
@@ -47,10 +52,12 @@ class CalendarService {
         
         if isTodayValid {
             self.today = recorededToday
+            self.isDayChanged = false
         } else {
             let today = Date()
             plist.set(today as NSDate, forKey: "today")
             self.today = today
+            self.isDayChanged = true
         }
     }
     
@@ -88,10 +95,19 @@ class CalendarService {
         return numberOfDays.day!
     }
     
+    // 오늘 날짜와 동일한지 반환
+    
+    func isDateInToday(date: Date) -> Bool {
+        return calendar.isDate(date, inSameDayAs: today)
+    }
+    
     // MARK: Dev
     
     // 오늘 날짜 변경하기
     func chanageToday(date: Date) {
         self.today = date
+        self.isDayChanged = true
+        _ = WordService.shared.setForNewDay()
+        DummyDataWriter().insertTodayDummyWord()
     }
 }

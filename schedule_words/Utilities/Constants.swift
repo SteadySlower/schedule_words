@@ -22,3 +22,7 @@ let FLOATING_UNDO_BUTTON_CONFIGURATION: UIButton.Configuration = {
     config.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(pointSize: 25)
     return config
 }()
+
+// 최대 복습 횟수
+
+let MAXIMUM_REVIEW_NUMBER = 3

@@ -18,18 +18,24 @@ struct WordBook {
     let status: WordBookStatus
     let numOfReviews: Int
     
-    // 오늘 만들어진 단어장인지 확인하는 property -> 새로운 단어는 오늘 단어장에 저장하기 위해서 필요
+    // 오늘 만들어진 단어장인지 확인하는 property
     var isToday: Bool {
-        var calendar = Calendar.current
-        calendar.timeZone = NSTimeZone.local
-        return calendar.isDateInToday(createdAt)
+        return CalendarService.shared.isDateInToday(date: createdAt)
+    }
+
+    
+    // 오늘이 마지막 학습 날인지
+    var isLastStudyDay: Bool {
+        let today = CalendarService.shared.today
+        let dayDifference = CalendarService.shared.numberOfDaysBetween(createdAt, and: today)
+        return dayDifference > 1
     }
     
-    var isLastStudyDay: Bool {
-        var calendar = Calendar.current
-        calendar.timeZone = NSTimeZone.local
-        let twoDaysBefore = calendar.date(byAdding: .day, value: -2, to: CalendarService.shared.today)!
-        return calendar.isDate(createdAt, inSameDayAs: twoDaysBefore)
+    // 이틀 이상 지난 것은 전부 마지막 날의 것인 것으로
+    var isPassedStudyDay: Bool {
+        let today = CalendarService.shared.today
+        let dayDifference = CalendarService.shared.numberOfDaysBetween(createdAt, and: today)
+        return dayDifference > 2
     }
         
     init(MO: WordBookMO) {

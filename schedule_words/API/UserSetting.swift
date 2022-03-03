@@ -26,7 +26,7 @@ class UserSetting {
         } else {
             let defaultSetting = Setting.defaultSetting
             plist.set(defaultSetting.rawData, forKey: "setting")
-            self.setting = Setting.defaultSetting
+            self.setting = defaultSetting
         }
     }
     
