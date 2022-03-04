@@ -13,7 +13,7 @@ class WordEditController: UIViewController {
     
     private var viewModel: WordEditViewModel
     
-    weak var testListController: TestListController?
+    weak var studyListController: StudyListController?
     
     private let inputBox: UIView = {
         let view = UIView()
@@ -24,12 +24,12 @@ class WordEditController: UIViewController {
     
     private lazy var registerButton: UIButton = {
         let button = UIButton()
-        button.setTitle("추가", for: .normal)
+        button.setTitle("수정", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 20)
         button.backgroundColor = UIColor(red: 0/256, green: 100/256, blue: 0/256, alpha: 0.5)
         button.layer.cornerRadius = 10
-        button.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -109,9 +109,9 @@ class WordEditController: UIViewController {
     
     // MARK: LifeCycle
     
-    init(testListController: TestListController, word: Word) {
+    init(studyListController: StudyListController, word: Word) {
         self.viewModel = WordEditViewModel(word: word)
-        self.testListController = testListController
+        self.studyListController = studyListController
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -121,6 +121,7 @@ class WordEditController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configure()
     }
     
     override func viewWillLayoutSubviews() {
@@ -129,9 +130,10 @@ class WordEditController: UIViewController {
     
     // MARK: Selector
     
-    @objc private func registerButtonTapped() {
+    @objc private func editButtonTapped() {
         do {
-            try viewModel.addNewWord()
+            try viewModel.editWord()
+            self.studyListController?.resetData()
             dismiss(animated: true, completion: nil)
         } catch let error {
             showErrorAlert(error: error as! WordInputError)
@@ -156,7 +158,7 @@ class WordEditController: UIViewController {
         do {
             try viewModel.addMeaning(newMeaning: meaning)
             meaningTextField.text = ""
-            configureMeaningLabels()
+            configure()
         } catch let error {
             showErrorAlert(error: error as! WordInputError)
         }
@@ -242,7 +244,11 @@ class WordEditController: UIViewController {
         cancelButton.bottomAnchor.constraint(equalTo: inputBox.bottomAnchor, constant: -10).isActive = true
     }
     
-    private func configureMeaningLabels() {
+    private func configure() {
+        let wordSpelling = viewModel.spelling
+        wordLabel.text = "단어: \(wordSpelling)"
+        wordTextField.text = wordSpelling
+        
         let labelTexts = viewModel.meaningLabelText
         
         firstInputMeaningLabel.meaning = labelTexts.0
@@ -264,7 +270,7 @@ extension WordEditController: InputMeaningLabelDelegate {
     func removeButtonTapped(sender: InputMeaningLabel) {
         guard let index = sender.index else { return }
         viewModel.removeMeaning(at: index)
-        configureMeaningLabels()
+        configure()
     }
 }
 

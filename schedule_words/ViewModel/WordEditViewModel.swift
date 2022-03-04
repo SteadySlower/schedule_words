@@ -8,15 +8,22 @@
 import Foundation
 
 class WordEditViewModel {
-    private var spelling: String = ""
-    private var meanings: [String] = []
+    private let id: String
+    private var _spelling: String
+    private var meanings: [String]
     
     init(word: Word) {
-        self.spelling = word.spelling
+        self.id = word.id
+        self._spelling = word.spelling
         var meanings = [String]()
         word.meanings.forEach { meaning in
             meanings.append(meaning.description)
         }
+        self.meanings = meanings
+    }
+    
+    var spelling: String {
+        return _spelling
     }
     
     var numOfMeanings: Int {
@@ -34,7 +41,7 @@ class WordEditViewModel {
     }
     
     func setSpelling(spelling: String) {
-        self.spelling = spelling
+        self._spelling = spelling
     }
     
     func addMeaning(newMeaning: String) throws {
@@ -50,7 +57,7 @@ class WordEditViewModel {
         meanings.remove(at: index)
     }
     
-    func addNewWord() throws {
+    func editWord() throws {
         if spelling == "" {
             throw WordInputError.noWord
         }
@@ -65,7 +72,7 @@ class WordEditViewModel {
         
         let wordInput = WordInput(spelling: spelling, meanings: meaningInputs)
         
-        let result = WordService.shared.insertTodayWord(word: wordInput)
+        let result = WordService.shared.editWord(id: id, wordInput: wordInput)
         
         if !result {
             throw WordInputError.dbError

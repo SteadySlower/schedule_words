@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CloudKit
 
 struct WordService {
     static let shared = WordService()
@@ -81,5 +82,16 @@ struct WordService {
             guard createTodayWordBook() else { return false }
         }
         return true
+    }
+    
+    // 단어 수정하기
+    func editWord(id: String, wordInput: WordInput) -> Bool {
+        return dao.editWord(id: id, wordInput: wordInput)
+    }
+    
+    // 단어장 by id
+    
+    func fetchWordBookByID(id: String) -> WordBook? {
+        return dao.fetchWordBookByID(id: id)
     }
 }

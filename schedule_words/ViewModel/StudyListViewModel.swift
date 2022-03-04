@@ -11,6 +11,7 @@ import UIKit
 class StudyListViewModel {
     
     var displayingWords: [Word]
+    let wordBookID: String
     
     init(wordBook: WordBook) {
         let studyMode = UserSetting.shared.setting.studyMode
@@ -29,18 +30,33 @@ class StudyListViewModel {
         if wordsOrder == .random {
             displayingWords.shuffle()
         }
+        
+        self.wordBookID = wordBook.id
     }
     
     var numOfCells: Int {
         return displayingWords.count
     }
     
-    func editWord() {
+    func resetDisplayWords() {
+        guard let editedWordBook = WordService.shared.fetchWordBookByID(id: wordBookID) else { return }
         
-    }
-    
-    func deleteWord() {
+        let studyMode = UserSetting.shared.setting.studyMode
         
+        switch studyMode {
+        case .onlyFail:
+            self.displayingWords = editedWordBook.words.filter({ word in
+                word.testResult != .success
+            })
+        case .all:
+            self.displayingWords = editedWordBook.words
+        }
+        
+        let wordsOrder = UserSetting.shared.setting.studyWordsOrder
+        
+        if wordsOrder == .random {
+            displayingWords.shuffle()
+        }
     }
 
 }

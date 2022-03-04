@@ -225,27 +225,32 @@ class WordDAO {
         }
     }
     
-    // TODO: 날짜 넘어갈 때 status 업데이트 하기
-        // 1. 오늘 단어장 만들기
-        // 2. 3일차 단어 중에 success가 아닌 단어들은 첫날 단어장으로 옮기기
-        // 3. 3일차 단어장 nextReviewDate 바꾸고 invalid 처리
-        // 3. 복습단어장 중에 didFinish가 true인 단어장들은 완료 처리
-//    func updateStatus(id: String, status: WordBookStatus, nextReviewDate: Date) -> Bool {
-//        guard let wordBookMO = fetchWordBookMOByID(id: id) else { return false }
-//
-//        wordBookMO.status = status.rawValue
-//        wordBookMO.nextReviewDate = nextReviewDate
-//        wordBookMO.updatedAt = CalendarService.shared.today
-//
-//        do {
-//            try context.save()
-//            return true
-//        } catch {
-//            context.rollback()
-//            NSLog("CoreData Error: %s", error.localizedDescription)
-//            return false
-//        }
-//    }
+    // 단어 수정
+    func editWord(id: String, wordInput: WordInput) -> Bool {
+        guard let wordMO = fetchWordMOByID(id: id) else { return false }
+        
+        wordMO.spelling = wordInput.spelling
+        let meaningMOs = createMeaningMOs(meanings: wordInput.meanings)
+        wordMO.meanings = meaningMOs
+        wordMO.updatedAt = CalendarService.shared.today
+        
+        do {
+            try context.save()
+            return true
+        } catch {
+            context.rollback()
+            NSLog("CoreData Error: %s", error.localizedDescription)
+            return false
+        }
+    }
+    
+    // 단어장 id로 가져오기 (단어장 수정했을 때 reload용)
+    
+    func fetchWordBookByID(id: String) -> WordBook? {
+        guard let wordBookMO = fetchWordBookMOByID(id: id) else { return nil }
+        let wordBook = WordBook(MO: wordBookMO)
+        return wordBook
+    }
     
     // MARK: Helpers
     
