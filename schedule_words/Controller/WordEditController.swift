@@ -7,13 +7,17 @@
 
 import UIKit
 
+protocol WordEditControllerDelegate: AnyObject {
+    func resetData()
+}
+
 class WordEditController: UIViewController {
 
     // MARK: Properties
     
     private var viewModel: WordEditViewModel
     
-    weak var studyListController: StudyListController?
+    weak var delegate: WordEditControllerDelegate?
     
     private let inputBox: UIView = {
         let view = UIView()
@@ -109,9 +113,9 @@ class WordEditController: UIViewController {
     
     // MARK: LifeCycle
     
-    init(studyListController: StudyListController, word: Word) {
+    init(delegate: WordEditControllerDelegate, word: Word) {
         self.viewModel = WordEditViewModel(word: word)
-        self.studyListController = studyListController
+        self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -133,7 +137,7 @@ class WordEditController: UIViewController {
     @objc private func editButtonTapped() {
         do {
             try viewModel.editWord()
-            self.studyListController?.resetData()
+            self.delegate?.resetData()
             dismiss(animated: true, completion: nil)
         } catch let error {
             showErrorAlert(error: error as! WordInputError)

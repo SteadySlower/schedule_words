@@ -37,7 +37,7 @@ class HomeController: UIViewController {
     // MARK: Selectors
     
     @objc func showWordInputController() {
-        let input = WordInputController(homeViewController: self)
+        let input = WordInputController(delegate: self)
         input.modalPresentationStyle = .overFullScreen
         self.present(input, animated: true, completion: nil)
     }
@@ -77,12 +77,6 @@ class HomeController: UIViewController {
     }
     
     // MARK: Helpers
-    
-    func reloadData() {
-        viewModel.updateViewModel()
-        configureHomeStatusView()
-        tableView.reloadData()
-    }
     
     private func configureUI() {
         view.backgroundColor = .white
@@ -193,6 +187,16 @@ extension HomeController: UITableViewDelegate {
             let test = TestListController(wordBook: wordBook)
             self.navigationController?.pushViewController(test, animated: true)
         }
+    }
+}
+
+// MARK: WordInputControllerDelegate
+
+extension HomeController: WordInputControllerDelegate {
+    func reloadData() {
+        viewModel.updateViewModel()
+        configureHomeStatusView()
+        tableView.reloadData()
     }
 }
 

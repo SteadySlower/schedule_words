@@ -84,7 +84,7 @@ class StudyListController: UIViewController {
         
         let editAction = UIAlertAction(title: "수정하기", style: .default) { [weak self] _ in
             guard let weakSelf = self else { return }
-            let edit = WordEditController(studyListController: weakSelf, word: word)
+            let edit = WordEditController(delegate: weakSelf, word: word)
             edit.modalPresentationStyle = .overFullScreen
             weakSelf.present(edit, animated: true, completion: nil)
         }
@@ -99,11 +99,6 @@ class StudyListController: UIViewController {
         alert.addAction(deleteAction)
         alert.addAction(cancelAction)
         self.present(alert, animated: true, completion: nil)
-    }
-    
-    func resetData() {
-        viewModel.resetDisplayWords()
-        tableView.reloadData()
     }
 }
 
@@ -143,6 +138,15 @@ extension StudyListController: UITableViewDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             cell.toggleDisplayMode()
        }
+    }
+}
+
+// MARK: WordEditControllerDelegate
+
+extension StudyListController: WordEditControllerDelegate {
+    func resetData() {
+        viewModel.resetDisplayWords()
+        tableView.reloadData()
     }
 }
 
