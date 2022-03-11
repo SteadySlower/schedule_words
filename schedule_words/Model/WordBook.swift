@@ -17,12 +17,12 @@ struct WordBook {
     let createdAt: Date
     let status: WordBookStatus
     let numOfReviews: Int
+    let nextReviewDate: Date?
     
     // 오늘 만들어진 단어장인지 확인하는 property
     var isToday: Bool {
         return CalendarService.shared.isDateInToday(date: createdAt)
     }
-
     
     // 오늘이 마지막 학습 날인지
     var isLastStudyDay: Bool {
@@ -37,6 +37,16 @@ struct WordBook {
         let dayDifference = CalendarService.shared.numberOfDaysBetween(createdAt, and: today)
         return dayDifference > 2
     }
+    
+    // 복습이 얼마나 밀렸는지
+    var daysDelayed: Int {
+        if status == .study {
+            return 0
+        } else {
+            guard let nextReviewDate = nextReviewDate else { return 0 }
+            return CalendarService.shared.getDaysFromToday(date: nextReviewDate)
+        }
+    }
         
     init(MO: WordBookMO) {
         self.id = MO.objectID.uriRepresentation().absoluteString
@@ -50,6 +60,7 @@ struct WordBook {
         }
         self.status = WordBookStatus(rawValue: MO.status)!
         self.numOfReviews = Int(MO.numOfReviews)
+        self.nextReviewDate = MO.nextReviewDate
     }
     
     mutating func prepareForTest() {

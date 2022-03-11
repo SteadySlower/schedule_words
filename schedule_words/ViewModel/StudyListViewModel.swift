@@ -38,6 +38,11 @@ class StudyListViewModel {
         return displayingWords.count
     }
     
+    // TODO: 에러 처리
+    func deleteWord(word: Word) {
+        _ = WordService.shared.deleteWord(id: word.id)
+    }
+    
     func resetDisplayWords() {
         guard let editedWordBook = WordService.shared.fetchWordBookByID(id: wordBookID) else { return }
         

@@ -90,7 +90,9 @@ class StudyListController: UIViewController {
         }
         
         let deleteAction = UIAlertAction(title: "삭제하기", style: .destructive) { [weak self] _ in
-            print("삭제하기")
+            guard let weakSelf = self else { return }
+            weakSelf.viewModel.deleteWord(word: word)
+            weakSelf.resetData()
         }
         
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)

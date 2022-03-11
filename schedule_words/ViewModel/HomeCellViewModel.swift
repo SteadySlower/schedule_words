@@ -18,35 +18,20 @@ class HomeCellViewModel {
     var tagCircleLabelString: String {
         let dateGap = CalendarService.shared.getDaysFromToday(date: wordBook.createdAt)
         
-        switch dateGap {
-        case 0:
+        if dateGap == 0 {
             return "오늘"
-        case 1:
-            return "어제"
-        case 2:
-            return "그제"
-        default:
+        } else {
             return "+\(dateGap)일"
         }
     }
     
     var tagCircleColor: CGColor {
-        let dateGap = CalendarService.shared.getDaysFromToday(date: wordBook.createdAt)
-        
-        if dateGap == 0 {
+        if wordBook.daysDelayed <= 0 {
             return UIColor.green.cgColor
-        } else if dateGap == 1 {
+        } else if wordBook.daysDelayed <= 1 {
             return UIColor.yellow.cgColor
-        } else if dateGap == 2 {
-            return UIColor.red.cgColor
-        } else if dateGap <= 7 {
-            return UIColor.green.cgColor
-        } else if dateGap <= 14 {
-            return UIColor.yellow.cgColor
-        } else if dateGap <= 28 {
-            return UIColor.red.cgColor
         } else {
-            return UIColor.black.cgColor
+            return UIColor.red.cgColor
         }
     }
     

@@ -75,6 +75,17 @@ struct WordService {
             .filter { wordBook in wordBook.isPassedStudyDay }
             .forEach { wordBook in _ = finishWordBook(wordBook: wordBook) }
         
+        // 남은 학습 단어장은 TestResult Reset 하기 (다음날 다시 테스트할 수 있도록)
+        var toResetWords = [Word]()
+        
+        studyWordBooks
+             .filter { wordBook in !wordBook.isPassedStudyDay }
+             .forEach { wordBook in toResetWords.append(contentsOf: wordBook.words) }
+        
+        toResetWords.forEach { word in
+            _ = dao.updateTestResult(id: word.id, testResult: .undefined)
+        }
+        
         // 오늘 단어장 만들기
         let todayID = dao.findWordBookID(createdAt: CalendarService.shared.today)
         
@@ -90,8 +101,12 @@ struct WordService {
     }
     
     // 단어장 by id
-    
     func fetchWordBookByID(id: String) -> WordBook? {
         return dao.fetchWordBookByID(id: id)
+    }
+    
+    // 단어 삭제하기
+    func deleteWord(id: String) -> Bool {
+        return dao.deleteWord(id: id)
     }
 }

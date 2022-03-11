@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0611DAC627D0F272001300BA /* WordEditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0611DAC527D0F272001300BA /* WordEditController.swift */; };
 		0611DAC827D0F2A1001300BA /* WordEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0611DAC727D0F2A1001300BA /* WordEditViewModel.swift */; };
+		0611DACA27D20AB2001300BA /* TutorialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0611DAC927D20AB2001300BA /* TutorialController.swift */; };
 		0614F8B727C8CD49006C9F1A /* UserSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0614F8B627C8CD49006C9F1A /* UserSetting.swift */; };
 		0614F8B927C8CE25006C9F1A /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0614F8B827C8CE24006C9F1A /* Settings.swift */; };
 		0614F8BB27C8E34B006C9F1A /* WordBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0614F8BA27C8E34B006C9F1A /* WordBook.swift */; };
@@ -57,6 +58,7 @@
 /* Begin PBXFileReference section */
 		0611DAC527D0F272001300BA /* WordEditController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordEditController.swift; sourceTree = "<group>"; };
 		0611DAC727D0F2A1001300BA /* WordEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordEditViewModel.swift; sourceTree = "<group>"; };
+		0611DAC927D20AB2001300BA /* TutorialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialController.swift; sourceTree = "<group>"; };
 		0614F8B627C8CD49006C9F1A /* UserSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSetting.swift; sourceTree = "<group>"; };
 		0614F8B827C8CE24006C9F1A /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		0614F8BA27C8E34B006C9F1A /* WordBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordBook.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 				065B270827A9708100E355BD /* WordInputController.swift */,
 				06EBA75827C8A717001A16D3 /* SettingController.swift */,
 				0611DAC527D0F272001300BA /* WordEditController.swift */,
+				0611DAC927D20AB2001300BA /* TutorialController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 				062A672327BA119C006ACA5F /* WordDAO.swift in Sources */,
 				06C2383B27A15BD600CF4A13 /* DummyWords.swift in Sources */,
 				0615D24A27CF4EF600E551F5 /* DatePickerViewController.swift in Sources */,
+				0611DACA27D20AB2001300BA /* TutorialController.swift in Sources */,
 				062A672527BA2272006ACA5F /* MOParser(deprecated).swift in Sources */,
 				065B26FF27A547ED00E355BD /* HomeCellViewModel.swift in Sources */,
 				065B270B27AA8DA900E355BD /* InputMeaningLabel.swift in Sources */,

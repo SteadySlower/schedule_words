@@ -252,6 +252,22 @@ class WordDAO {
         return wordBook
     }
     
+    // 단어 삭제
+    
+    func deleteWord(id: String) -> Bool {
+        guard let wordMO = fetchWordMOByID(id: id) else { return false }
+        context.delete(wordMO)
+        
+        do {
+            try context.save()
+            return true
+        } catch {
+            context.rollback()
+            NSLog("CoreData Error: %s", error.localizedDescription)
+            return false
+        }
+    }
+    
     // MARK: Helpers
     
     // HomeStatus를 불러올 때 사용
