@@ -47,6 +47,12 @@ class HomeController: UIViewController {
         present(setting, animated: true, completion: nil)
     }
     
+    @objc func showTutorialController() {
+        let tutorial = TutorialController(type: .manual)
+        tutorial.modalPresentationStyle = .overFullScreen
+        self.present(tutorial, animated: true, completion: nil)
+    }
+    
     // FIXME: DEV
     @objc func showCalendarController() {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -113,9 +119,16 @@ class HomeController: UIViewController {
     private func configureNavigationBar() {
         self.navigationItem.title = "홈화면"
         let plusImage = UIImage(systemName: "plus")
+        let plusBarItem = UIBarButtonItem.init(image: plusImage, style: .plain, target: self, action: #selector(showWordInputController))
+        self.navigationItem.rightBarButtonItem = plusBarItem
+        
         let settingImage = UIImage(systemName: "gear")
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: plusImage, style: .plain, target: self, action: #selector(showWordInputController))
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: settingImage, style: .plain, target: self, action: #selector(showSettingController))
+        let settingBarItem = UIBarButtonItem.init(image: settingImage, style: .plain, target: self, action: #selector(showSettingController))
+        self.navigationItem.leftBarButtonItem = settingBarItem
+        
+        let tutorialImage = UIImage(systemName: "questionmark")
+        let tutorialBarItem = UIBarButtonItem.init(image: tutorialImage, style: .plain, target: self, action: #selector(showTutorialController))
+        self.navigationItem.leftBarButtonItems?.append(tutorialBarItem)
         
         // FIXME: DEV
         let calendarImage = UIImage(systemName: "calendar")

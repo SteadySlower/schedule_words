@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		0611DAC627D0F272001300BA /* WordEditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0611DAC527D0F272001300BA /* WordEditController.swift */; };
 		0611DAC827D0F2A1001300BA /* WordEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0611DAC727D0F2A1001300BA /* WordEditViewModel.swift */; };
-		0611DACA27D20AB2001300BA /* TutorialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0611DAC927D20AB2001300BA /* TutorialController.swift */; };
+		0611DACA27D20AB2001300BA /* TutorialPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0611DAC927D20AB2001300BA /* TutorialPageController.swift */; };
 		0614F8B727C8CD49006C9F1A /* UserSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0614F8B627C8CD49006C9F1A /* UserSetting.swift */; };
 		0614F8B927C8CE25006C9F1A /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0614F8B827C8CE24006C9F1A /* Settings.swift */; };
 		0614F8BB27C8E34B006C9F1A /* WordBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0614F8BA27C8E34B006C9F1A /* WordBook.swift */; };
@@ -32,6 +32,7 @@
 		065B270B27AA8DA900E355BD /* InputMeaningLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065B270A27AA8DA900E355BD /* InputMeaningLabel.swift */; };
 		065B270D27AAA32000E355BD /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065B270C27AAA32000E355BD /* Errors.swift */; };
 		065B270F27AB5EDD00E355BD /* WordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065B270E27AB5EDD00E355BD /* WordService.swift */; };
+		065F57C727DB232D008D2B6B /* TutorialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065F57C627DB232D008D2B6B /* TutorialController.swift */; };
 		06A77D8B27A41B39000CE965 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A77D8A27A41B39000CE965 /* Utilities.swift */; };
 		06C2382E27A0C3D800CF4A13 /* TestListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2382D27A0C3D800CF4A13 /* TestListController.swift */; };
 		06C2383027A0C5C100CF4A13 /* TestListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2382F27A0C5C100CF4A13 /* TestListCell.swift */; };
@@ -58,7 +59,7 @@
 /* Begin PBXFileReference section */
 		0611DAC527D0F272001300BA /* WordEditController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordEditController.swift; sourceTree = "<group>"; };
 		0611DAC727D0F2A1001300BA /* WordEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordEditViewModel.swift; sourceTree = "<group>"; };
-		0611DAC927D20AB2001300BA /* TutorialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialController.swift; sourceTree = "<group>"; };
+		0611DAC927D20AB2001300BA /* TutorialPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPageController.swift; sourceTree = "<group>"; };
 		0614F8B627C8CD49006C9F1A /* UserSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSetting.swift; sourceTree = "<group>"; };
 		0614F8B827C8CE24006C9F1A /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		0614F8BA27C8E34B006C9F1A /* WordBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordBook.swift; sourceTree = "<group>"; };
@@ -81,6 +82,7 @@
 		065B270A27AA8DA900E355BD /* InputMeaningLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputMeaningLabel.swift; sourceTree = "<group>"; };
 		065B270C27AAA32000E355BD /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		065B270E27AB5EDD00E355BD /* WordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordService.swift; sourceTree = "<group>"; };
+		065F57C627DB232D008D2B6B /* TutorialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialController.swift; sourceTree = "<group>"; };
 		06A77D8A27A41B39000CE965 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		06BC58B127C0C442005C8AA0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		06C2382D27A0C3D800CF4A13 /* TestListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestListController.swift; sourceTree = "<group>"; };
@@ -215,7 +217,8 @@
 				065B270827A9708100E355BD /* WordInputController.swift */,
 				06EBA75827C8A717001A16D3 /* SettingController.swift */,
 				0611DAC527D0F272001300BA /* WordEditController.swift */,
-				0611DAC927D20AB2001300BA /* TutorialController.swift */,
+				0611DAC927D20AB2001300BA /* TutorialPageController.swift */,
+				065F57C627DB232D008D2B6B /* TutorialController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -346,9 +349,10 @@
 				06DCEC11279FDC9E000E3255 /* AppDelegate.swift in Sources */,
 				065B270527A576B600E355BD /* StudyListViewModel.swift in Sources */,
 				062A672327BA119C006ACA5F /* WordDAO.swift in Sources */,
+				065F57C727DB232D008D2B6B /* TutorialController.swift in Sources */,
 				06C2383B27A15BD600CF4A13 /* DummyWords.swift in Sources */,
 				0615D24A27CF4EF600E551F5 /* DatePickerViewController.swift in Sources */,
-				0611DACA27D20AB2001300BA /* TutorialController.swift in Sources */,
+				0611DACA27D20AB2001300BA /* TutorialPageController.swift in Sources */,
 				062A672527BA2272006ACA5F /* MOParser(deprecated).swift in Sources */,
 				065B26FF27A547ED00E355BD /* HomeCellViewModel.swift in Sources */,
 				065B270B27AA8DA900E355BD /* InputMeaningLabel.swift in Sources */,
