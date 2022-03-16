@@ -15,39 +15,28 @@ class TutorialPageController: UIPageViewController {
     
     weak var pageDelegate: TutorialPageControllerDelegate?
     
-    lazy var firstVC: UIViewController = {
-        let vc = UIViewController()
-        vc.view.backgroundColor = .red
-        return vc
+    lazy var pageVCs: [TutorialContentController] = {
+       var controllers = [TutorialContentController]()
+        for i in 1...5 {
+            let tutorialImage = #imageLiteral(resourceName: "tutorial_image_1")
+            let controller = TutorialContentController(image: tutorialImage)
+            controllers.append(controller)
+        }
+        return controllers
     }()
-    
-    let secondVC: UIViewController = {
-        let vc = UIViewController()
-        vc.view.backgroundColor = .blue
-        return vc
-    }()
-    
-    let thirdVC: UIViewController = {
-        let vc = UIViewController()
-        vc.view.backgroundColor = .yellow
-        return vc
-    }()
-    
-    lazy var VCs = [
-        firstVC,
-        secondVC,
-        thirdVC,
-    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        // FIXME: dataSource를 한 단계 위의 컨트롤러로 옮기기
         self.dataSource = self
-        if let firstvc = VCs.first {
+        if let firstvc = pageVCs.first {
             self.setViewControllers([firstvc], direction: .forward, animated: true, completion: nil)
         }
     }
     
+    // TODO: complete the functions
     private func configureUI() {
+        
     }
     
     private func configureTutorials() {
@@ -58,22 +47,24 @@ class TutorialPageController: UIPageViewController {
 
 extension TutorialPageController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let index = VCs.firstIndex(of: viewController) else { return nil }
+        guard let contentController = viewController as? TutorialContentController else { return nil }
+        guard let index = pageVCs.firstIndex(of: contentController) else { return nil }
         let previousIndex = index - 1
         if previousIndex < 0 { return nil }
         
         pageDelegate?.pageChanged(index: previousIndex)
         
-        return VCs[previousIndex]
+        return pageVCs[previousIndex]
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let index = VCs.firstIndex(of: viewController) else { return nil }
+        guard let contentController = viewController as? TutorialContentController else { return nil }
+        guard let index = pageVCs.firstIndex(of: contentController) else { return nil }
         let nextIndex = index + 1
-        if nextIndex == VCs.count { return nil }
+        if nextIndex == pageVCs.count { return nil }
         
         pageDelegate?.pageChanged(index: nextIndex)
               
-        return VCs[nextIndex]
+        return pageVCs[nextIndex]
     }
 }

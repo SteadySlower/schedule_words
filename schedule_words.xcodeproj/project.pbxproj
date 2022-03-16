@@ -33,6 +33,7 @@
 		065B270D27AAA32000E355BD /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065B270C27AAA32000E355BD /* Errors.swift */; };
 		065B270F27AB5EDD00E355BD /* WordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065B270E27AB5EDD00E355BD /* WordService.swift */; };
 		065F57C727DB232D008D2B6B /* TutorialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065F57C627DB232D008D2B6B /* TutorialController.swift */; };
+		0677F4BD27E1A07300AC6C38 /* TutorialContentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0677F4BC27E1A07300AC6C38 /* TutorialContentController.swift */; };
 		06A77D8B27A41B39000CE965 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A77D8A27A41B39000CE965 /* Utilities.swift */; };
 		06C2382E27A0C3D800CF4A13 /* TestListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2382D27A0C3D800CF4A13 /* TestListController.swift */; };
 		06C2383027A0C5C100CF4A13 /* TestListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2382F27A0C5C100CF4A13 /* TestListCell.swift */; };
@@ -83,6 +84,7 @@
 		065B270C27AAA32000E355BD /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		065B270E27AB5EDD00E355BD /* WordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordService.swift; sourceTree = "<group>"; };
 		065F57C627DB232D008D2B6B /* TutorialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialController.swift; sourceTree = "<group>"; };
+		0677F4BC27E1A07300AC6C38 /* TutorialContentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialContentController.swift; sourceTree = "<group>"; };
 		06A77D8A27A41B39000CE965 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		06BC58B127C0C442005C8AA0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		06C2382D27A0C3D800CF4A13 /* TestListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestListController.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 			children = (
 				06DCEC14279FDC9E000E3255 /* HomeController.swift */,
 				06C2382D27A0C3D800CF4A13 /* TestListController.swift */,
+				0677F4BC27E1A07300AC6C38 /* TutorialContentController.swift */,
 				065B270027A56B0700E355BD /* StudyListController.swift */,
 				065B270827A9708100E355BD /* WordInputController.swift */,
 				06EBA75827C8A717001A16D3 /* SettingController.swift */,
@@ -352,6 +355,7 @@
 				065F57C727DB232D008D2B6B /* TutorialController.swift in Sources */,
 				06C2383B27A15BD600CF4A13 /* DummyWords.swift in Sources */,
 				0615D24A27CF4EF600E551F5 /* DatePickerViewController.swift in Sources */,
+				0677F4BD27E1A07300AC6C38 /* TutorialContentController.swift in Sources */,
 				0611DACA27D20AB2001300BA /* TutorialPageController.swift in Sources */,
 				062A672527BA2272006ACA5F /* MOParser(deprecated).swift in Sources */,
 				065B26FF27A547ED00E355BD /* HomeCellViewModel.swift in Sources */,
