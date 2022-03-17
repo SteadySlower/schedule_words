@@ -130,10 +130,10 @@ class HomeController: UIViewController {
         let tutorialBarItem = UIBarButtonItem.init(image: tutorialImage, style: .plain, target: self, action: #selector(showTutorialController))
         self.navigationItem.leftBarButtonItems?.append(tutorialBarItem)
         
-        // FIXME: DEV
-        let calendarImage = UIImage(systemName: "calendar")
-        let calendarBarItem = UIBarButtonItem.init(image: calendarImage, style: .plain, target: self, action: #selector(dayPlusOne))
-        self.navigationItem.rightBarButtonItems?.append(calendarBarItem)
+//        // FIXME: DEV
+//        let calendarImage = UIImage(systemName: "calendar")
+//        let calendarBarItem = UIBarButtonItem.init(image: calendarImage, style: .plain, target: self, action: #selector(dayPlusOne))
+//        self.navigationItem.rightBarButtonItems?.append(calendarBarItem)
     }
     
     private func showActionSheet(wordBook: WordBook) {

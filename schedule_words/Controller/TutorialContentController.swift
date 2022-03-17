@@ -11,8 +11,18 @@ class TutorialContentController: UIViewController {
     
     var contentView: UIView
     
-    init() {
-        self.contentView = TutorialPage1()
+    init(pageNumber: Int) {
+        switch pageNumber {
+        case 1: self.contentView = TutorialPage1()
+        case 2: self.contentView = TutorialPage2()
+        case 3: self.contentView = TutorialPage3()
+        case 4: self.contentView = TutorialPage4()
+        case 5: self.contentView = TutorialPage5()
+        case 6: self.contentView = TutorialPage6()
+        case 7: self.contentView = TutorialPage7()
+        case 8: self.contentView = TutorialPage8()
+        default: self.contentView = TutorialPage1()
+        }
         super.init(nibName: nil, bundle: nil)
     }
     

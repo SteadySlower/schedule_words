@@ -23,7 +23,7 @@ class TutorialController: UIViewController {
     lazy var pageControl: UIPageControl = {
         let pc = UIPageControl()
         pc.currentPage = 0
-        pc.numberOfPages = 5
+        pc.numberOfPages = 8
         pc.tintColor = .gray
         pc.pageIndicatorTintColor = .white
         pc.currentPageIndicatorTintColor = .black
@@ -73,6 +73,7 @@ class TutorialController: UIViewController {
     
     @objc func pageChanged(sender: UIPageControl) {
         let index = sender.currentPage
+        // TODO: pageControl과 PageController 연결
         print("디버그: 페이지 바뀜 to \(index)")
     }
     

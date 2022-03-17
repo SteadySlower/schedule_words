@@ -36,6 +36,7 @@
 		0677F4BD27E1A07300AC6C38 /* TutorialContentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0677F4BC27E1A07300AC6C38 /* TutorialContentController.swift */; };
 		0677F4C027E1AC1900AC6C38 /* TutorialPage1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0677F4BF27E1AC1900AC6C38 /* TutorialPage1.swift */; };
 		0677F4C427E2206000AC6C38 /* TutorialPage2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0677F4C327E2206000AC6C38 /* TutorialPage2.swift */; };
+		0677F4C627E3039E00AC6C38 /* TutorialPage3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0677F4C527E3039E00AC6C38 /* TutorialPage3.swift */; };
 		06A77D8B27A41B39000CE965 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A77D8A27A41B39000CE965 /* Utilities.swift */; };
 		06C2382E27A0C3D800CF4A13 /* TestListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2382D27A0C3D800CF4A13 /* TestListController.swift */; };
 		06C2383027A0C5C100CF4A13 /* TestListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2382F27A0C5C100CF4A13 /* TestListCell.swift */; };
@@ -55,6 +56,11 @@
 		06EBA75927C8A717001A16D3 /* SettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EBA75827C8A717001A16D3 /* SettingController.swift */; };
 		06EBA75B27C8AE9C001A16D3 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EBA75A27C8AE9C001A16D3 /* SettingCell.swift */; };
 		06EBA75D27C8B129001A16D3 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EBA75C27C8B129001A16D3 /* SettingViewModel.swift */; };
+		06EDF9A827E309F20092D3FB /* TutorialPage4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDF9A727E309F20092D3FB /* TutorialPage4.swift */; };
+		06EDF9AA27E30B7C0092D3FB /* TutorialPage5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDF9A927E30B7C0092D3FB /* TutorialPage5.swift */; };
+		06EDF9AC27E30CE70092D3FB /* TutorialPage6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDF9AB27E30CE70092D3FB /* TutorialPage6.swift */; };
+		06EDF9AE27E30F600092D3FB /* TutorialPage7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDF9AD27E30F600092D3FB /* TutorialPage7.swift */; };
+		06EDF9B027E3105D0092D3FB /* TutorialPage8.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDF9AF27E3105D0092D3FB /* TutorialPage8.swift */; };
 		06FD8C2B27C3A865001ED21D /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FD8C2A27C3A865001ED21D /* HomeViewModel.swift */; };
 		06FD8C2F27C4DF89001ED21D /* CellDisplayMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FD8C2E27C4DF89001ED21D /* CellDisplayMode.swift */; };
 /* End PBXBuildFile section */
@@ -89,6 +95,7 @@
 		0677F4BC27E1A07300AC6C38 /* TutorialContentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialContentController.swift; sourceTree = "<group>"; };
 		0677F4BF27E1AC1900AC6C38 /* TutorialPage1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPage1.swift; sourceTree = "<group>"; };
 		0677F4C327E2206000AC6C38 /* TutorialPage2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPage2.swift; sourceTree = "<group>"; };
+		0677F4C527E3039E00AC6C38 /* TutorialPage3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPage3.swift; sourceTree = "<group>"; };
 		06A77D8A27A41B39000CE965 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		06BC58B127C0C442005C8AA0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		06C2382D27A0C3D800CF4A13 /* TestListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestListController.swift; sourceTree = "<group>"; };
@@ -110,6 +117,11 @@
 		06EBA75827C8A717001A16D3 /* SettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingController.swift; sourceTree = "<group>"; };
 		06EBA75A27C8AE9C001A16D3 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		06EBA75C27C8B129001A16D3 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
+		06EDF9A727E309F20092D3FB /* TutorialPage4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPage4.swift; sourceTree = "<group>"; };
+		06EDF9A927E30B7C0092D3FB /* TutorialPage5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPage5.swift; sourceTree = "<group>"; };
+		06EDF9AB27E30CE70092D3FB /* TutorialPage6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPage6.swift; sourceTree = "<group>"; };
+		06EDF9AD27E30F600092D3FB /* TutorialPage7.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPage7.swift; sourceTree = "<group>"; };
+		06EDF9AF27E3105D0092D3FB /* TutorialPage8.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPage8.swift; sourceTree = "<group>"; };
 		06FD8C2A27C3A865001ED21D /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		06FD8C2E27C4DF89001ED21D /* CellDisplayMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellDisplayMode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -139,6 +151,12 @@
 			children = (
 				0677F4BF27E1AC1900AC6C38 /* TutorialPage1.swift */,
 				0677F4C327E2206000AC6C38 /* TutorialPage2.swift */,
+				0677F4C527E3039E00AC6C38 /* TutorialPage3.swift */,
+				06EDF9A727E309F20092D3FB /* TutorialPage4.swift */,
+				06EDF9A927E30B7C0092D3FB /* TutorialPage5.swift */,
+				06EDF9AB27E30CE70092D3FB /* TutorialPage6.swift */,
+				06EDF9AD27E30F600092D3FB /* TutorialPage7.swift */,
+				06EDF9AF27E3105D0092D3FB /* TutorialPage8.swift */,
 			);
 			path = TutorialPages;
 			sourceTree = "<group>";
@@ -365,6 +383,8 @@
 				06C2383527A0E85B00CF4A13 /* TestScoreBoard.swift in Sources */,
 				06DCEC11279FDC9E000E3255 /* AppDelegate.swift in Sources */,
 				065B270527A576B600E355BD /* StudyListViewModel.swift in Sources */,
+				06EDF9AA27E30B7C0092D3FB /* TutorialPage5.swift in Sources */,
+				06EDF9AE27E30F600092D3FB /* TutorialPage7.swift in Sources */,
 				062A672327BA119C006ACA5F /* WordDAO.swift in Sources */,
 				065F57C727DB232D008D2B6B /* TutorialController.swift in Sources */,
 				06C2383B27A15BD600CF4A13 /* DummyWords.swift in Sources */,
@@ -376,6 +396,7 @@
 				065B26FF27A547ED00E355BD /* HomeCellViewModel.swift in Sources */,
 				065B270B27AA8DA900E355BD /* InputMeaningLabel.swift in Sources */,
 				06FD8C2B27C3A865001ED21D /* HomeViewModel.swift in Sources */,
+				06EDF9A827E309F20092D3FB /* TutorialPage4.swift in Sources */,
 				0614F8BB27C8E34B006C9F1A /* WordBook.swift in Sources */,
 				0615D24627CF429E00E551F5 /* CalendarService.swift in Sources */,
 				065B26FD27A533F400E355BD /* HomeListCell.swift in Sources */,
@@ -391,14 +412,17 @@
 				0639A2E627A4008E009EFC83 /* HomeStatusView.swift in Sources */,
 				06EBA75D27C8B129001A16D3 /* SettingViewModel.swift in Sources */,
 				065B270127A56B0700E355BD /* StudyListController.swift in Sources */,
+				0677F4C627E3039E00AC6C38 /* TutorialPage3.swift in Sources */,
 				0677F4C027E1AC1900AC6C38 /* TutorialPage1.swift in Sources */,
 				0614F8B927C8CE25006C9F1A /* Settings.swift in Sources */,
 				065B270F27AB5EDD00E355BD /* WordService.swift in Sources */,
 				065B270327A56B5A00E355BD /* StudyListCell.swift in Sources */,
 				06EBA75B27C8AE9C001A16D3 /* SettingCell.swift in Sources */,
 				0611DAC827D0F2A1001300BA /* WordEditViewModel.swift in Sources */,
+				06EDF9AC27E30CE70092D3FB /* TutorialPage6.swift in Sources */,
 				065B270D27AAA32000E355BD /* Errors.swift in Sources */,
 				06C2382E27A0C3D800CF4A13 /* TestListController.swift in Sources */,
+				06EDF9B027E3105D0092D3FB /* TutorialPage8.swift in Sources */,
 				06C2383F27A1692100CF4A13 /* TestListCellViewModel.swift in Sources */,
 				06DCEC13279FDC9E000E3255 /* SceneDelegate.swift in Sources */,
 				062A672127BA093B006ACA5F /* schedule_words.xcdatamodeld in Sources */,

@@ -17,8 +17,8 @@ class TutorialPageController: UIPageViewController {
     
     lazy var pageVCs: [TutorialContentController] = {
        var controllers = [TutorialContentController]()
-        for i in 1...5 {
-            let controller = TutorialContentController()
+        for pageNumber in 1...8 {
+            let controller = TutorialContentController(pageNumber: pageNumber)
             controllers.append(controller)
         }
         return controllers
