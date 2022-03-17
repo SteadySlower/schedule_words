@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0611DAC627D0F272001300BA /* WordEditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0611DAC527D0F272001300BA /* WordEditController.swift */; };
 		0611DAC827D0F2A1001300BA /* WordEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0611DAC727D0F2A1001300BA /* WordEditViewModel.swift */; };
-		0611DACA27D20AB2001300BA /* TutorialPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0611DAC927D20AB2001300BA /* TutorialPageController.swift */; };
 		0614F8B727C8CD49006C9F1A /* UserSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0614F8B627C8CD49006C9F1A /* UserSetting.swift */; };
 		0614F8B927C8CE25006C9F1A /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0614F8B827C8CE24006C9F1A /* Settings.swift */; };
 		0614F8BB27C8E34B006C9F1A /* WordBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0614F8BA27C8E34B006C9F1A /* WordBook.swift */; };
@@ -61,6 +60,7 @@
 		06EDF9AC27E30CE70092D3FB /* TutorialPage6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDF9AB27E30CE70092D3FB /* TutorialPage6.swift */; };
 		06EDF9AE27E30F600092D3FB /* TutorialPage7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDF9AD27E30F600092D3FB /* TutorialPage7.swift */; };
 		06EDF9B027E3105D0092D3FB /* TutorialPage8.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDF9AF27E3105D0092D3FB /* TutorialPage8.swift */; };
+		06EDF9B227E3152D0092D3FB /* TutorialViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDF9B127E3152D0092D3FB /* TutorialViewModel.swift */; };
 		06FD8C2B27C3A865001ED21D /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FD8C2A27C3A865001ED21D /* HomeViewModel.swift */; };
 		06FD8C2F27C4DF89001ED21D /* CellDisplayMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FD8C2E27C4DF89001ED21D /* CellDisplayMode.swift */; };
 /* End PBXBuildFile section */
@@ -68,7 +68,6 @@
 /* Begin PBXFileReference section */
 		0611DAC527D0F272001300BA /* WordEditController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordEditController.swift; sourceTree = "<group>"; };
 		0611DAC727D0F2A1001300BA /* WordEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordEditViewModel.swift; sourceTree = "<group>"; };
-		0611DAC927D20AB2001300BA /* TutorialPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPageController.swift; sourceTree = "<group>"; };
 		0614F8B627C8CD49006C9F1A /* UserSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSetting.swift; sourceTree = "<group>"; };
 		0614F8B827C8CE24006C9F1A /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		0614F8BA27C8E34B006C9F1A /* WordBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordBook.swift; sourceTree = "<group>"; };
@@ -122,6 +121,7 @@
 		06EDF9AB27E30CE70092D3FB /* TutorialPage6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPage6.swift; sourceTree = "<group>"; };
 		06EDF9AD27E30F600092D3FB /* TutorialPage7.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPage7.swift; sourceTree = "<group>"; };
 		06EDF9AF27E3105D0092D3FB /* TutorialPage8.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPage8.swift; sourceTree = "<group>"; };
+		06EDF9B127E3152D0092D3FB /* TutorialViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewModel.swift; sourceTree = "<group>"; };
 		06FD8C2A27C3A865001ED21D /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		06FD8C2E27C4DF89001ED21D /* CellDisplayMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellDisplayMode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -251,7 +251,6 @@
 				065B270827A9708100E355BD /* WordInputController.swift */,
 				06EBA75827C8A717001A16D3 /* SettingController.swift */,
 				0611DAC527D0F272001300BA /* WordEditController.swift */,
-				0611DAC927D20AB2001300BA /* TutorialPageController.swift */,
 				065F57C627DB232D008D2B6B /* TutorialController.swift */,
 			);
 			path = Controller;
@@ -284,6 +283,7 @@
 				062A66F327B25C9A006ACA5F /* WordInputViewModel.swift */,
 				06FD8C2A27C3A865001ED21D /* HomeViewModel.swift */,
 				0611DAC727D0F2A1001300BA /* WordEditViewModel.swift */,
+				06EDF9B127E3152D0092D3FB /* TutorialViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -391,7 +391,6 @@
 				0615D24A27CF4EF600E551F5 /* DatePickerViewController.swift in Sources */,
 				0677F4BD27E1A07300AC6C38 /* TutorialContentController.swift in Sources */,
 				0677F4C427E2206000AC6C38 /* TutorialPage2.swift in Sources */,
-				0611DACA27D20AB2001300BA /* TutorialPageController.swift in Sources */,
 				062A672527BA2272006ACA5F /* MOParser(deprecated).swift in Sources */,
 				065B26FF27A547ED00E355BD /* HomeCellViewModel.swift in Sources */,
 				065B270B27AA8DA900E355BD /* InputMeaningLabel.swift in Sources */,
@@ -419,6 +418,7 @@
 				065B270327A56B5A00E355BD /* StudyListCell.swift in Sources */,
 				06EBA75B27C8AE9C001A16D3 /* SettingCell.swift in Sources */,
 				0611DAC827D0F2A1001300BA /* WordEditViewModel.swift in Sources */,
+				06EDF9B227E3152D0092D3FB /* TutorialViewModel.swift in Sources */,
 				06EDF9AC27E30CE70092D3FB /* TutorialPage6.swift in Sources */,
 				065B270D27AAA32000E355BD /* Errors.swift in Sources */,
 				06C2382E27A0C3D800CF4A13 /* TestListController.swift in Sources */,

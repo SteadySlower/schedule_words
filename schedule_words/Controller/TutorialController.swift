@@ -16,13 +16,14 @@ class TutorialController: UIViewController {
     
     // MARK: Properties
     
-    let pageController = TutorialPageController()
+    let viewModel = TutorialViewModel()
     
     let type: TutorialType
     
+    let pageController = UIPageViewController()
+    
     lazy var pageControl: UIPageControl = {
         let pc = UIPageControl()
-        pc.currentPage = 0
         pc.numberOfPages = 8
         pc.tintColor = .gray
         pc.pageIndicatorTintColor = .white
@@ -65,16 +66,19 @@ class TutorialController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.pageController.pageDelegate = self
+        configurePageController()
         configureUI()
+        configurePageControl()
     }
     
     // MARK: Selectors
     
     @objc func pageChanged(sender: UIPageControl) {
         let index = sender.currentPage
-        // TODO: pageControl과 PageController 연결
-        print("디버그: 페이지 바뀜 to \(index)")
+        let currentPage = viewModel.getContentController(of: index)
+        if let currentPage = currentPage {
+            self.pageController.setViewControllers([currentPage], direction: .forward, animated: true, completion: nil)
+        }
     }
     
     @objc func checkBoxTapped(sender: UIButton) {
@@ -119,11 +123,33 @@ class TutorialController: UIViewController {
         if type == .manual {
             noShowCheckBox.isHidden = true
         }
-    }    
+    }
+    
+    func configurePageController() {
+        self.pageController.dataSource = self
+        self.pageController.delegate = self
+        if let firstvc = viewModel.firstVC {
+            self.pageController.setViewControllers([firstvc], direction: .forward, animated: true, completion: nil)
+        }
+    }
+    
+    func configurePageControl() {
+        pageControl.currentPage = viewModel.currentIndex
+    }
 }
 
-extension TutorialController: TutorialPageControllerDelegate {
-    func pageChanged(index: Int) {
-        pageControl.currentPage = index
+extension TutorialController: UIPageViewControllerDataSource {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        return viewModel.previousVC
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        return viewModel.nextVC
+    }
+}
+
+extension TutorialController: UIPageViewControllerDelegate {
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        configurePageControl()
     }
 }

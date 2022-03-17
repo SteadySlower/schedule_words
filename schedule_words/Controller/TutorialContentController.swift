@@ -21,7 +21,7 @@ class TutorialContentController: UIViewController {
         case 6: self.contentView = TutorialPage6()
         case 7: self.contentView = TutorialPage7()
         case 8: self.contentView = TutorialPage8()
-        default: self.contentView = TutorialPage1()
+        default: self.contentView = UIView()
         }
         super.init(nibName: nil, bundle: nil)
     }
