@@ -34,6 +34,8 @@
 		065B270F27AB5EDD00E355BD /* WordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065B270E27AB5EDD00E355BD /* WordService.swift */; };
 		065F57C727DB232D008D2B6B /* TutorialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065F57C627DB232D008D2B6B /* TutorialController.swift */; };
 		0677F4BD27E1A07300AC6C38 /* TutorialContentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0677F4BC27E1A07300AC6C38 /* TutorialContentController.swift */; };
+		0677F4C027E1AC1900AC6C38 /* TutorialPage1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0677F4BF27E1AC1900AC6C38 /* TutorialPage1.swift */; };
+		0677F4C427E2206000AC6C38 /* TutorialPage2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0677F4C327E2206000AC6C38 /* TutorialPage2.swift */; };
 		06A77D8B27A41B39000CE965 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A77D8A27A41B39000CE965 /* Utilities.swift */; };
 		06C2382E27A0C3D800CF4A13 /* TestListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2382D27A0C3D800CF4A13 /* TestListController.swift */; };
 		06C2383027A0C5C100CF4A13 /* TestListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2382F27A0C5C100CF4A13 /* TestListCell.swift */; };
@@ -85,6 +87,8 @@
 		065B270E27AB5EDD00E355BD /* WordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordService.swift; sourceTree = "<group>"; };
 		065F57C627DB232D008D2B6B /* TutorialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialController.swift; sourceTree = "<group>"; };
 		0677F4BC27E1A07300AC6C38 /* TutorialContentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialContentController.swift; sourceTree = "<group>"; };
+		0677F4BF27E1AC1900AC6C38 /* TutorialPage1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPage1.swift; sourceTree = "<group>"; };
+		0677F4C327E2206000AC6C38 /* TutorialPage2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPage2.swift; sourceTree = "<group>"; };
 		06A77D8A27A41B39000CE965 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		06BC58B127C0C442005C8AA0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		06C2382D27A0C3D800CF4A13 /* TestListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestListController.swift; sourceTree = "<group>"; };
@@ -128,6 +132,15 @@
 				062A672227BA119C006ACA5F /* WordDAO.swift */,
 			);
 			path = DAO;
+			sourceTree = "<group>";
+		};
+		0677F4BE27E1ABE900AC6C38 /* TutorialPages */ = {
+			isa = PBXGroup;
+			children = (
+				0677F4BF27E1AC1900AC6C38 /* TutorialPage1.swift */,
+				0677F4C327E2206000AC6C38 /* TutorialPage2.swift */,
+			);
+			path = TutorialPages;
 			sourceTree = "<group>";
 		};
 		06BC58B227C0E7F3005C8AA0 /* readme_img */ = {
@@ -229,6 +242,7 @@
 		06DCEC25279FDCEF000E3255 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0677F4BE27E1ABE900AC6C38 /* TutorialPages */,
 				06C2382F27A0C5C100CF4A13 /* TestListCell.swift */,
 				06C2383427A0E85B00CF4A13 /* TestScoreBoard.swift */,
 				0639A2E527A4008E009EFC83 /* HomeStatusView.swift */,
@@ -356,6 +370,7 @@
 				06C2383B27A15BD600CF4A13 /* DummyWords.swift in Sources */,
 				0615D24A27CF4EF600E551F5 /* DatePickerViewController.swift in Sources */,
 				0677F4BD27E1A07300AC6C38 /* TutorialContentController.swift in Sources */,
+				0677F4C427E2206000AC6C38 /* TutorialPage2.swift in Sources */,
 				0611DACA27D20AB2001300BA /* TutorialPageController.swift in Sources */,
 				062A672527BA2272006ACA5F /* MOParser(deprecated).swift in Sources */,
 				065B26FF27A547ED00E355BD /* HomeCellViewModel.swift in Sources */,
@@ -376,6 +391,7 @@
 				0639A2E627A4008E009EFC83 /* HomeStatusView.swift in Sources */,
 				06EBA75D27C8B129001A16D3 /* SettingViewModel.swift in Sources */,
 				065B270127A56B0700E355BD /* StudyListController.swift in Sources */,
+				0677F4C027E1AC1900AC6C38 /* TutorialPage1.swift in Sources */,
 				0614F8B927C8CE25006C9F1A /* Settings.swift in Sources */,
 				065B270F27AB5EDD00E355BD /* WordService.swift in Sources */,
 				065B270327A56B5A00E355BD /* StudyListCell.swift in Sources */,

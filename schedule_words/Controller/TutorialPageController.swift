@@ -18,8 +18,7 @@ class TutorialPageController: UIPageViewController {
     lazy var pageVCs: [TutorialContentController] = {
        var controllers = [TutorialContentController]()
         for i in 1...5 {
-            let tutorialImage = #imageLiteral(resourceName: "tutorial_image_1")
-            let controller = TutorialContentController(image: tutorialImage)
+            let controller = TutorialContentController()
             controllers.append(controller)
         }
         return controllers

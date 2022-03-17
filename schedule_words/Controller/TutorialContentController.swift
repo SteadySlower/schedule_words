@@ -9,14 +9,10 @@ import UIKit
 
 class TutorialContentController: UIViewController {
     
-    let imageView: UIImageView = {
-        let iv = UIImageView()
-        iv.contentMode = .scaleAspectFill
-        return iv
-    }()
+    var contentView: UIView
     
-    init(image: UIImage) {
-        self.imageView.image = image
+    init() {
+        self.contentView = TutorialPage1()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -30,11 +26,13 @@ class TutorialContentController: UIViewController {
     }
     
     private func configureUI() {
-        view.addSubview(imageView)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        imageView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        imageView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        view.addSubview(contentView)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        contentView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        contentView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
     }
 
 }
