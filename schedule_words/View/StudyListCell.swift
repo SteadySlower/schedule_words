@@ -76,17 +76,7 @@ class StudyListCell: UITableViewCell {
             wordLabel.font = UIFont.systemFont(ofSize: 30)
             wordLabel.text = viewModel?.wordLabelText
         } else {
-            var fontSize: CGFloat
-            
-            // TODO: font size viewModel이 담당하도록
-            switch viewModel?.word.meanings.count {
-            case 1: fontSize = 30
-            case 2: fontSize = 20
-            case 3: fontSize = 15
-            default: fontSize = 10
-            }
-            
-            wordLabel.font = UIFont.systemFont(ofSize: fontSize)
+            wordLabel.font = UIFont.systemFont(ofSize: viewModel?.meaningFontSize ?? 10)
             wordLabel.text = viewModel?.meaningLabelText
         }
     }

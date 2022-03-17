@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class TestListCellViewModel {
     let word: Word
@@ -28,5 +29,14 @@ class TestListCellViewModel {
             }
         }
         return text
+    }
+    
+    var meaningFontSize: CGFloat {
+        switch word.meanings.count {
+        case 1: return 30
+        case 2: return 20
+        case 3: return 15
+        default: return 10
+        }
     }
 }

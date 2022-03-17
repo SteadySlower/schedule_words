@@ -9,7 +9,6 @@
 //
 //
 //
-//// TODO: parser 없애고 다 initiater로 수정
 //class MOParser {
 //    func parseWordBook(rawData: WordBookMO) -> WordBook {
 //        let id = rawData.objectID
