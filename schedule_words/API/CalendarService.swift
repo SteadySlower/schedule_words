@@ -21,16 +21,7 @@ class CalendarService {
         return calendar
     }()
     
-    
-    
-    // FIXME: DEV
-        // let으로 수정하고
-        // didSet 제거
-    var today: Date {
-        didSet {
-            plist.set(self.today as NSDate, forKey: "today")
-        }
-    }
+    let today: Date
     
     var isDayChanged: Bool
     
@@ -104,10 +95,10 @@ class CalendarService {
     // MARK: Dev
     
     // 오늘 날짜 변경하기
-    func chanageToday(date: Date) {
-        self.today = date
-        self.isDayChanged = true
-        _ = WordService.shared.setForNewDay()
-        DummyDataWriter().insertTodayDummyWord()
-    }
+//    func chanageToday(date: Date) {
+//        self.today = date
+//        self.isDayChanged = true
+//        _ = WordService.shared.setForNewDay()
+//       DummyDataWriter().insertTodayDummyWord()
+//    }
 }

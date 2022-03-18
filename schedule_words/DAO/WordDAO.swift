@@ -287,8 +287,7 @@ class WordDAO {
         return predicate
     }
     
-    // FIXME: 더미 데이터 작업 끝나면 private
-    func fetchWordBookMOByID(id: String) -> WordBookMO? {
+    private func fetchWordBookMOByID(id: String) -> WordBookMO? {
         guard let objectID = context.persistentStoreCoordinator?.managedObjectID(forURIRepresentation: URL(string: id)!) else { return nil }
         
         do {

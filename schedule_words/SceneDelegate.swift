@@ -15,9 +15,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         // FIXME: 더미데이터 write
-        let dummyDataWriter = DummyDataWriter()
-        dummyDataWriter.resetWordBook()
-        dummyDataWriter.resetUserDefault()
+//        let dummyDataWriter = DummyDataWriter()
+//        dummyDataWriter.resetWordBook()
+//        dummyDataWriter.resetUserDefault()
         
         _ = WordService.shared.setForNewDay()
         

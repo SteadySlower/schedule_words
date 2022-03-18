@@ -53,34 +53,34 @@ class HomeController: UIViewController {
         self.present(tutorial, animated: true, completion: nil)
     }
     
-    // FIXME: DEV
-    @objc func showCalendarController() {
-        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-
-        let datePickerController = DatePickerViewController()
-        actionSheet.setValue(datePickerController, forKey: "contentViewController")
-
-        let delay = UIAlertAction(title: "날짜 변경", style: .default) { _ in
-            let date = datePickerController.datePicker.date
-            CalendarService.shared.chanageToday(date: date)
-            self.reloadData()
-        }
-        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-
-        actionSheet.addAction(delay)
-        actionSheet.addAction(cancel)
-
-        self.present(actionSheet, animated: true, completion: nil)
-    }
-    
-    @objc func dayPlusOne() {
-        var calendar = Calendar.current
-        calendar.timeZone = NSTimeZone.local
-        let today = CalendarService.shared.today
-        let tomorrow = calendar.date(byAdding: .day, value: 1, to: today)!
-        CalendarService.shared.chanageToday(date: tomorrow)
-        reloadData()
-    }
+//    // FIXME: DEV
+//    @objc func showCalendarController() {
+//        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+//
+//        let datePickerController = DatePickerViewController()
+//        actionSheet.setValue(datePickerController, forKey: "contentViewController")
+//
+//        let delay = UIAlertAction(title: "날짜 변경", style: .default) { _ in
+//            let date = datePickerController.datePicker.date
+//            CalendarService.shared.chanageToday(date: date)
+//            self.reloadData()
+//        }
+//        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+//
+//        actionSheet.addAction(delay)
+//        actionSheet.addAction(cancel)
+//
+//        self.present(actionSheet, animated: true, completion: nil)
+//    }
+//    
+//    @objc func dayPlusOne() {
+//        var calendar = Calendar.current
+//        calendar.timeZone = NSTimeZone.local
+//        let today = CalendarService.shared.today
+//        let tomorrow = calendar.date(byAdding: .day, value: 1, to: today)!
+//        CalendarService.shared.chanageToday(date: tomorrow)
+//        reloadData()
+//    }
     
     // MARK: Helpers
     
