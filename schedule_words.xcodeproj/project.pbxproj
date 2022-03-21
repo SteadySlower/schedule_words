@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06115D2C27E840DA00C76C5E /* 1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 06115D2B27E840DA00C76C5E /* 1.gif */; };
 		0611DAC627D0F272001300BA /* WordEditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0611DAC527D0F272001300BA /* WordEditController.swift */; };
 		0611DAC827D0F2A1001300BA /* WordEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0611DAC727D0F2A1001300BA /* WordEditViewModel.swift */; };
 		0614F8B727C8CD49006C9F1A /* UserSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0614F8B627C8CD49006C9F1A /* UserSetting.swift */; };
@@ -66,6 +67,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		06115D2B27E840DA00C76C5E /* 1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 1.gif; sourceTree = "<group>"; };
 		0611DAC527D0F272001300BA /* WordEditController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordEditController.swift; sourceTree = "<group>"; };
 		0611DAC727D0F2A1001300BA /* WordEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordEditViewModel.swift; sourceTree = "<group>"; };
 		0614F8B627C8CD49006C9F1A /* UserSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSetting.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 		06BC58B227C0E7F3005C8AA0 /* readme_img */ = {
 			isa = PBXGroup;
 			children = (
+				06115D2B27E840DA00C76C5E /* 1.gif */,
 			);
 			path = readme_img;
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 			files = (
 				06DCEC1D279FDCA0000E3255 /* LaunchScreen.storyboard in Resources */,
 				06DCEC1A279FDCA0000E3255 /* Assets.xcassets in Resources */,
+				06115D2C27E840DA00C76C5E /* 1.gif in Resources */,
 				06DCEC18279FDC9E000E3255 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
