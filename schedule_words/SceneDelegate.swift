@@ -19,8 +19,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        dummyDataWriter.resetWordBook()
 //        dummyDataWriter.resetUserDefault()
         
-        _ = WordService.shared.setForNewDay()
-        
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         window?.rootViewController = UINavigationController(rootViewController: HomeController())
