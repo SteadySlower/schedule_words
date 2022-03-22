@@ -87,7 +87,6 @@ UITableView로 구현한 단어 리스트에서 해당 기능을 구현하기 �
 또한 스펠링과 단어가 바뀐다는 사실을 사용자에게 전달하기 위해서 Cell이 Flip되는 애니메이션이 필요했습니다.
 
 ### Shooting
-![](./readme_img/ts1.gif)
 1. 먼저 각 단어의 UITableViewCell에 열거형 WordListCellDisplayMode 타입의 property를 가지도록 하고 property에 따라서 보여지는 Label의 text가 바뀌도록 했습니다.
 ```swift
 enum WordListCellDisplayMode {
@@ -134,6 +133,8 @@ extension StudyListController: UITableViewDelegate {
     }
 }
 ```
+### Result
+![](./readme_img/ts1.gif)
 
 ## UITableViewCell 스와이프로 O/X 구현하기 
 ### Trouble
@@ -141,7 +142,6 @@ UITableView로 구현한 단어 리스트에서 스와이프 동작을 통해 �
 기존의 스와이프 동작을 수정하고 스와이프 시 나오는 이미지를 변경해야했습니다.
 
 ### Shooting
-![](./readme_img/ts2.gif)
 1. leading swipe action (왼쪽에서 오른쪽으로 스와이프)를 정의하는 메소드에 아이콘 크기, 아이콘 랜더링, 아이콘 위치 등을  커스텀한 스와이프 액션을 정의했습니다. 해당 swipe action을 통해서 cell의 단어를 테스트 통과 처리되도록 했습니다.
 ```swift
 func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -201,17 +201,99 @@ func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRow
     }
     return UISwipeActionsConfiguration(actions: [action])
 ```
+### Result
+![](./readme_img/ts2.gif)
 
 ## 테스트 O/X 실행 취소 구현하기
 ### Trouble
-
+단어 테스트를 할 때 테스트가 끝난 단어는 화면에서 제거 되기 때문에 잘못 선택한 경우 되돌릴 수 있는 실행취소 기능이 필요합니다.
 ### Shooting
+1. TestListViewModel에 displayingWords 배열과 testResults 배열을 만들어 놓습니다. TestListController의 UITableView는 displayingWords를 dataSource로 합니다.
+```swift
+class TestListViewModel {
+    
+    private var wordBook: WordBook
+    
+    var displayingWords: [Word]
+    
+    private var testResults: [TestListResult]
+}
+```
+2. TestListResult 타입은 Int 연관값 2개를 가지는 enum입니다. wordBookIndex에는 WordBook의 words 배열의 index를 저장하고 displayIndex에는 displayingWords의 index를 저장합니다.
+```swift
+fileprivate enum TestListResult {
+    case success(wordBookIndex: Int, displayIndex: Int)
+    case fail(wordBookIndex: Int, displayIndex: Int)
+}
+```
+3. 사용자가 단어에 O/X를 정하면 실행할 메소드를 정의합니다. 해당 단어의 wordBookIndex와 displayIndex를 찾아서 TestListResult에 연관값으로 저장해 testResult 배열에 넣습니다.
+```swift
+func moveWordToSuccess(success: Word) {
+    let wordBookIndex = wordBook.words.firstIndex { word in
+        success.id == word.id
+    }
+    
+    let displayIndex = displayingWords.firstIndex { word in
+        success.id == word.id
+    }
+    
+    if let wordBookIndex = wordBookIndex, let displayIndex = displayIndex {
+        wordBook.words[wordBookIndex].testResult = .success
+        displayingWords.remove(at: displayIndex)
+        testResults.append(.success(wordBookIndex: wordBookIndex, displayIndex: displayIndex))
+    }
+}
+
+func moveWordToFail(fail: Word) {
+    let wordBookIndex = wordBook.words.firstIndex { word in
+        fail.id == word.id
+    }
+    
+    let displayIndex = displayingWords.firstIndex { word in
+        fail.id == word.id
+    }
+    
+    if let wordBookIndex = wordBookIndex, let displayIndex = displayIndex {
+        wordBook.words[wordBookIndex].testResult = .fail
+        displayingWords.remove(at: displayIndex)
+        testResults.append(.fail(wordBookIndex: wordBookIndex, displayIndex: displayIndex))
+    }
+}
+```
+4. 사용자가 실행취소 버튼을 탭하면 실행할 메소드를 정의합니다. 가장 최근에 O/X 처리한 결과를 pop해서 wordBookIndex와 displayIndex를 알아냅니다. 어떤 단어인지 wordBookIndex로 알아내고 해당 단어를 displayingWords 배열의 displayIndex에 insert합니다. 그리고 displayIndex를 return합니다.
+```swift
+func undo() -> Int? {
+    guard let latest = testResults.popLast() else { return nil }
+    
+    switch latest {
+    case .success(let wordBookIndex, let displayIndex):
+        wordBook.words[wordBookIndex].testResult = .undefined
+        let word = wordBook.words[wordBookIndex]
+        displayingWords.insert(word, at: displayIndex)
+        return displayIndex
+    case .fail(let wordBookIndex, let displayIndex):
+        wordBook.words[wordBookIndex].testResult = .undefined
+        let word = wordBook.words[wordBookIndex]
+        displayingWords.insert(word, at: displayIndex)
+        return displayIndex
+    }
+}
+```
+5. Controller에서 정의한 실행취소 버튼에 연결한 selector 입니다. 위 ViewModel 메소드에서 return한 index를 받아서 UITableView에 정의된 insertRows 메소드를 사용합니다. 이 메소드는 애니메이션을 정의할 수 있기 때문에 reloadData()를 하는 것 보다 더 자연스러운 실행취소 동작이 가능합니다.
+```swift
+@objc func undoButtonTapped() {
+    guard let index = viewModel.undo() else { return }
+    let indexPath = IndexPath(row: index, section: 0)
+    tableView.insertRows(at: [indexPath], with: .fade)
+}
+```
+### Result
+![](./readme_img/ts9.gif)
 
 ## 단어 입력 에러 처리
 ### Trouble
 단어를 입력할 때 조건에 맞지 않는 경우 에러를 throw하고 사용자에게 에러의 원인을 전달해야 합니다.
 ### Shooting
-![](./readme_img/ts3.gif)
 1. 먼저 Error 타입을 상속받은 enum으로 WordInputError를 정의해줍니다. 또한 message라는 computed property를 통해서 사용자에게 전달할 메시지를 정의합니다.
 ```swift
 enum WordInputError: Error {
@@ -278,6 +360,8 @@ private func showErrorAlert(error: WordInputError) {
     self.present(alert, animated: true, completion: nil)
 }
 ```
+### Result
+![](./readme_img/ts3.gif)
 ## Core Data Model 설계하기
 ### Trouble
 하나의 단어장 안에 복수의 단어, 하나의 단어 안에 복수의 뜻을 저장할 수 있도록 데이터 모델을 설계해야 합니다.
@@ -296,7 +380,6 @@ private func showErrorAlert(error: WordInputError) {
 ### Trouble
 단어 순서의 랜덤 여부와 단어 리스트에 통과한 단어를 포함할 것인지 여부를 사용자가 설정할 수 있도록 해야합니다.
 ### Shooting
-![](./readme_img/ts7.gif)
 1. 처음에는 탭바를 사용하는 방법을 고민했지만 탭바를 통해 설정화면을 넣게 되면 탭바에 홈화면과 설정화면 두 가지만 있게 되는데 이는 부적절한 UI라고 생각했습니다. 또한 설정 요소가 많지 않으므로 사이드바를 통해서 구현하는 것이 효과적이라고 생각했습니다. 따라서 외부 라이브러리인 [SideMenu](https://github.com/jonkykong/SideMenu)를 통해 구현하기로 했습니다.
 
 2. [SideMenu](https://github.com/jonkykong/SideMenu)의 경우 실제 사이드 바에서 구현할 Controller를 SideMenuNavigationController로 감싸서 구현합니다. 이러한 구조를 HomeViewController에서는 알 필요가 없으므로 외부에서 사용할 SettingController와 내부에서만 사용할 _SettingController를 나누어서 구현하였습니다.
@@ -414,6 +497,8 @@ class UserSetting {
     }
 }
 ```
+### Result
+![](./readme_img/ts7.gif)
 
 ## 앱을 켰을 때 날짜가 바뀐 경우 단어장 정리하기
 ### Trouble
@@ -512,7 +597,6 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 ### Trouble
 튜토리얼을 내용을 하나의 화면이나 스크롤뷰에 담기는 너무 많습니다. 페이지뷰를 통해서 한 페이지에 하나의 내용만을 담아서 사용자에게 제시해야 합니다.
 ### Shooting
-![](./readme_img/ts8.gif)
 1. 페이지 뷰를 통해서 튜토리얼 내용을 제공합니다. 뷰모델에서 페이지뷰컨트롤러에 현재 표시할 뷰컨트롤러를 제공합니다.
 ```swift
 class TutorialController: UIViewController {
@@ -579,3 +663,5 @@ extension TutorialController: UIPageViewControllerDelegate {
     }
 }
 ```
+### Result
+![](./readme_img/ts8.gif)
