@@ -66,7 +66,6 @@ struct WordService {
     
     // 날짜 넘어갔을 때 실행할 코드
     func setForNewDay() -> Bool {
-        guard CalendarService.shared.isDayChanged else { return false }
         
         // 학습 날짜 지난 단어장은 복습 단어장으로 보내기
         let studyWordBooks = dao.fetchWordBooks(status: .study)
