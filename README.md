@@ -23,7 +23,7 @@
 4. 단어 리스트 랜덤 기능 💫
     - 종이 단어장으로 학습을 하면 단어의 위치와 주변 단어가 힌트가 되어 학습 및 테스트에 방해가 되는 경우가 있습니다.
     - 따라서 학습 및 테스트 시 단어 리스트를 랜덤으로 섞을 수 있는 기능을 구현하였습니다.
-5. 알람 기능 (추후 업데이트 예정) ⏰
+5. 알람 기능 (To be updated) ⏰
     - 복습 시간을 미리 정해놓으면 복습할 단어장과 단어 갯수를 포함한 알람을 제공하는 기능입니다.
     - 특정 공간에 도착하면 위와 동일한 알람을 제공하는 기능입니다.
 
@@ -80,11 +80,6 @@
 
 # Trouble Shooting 아카이브 🤔
 
-## UITableViewCell 스와이프로 O/X 구현하기
-### Trouble
-
-### Shooting
-
 ## 단어 Cell 뒤집어서 스펠링 <-> 뜻 전환하기
 ### Trouble
 영어 단어 학습을 위해서는 스펠링과 뜻을 구분해서 보여주어야 합니다.   
@@ -140,7 +135,7 @@ extension StudyListController: UITableViewDelegate {
 }
 ```
 
-## 테스트 O/X 실행 취소 구현하기
+## UITableViewCell 스와이프로 O/X 구현하기 
 ### Trouble
 UITableView로 구현한 단어 리스트에서 스와이프 동작을 통해 단어 테스트 기능을 구현하고자 했습니다.
 기존의 스와이프 동작을 수정하고 스와이프 시 나오는 이미지를 변경해야했습니다.
@@ -207,6 +202,11 @@ func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRow
     return UISwipeActionsConfiguration(actions: [action])
 ```
 
+## 테스트 O/X 실행 취소 구현하기
+### Trouble
+
+### Shooting
+
 ## 단어 입력 에러 처리
 ### Trouble
 단어를 입력할 때 조건에 맞지 않는 경우 에러를 throw하고 사용자에게 에러의 원인을 전달해야 합니다.
@@ -234,7 +234,7 @@ enum WordInputError: Error {
     }
 }
 ```
-2. viewModel에서 단어를 추가하는 메소드입니다. 사용자의 입력이 조건에 부합하지 않으면 위에 정의한 Error를 throw합니다.
+2. viewModel의 단어를 추가하는 메소드입니다. 사용자의 입력이 조건에 부합하지 않으면 위에 정의한 Error를 throw합니다.
 ```swift
 func addNewWord() throws {
     if spelling == "" {
@@ -258,7 +258,7 @@ func addNewWord() throws {
     }
 }
 ```
-3. 등록 버튼이 눌리면 do-catch 블록 안에서 위에 정의한 메소드를 실행합니다. 에러를 catch하면 alert를 통해 사용자에게 에러 메시지를 보여줍니다.
+3. ViewController에서 등록 버튼이 탭 되었을 때 실행하는 메소드 입니다. do-catch 블록 안에서 위에 정의한 View Model의 메소드를 실행합니다. 에러를 catch하면 alert를 통해 사용자에게 에러 메시지를 보여줍니다.
 ```swift
 @objc private func registerButtonTapped() {
     do {
@@ -283,7 +283,7 @@ private func showErrorAlert(error: WordInputError) {
 하나의 단어장 안에 복수의 단어, 하나의 단어 안에 복수의 뜻을 저장할 수 있도록 데이터 모델을 설계해야 합니다.
 또한 단어장은 복습 날짜와 횟수에 대한 정보, 단어는 테스트 결과를 저장하고 있어야 합니다.
 ### Shooting
-1. WordBook 모델입니다. 다음 복습일을 통해서 해당 날짜에 복습할 수 있도록 하였습니다. 또한 복습 횟수를 저장하여 복습일 간격을 설정합니다. words는 Word와의 relationship입니다. type은 To Many로 delete rule은 cascade로 설정했습니다.
+1. WordBook 모델입니다. 다음 복습일을 통해서 해당 날짜에 복습할 수 있도록 하였습니다. 또한 복습 횟수를 저장하여 복습 날짜 간격을 설정합니다. words는 Word와의 relationship입니다. type은 To Many로 delete rule은 cascade로 설정했습니다.
 ![](./readme_img/ts4.png)
 
 2. 단어 모델입니다. 테스트 결과를 저장하여 테스트에 통과한 단어는 학습에서 제외할 수 있습니다. wordBook은 WordBook과의 relationship입니다. type은 To One으로 delete rule은 Nullify로 설정했습니다. meanings는 Meaning과의 relationship입니다. type은 To Many로 delete rule은 cascade로 설정했습니다.
@@ -297,7 +297,7 @@ private func showErrorAlert(error: WordInputError) {
 단어 순서의 랜덤 여부와 단어 리스트에 통과한 단어를 포함할 것인지 여부를 사용자가 설정할 수 있도록 해야합니다.
 ### Shooting
 ![](./readme_img/ts7.gif)
-1. 처음에는 탭바를 사용하는 방법을 고민했지만 탭바를 통해 설정화면을 넣게 되면 탭바에 홈화면과 설정화면 두 가지만 남게 되어 부적절한 UI가 됩니다. 또한 설정 요소가 많지 않으므로 외부 라이브러리인 [SideMenu](https://github.com/jonkykong/SideMenu)를 통해 구현하기로 했습니다.
+1. 처음에는 탭바를 사용하는 방법을 고민했지만 탭바를 통해 설정화면을 넣게 되면 탭바에 홈화면과 설정화면 두 가지만 있게 되는데 이는 부적절한 UI라고 생각했습니다. 또한 설정 요소가 많지 않으므로 사이드바를 통해서 구현하는 것이 효과적이라고 생각했습니다. 따라서 외부 라이브러리인 [SideMenu](https://github.com/jonkykong/SideMenu)를 통해 구현하기로 했습니다.
 
 2. [SideMenu](https://github.com/jonkykong/SideMenu)의 경우 실제 사이드 바에서 구현할 Controller를 SideMenuNavigationController로 감싸서 구현합니다. 이러한 구조를 HomeViewController에서는 알 필요가 없으므로 외부에서 사용할 SettingController와 내부에서만 사용할 _SettingController를 나누어서 구현하였습니다.
 ```swift
@@ -323,7 +323,7 @@ private class _SettingController: UIViewController {
     // 중략
 }
 ```
-3. 사용자가 설정한 세팅값은 struct로 만들어서 UserSetting 객체가 가지고 있도록 했습니다. 학습 / 테스트 하기 화면을 띄울 때 해당 setting 객체를 참고하여 단어 리스트를 만들도록 했습니다. 그리고 Setting은 [String: Int]의 Dictionary로 UserDefault에 저장했습니다.
+3. 사용자가 설정한 세팅 값은 구조체로 만들어 UserSetting 객체가 가지고 있도록 했습니다. 학습 / 테스트 하기 화면을 띄울 때 해당 setting 객체를 참고하여 단어 리스트를 만들도록 했습니다. 그리고 Setting은 [String: Int]의 Dictionary로 UserDefault에 저장했습니다.
 ```swift
 struct Setting {
     var testMode: ListingMode
@@ -415,7 +415,7 @@ class UserSetting {
 }
 ```
 
-## 날짜 바뀔 때 단어장 처리
+## 앱을 켰을 때 날짜가 바뀐 경우 단어장 정리하기
 ### Trouble
 날짜가 바뀌면 새로운 오늘의 단어장을 만들어야 합니다. 또한 기존의 단어장 중에 복습 단어장으로 보낼 단어장에 새로운 복습 날짜를 부여해서 DB에 저장해야 합니다.
 ### Shooting
@@ -468,8 +468,7 @@ class CalendarService {
 ```swift
 // 날짜 넘어갔을 때 실행할 코드
 func setForNewDay() -> Bool {
-    guard CalendarService.shared.isDayChanged else { return false }
-    
+   
     // 학습 날짜 지난 단어장은 복습 단어장으로 보내기
     let studyWordBooks = dao.fetchWordBooks(status: .study)
     
@@ -497,13 +496,15 @@ func setForNewDay() -> Bool {
     return true
 }
 ```
-3. AppDelegate의 didFinishLaunching에서 위에서 구현한 함수를 실행합니다.
+3. AppDelegate의 didFinishLaunching에서 날짜가 바뀌었다면 위에서 구현한 함수를 실행합니다.
 ```swift
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
     
-    _ = WordService.shared.setForNewDay()
-    
+    if CalendarService.shared.isDayChanged {
+        WordService.shared.setForNewDay()
+    }
+
     return true
 }
 ```
@@ -539,7 +540,7 @@ extension TutorialController: UIPageViewControllerDataSource {
     }
 }
 ```
-2. 페이지뷰 아래에 페이지 컨트롤러를 두어서 총 페이지 수, 현재 페이지 위치를 표시하도록 합니다.
+2. 페이지뷰 아래에 페이지 컨트롤러를 두어서 총 페이지 수, 현재 페이지를 표시하도록 합니다.
 ```swift
 class TutorialController: UIViewController {
     
