@@ -24,7 +24,7 @@ class TutorialController: UIViewController {
     
     lazy var pageControl: UIPageControl = {
         let pc = UIPageControl()
-        pc.numberOfPages = 8
+        pc.numberOfPages = viewModel.numOfPages
         pc.tintColor = .gray
         pc.pageIndicatorTintColor = .white
         pc.currentPageIndicatorTintColor = .black

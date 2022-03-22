@@ -20,6 +20,10 @@ class TutorialViewModel {
         return controllers
     }()
     
+    var numOfPages: Int {
+        return pageVCs.count
+    }
+    
     var firstVC: TutorialContentController? {
         return pageVCs.first
     }
