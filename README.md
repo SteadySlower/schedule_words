@@ -78,4 +78,503 @@
 
 ![](./readme_img/7.gif)
 
-# 문제해결 아카이브 🤔
+# Trouble Shooting 아카이브 🤔
+
+## UITableViewCell 스와이프로 O/X 구현하기
+### Trouble
+
+### Shooting
+
+## 단어 Cell 뒤집어서 스펠링 <-> 뜻 전환하기
+### Trouble
+영어 단어 학습을 위해서는 스펠링과 뜻을 구분해서 보여주어야 합니다.   
+UITableView로 구현한 단어 리스트에서 해당 기능을 구현하기 위해서는 같은 Cell에서 터치할 때마다 스펠링과 뜻을 번갈아 보여주어야 했습니다.  
+또한 스펠링과 단어가 바뀐다는 사실을 사용자에게 전달하기 위해서 Cell이 Flip되는 애니메이션이 필요했습니다.
+
+### Shooting
+![](./readme_img/ts1.gif)
+1. 먼저 각 단어의 UITableViewCell에 열거형 WordListCellDisplayMode 타입의 property를 가지도록 하고 property에 따라서 보여지는 Label의 text가 바뀌도록 했습니다.
+```swift
+enum WordListCellDisplayMode {
+    case spelling, meaning
+}
+```
+```swift
+var displayMode: WordListCellDisplayMode = .spelling {
+    didSet {
+        configure()
+    }
+}
+
+func configure() {
+    if displayMode == .spelling {
+        wordLabel.font = UIFont.systemFont(ofSize: 30)
+        wordLabel.text = viewModel?.wordLabelText
+    } else {
+        wordLabel.font = UIFont.systemFont(ofSize: viewModel?.meaningFontSize ?? 10)
+        wordLabel.text = viewModel?.meaningLabelText
+}
+```
+2. UITableViewDelegate를 통해서 Cell이 탭이 될 때 구현할 메소드를 정의합니다. 먼저 indexPath로 탭이 된 cell 객체를 구하고 해당 객체를 flip하는 animation을 1초간 실행합니다. 그리고 애니메이션 실행 0.5초 후에 cell의 DisplayMode를 토글해서 회전이 중간쯤 되었을 때 스펠링과 뜻이 전환도록 했습니다.
+```swift
+// MARK: UITableViewDelegate
+extension StudyListController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // indexPath로 cell 객체 구하기
+        guard let cell = tableView.visibleCells.filter({ cell in
+            let listCell = cell as! StudyListCell
+            let word = listCell.viewModel!.word
+            return word.id == self.viewModel.displayingWords[indexPath.row].id
+        }).first as? StudyListCell else { return }
+        // cell 뒤집기 애니메이션
+        UIView.transition(with: cell,
+                    duration: 1,
+                    options: .transitionFlipFromLeft,
+                    animations: { return },
+                    completion: nil)
+        // cell 반 정도 돌아갔을 때 뜻으로 바꾸기
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            cell.toggleDisplayMode()
+       }
+    }
+}
+```
+
+## 테스트 O/X 실행 취소 구현하기
+### Trouble
+UITableView로 구현한 단어 리스트에서 스와이프 동작을 통해 단어 테스트 기능을 구현하고자 했습니다.
+기존의 스와이프 동작을 수정하고 스와이프 시 나오는 이미지를 변경해야했습니다.
+
+### Shooting
+![](./readme_img/ts2.gif)
+1. leading swipe action (왼쪽에서 오른쪽으로 스와이프)를 정의하는 메소드에 아이콘 크기, 아이콘 랜더링, 아이콘 위치 등을  커스텀한 스와이프 액션을 정의했습니다. 해당 swipe action을 통해서 cell의 단어를 테스트 통과 처리되도록 했습니다.
+```swift
+func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let word = viewModel.displayingWords[indexPath.row]
+        
+        // 스와이프 되었을 때 실행할 동작
+        let action = UIContextualAction(style: .normal, title: nil) { _, _, completionHandler in
+            self.viewModel.moveWordToSuccess(success: word)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            self.configureScoreBoard()
+            self.configureUndoButton()
+            if self.viewModel.canFinish {
+                self.showFinishAlert()
+            }
+            completionHandler(true)
+        }
+        
+        // 스와이프할 때 나오는 아이콘 배경 수정
+        action.backgroundColor = .white
+        
+        // 이미지 크기를 위한 cell 크기 재기
+        let imageSize = tableView.visibleCells.first?.bounds.height ?? 50
+
+        // 그냥 image만 넣으면 흰색으로 자동으로 랜더링 되므로 파란색으로 변경하고 랜더링 모드 alwaysOriginal로 한다.
+        // UIGraphicsImageRenderer를 통해서 가로세로 길이 정의하고 frame 위치 조정해서 이미지가 가운데 보이도록 한다.
+        
+        action.image = UIGraphicsImageRenderer(size: CGSize(width: imageSize, height: imageSize)).image { _ in
+            UIImage(systemName: "circle")!
+                .withTintColor(.blue, renderingMode: .alwaysOriginal)
+                .draw(in: CGRect(x: 7, y: 0, width: imageSize, height: imageSize))
+        }
+        return UISwipeActionsConfiguration(actions: [action])
+    }
+```
+2. 마찬가지로 trailing swipe action (오른쪽에서 왼쪽으로 스와이프)를 정의하는 메소드를 커스텀했습니다. 해당 swipe action을 통해서 cell의 단어가 테스트 미통과 처리되도록 했습니다.
+```swift
+func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    let word = viewModel.displayingWords[indexPath.row]
+
+    let action = UIContextualAction(style: .normal, title: nil) { _, view, completionHandler in
+        self.viewModel.moveWordToFail(fail: word)
+        tableView.deleteRows(at: [indexPath], with: .fade)
+        self.configureScoreBoard()
+        self.configureUndoButton()
+        if self.viewModel.canFinish {
+            self.showFinishAlert()
+        }
+        completionHandler(true)
+    }
+    
+    let imageSize = tableView.visibleCells.first?.bounds.height ?? 50
+    action.backgroundColor = .white
+    action.image = UIGraphicsImageRenderer(size: CGSize(width: imageSize, height: imageSize)).image { _ in
+        UIImage(systemName: "multiply")!
+            .withTintColor(.red, renderingMode: .alwaysOriginal)
+            .draw(in: CGRect(x: -12, y: 0, width: imageSize, height: imageSize))
+    }
+    return UISwipeActionsConfiguration(actions: [action])
+```
+
+## 단어 입력 에러 처리
+### Trouble
+단어를 입력할 때 조건에 맞지 않는 경우 에러를 throw하고 사용자에게 에러의 원인을 전달해야 합니다.
+### Shooting
+![](./readme_img/ts3.gif)
+1. 먼저 Error 타입을 상속받은 enum으로 WordInputError를 정의해줍니다. 또한 message라는 computed property를 통해서 사용자에게 전달할 메시지를 정의합니다.
+```swift
+enum WordInputError: Error {
+    case tooManyMeanings
+    case noWord
+    case noMeaning
+    case dbError
+    
+    var message: String {
+        switch self {
+        case .tooManyMeanings:
+            return "뜻은 3개까지만 저장할 수 있습니다."
+        case .noWord:
+            return "단어를 입력해주세요."
+        case .noMeaning:
+            return "뜻을 하나 이상 입력해주세요."
+        case .dbError:
+            return "데이터 베이스에 저장을 실패하였습니다."
+        }
+    }
+}
+```
+2. viewModel에서 단어를 추가하는 메소드입니다. 사용자의 입력이 조건에 부합하지 않으면 위에 정의한 Error를 throw합니다.
+```swift
+func addNewWord() throws {
+    if spelling == "" {
+        throw WordInputError.noWord
+    }
+    
+    if meanings.isEmpty {
+        throw WordInputError.noMeaning
+    }
+    
+    let meaningInputs = meanings.map { meaning in
+        MeaningInput(description: meaning)
+    }
+    
+    let wordInput = WordInput(spelling: spelling, meanings: meaningInputs)
+    
+    let result = WordService.shared.insertTodayWord(word: wordInput)
+    
+    if !result {
+        throw WordInputError.dbError
+    }
+}
+```
+3. 등록 버튼이 눌리면 do-catch 블록 안에서 위에 정의한 메소드를 실행합니다. 에러를 catch하면 alert를 통해 사용자에게 에러 메시지를 보여줍니다.
+```swift
+@objc private func registerButtonTapped() {
+    do {
+        try viewModel.addNewWord()
+        delegate?.reloadData()
+        dismiss(animated: true, completion: nil)
+    } catch let error {
+        showErrorAlert(error: error as! WordInputError)
+    }
+}
+```
+```swift
+private func showErrorAlert(error: WordInputError) {
+    let alert = UIAlertController(title: "에러", message: error.message, preferredStyle: .alert)
+    let cancel = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+    alert.addAction(cancel)
+    self.present(alert, animated: true, completion: nil)
+}
+```
+## Core Data Model 설계하기
+### Trouble
+하나의 단어장 안에 복수의 단어, 하나의 단어 안에 복수의 뜻을 저장할 수 있도록 데이터 모델을 설계해야 합니다.
+또한 단어장은 복습 날짜와 횟수에 대한 정보, 단어는 테스트 결과를 저장하고 있어야 합니다.
+### Shooting
+1. WordBook 모델입니다. 다음 복습일을 통해서 해당 날짜에 복습할 수 있도록 하였습니다. 또한 복습 횟수를 저장하여 복습일 간격을 설정합니다. words는 Word와의 relationship입니다. type은 To Many로 delete rule은 cascade로 설정했습니다.
+![](./readme_img/ts4.png)
+
+2. 단어 모델입니다. 테스트 결과를 저장하여 테스트에 통과한 단어는 학습에서 제외할 수 있습니다. wordBook은 WordBook과의 relationship입니다. type은 To One으로 delete rule은 Nullify로 설정했습니다. meanings는 Meaning과의 relationship입니다. type은 To Many로 delete rule은 cascade로 설정했습니다.
+![](./readme_img/ts5.png)
+
+3. 뜻 모델입니다. word는 Word와의 relationship입니다. type은 To One으로 delete rule은 Nullify로 설정했습니다.
+![](./readme_img/ts6.png)
+
+## 사이드바로 설정 기능 구현하기
+### Trouble
+단어 순서의 랜덤 여부와 단어 리스트에 통과한 단어를 포함할 것인지 여부를 사용자가 설정할 수 있도록 해야합니다.
+### Shooting
+![](./readme_img/ts7.gif)
+1. 처음에는 탭바를 사용하는 방법을 고민했지만 탭바를 통해 설정화면을 넣게 되면 탭바에 홈화면과 설정화면 두 가지만 남게 되어 부적절한 UI가 됩니다. 또한 설정 요소가 많지 않으므로 외부 라이브러리인 [SideMenu](https://github.com/jonkykong/SideMenu)를 통해 구현하기로 했습니다.
+
+2. [SideMenu](https://github.com/jonkykong/SideMenu)의 경우 실제 사이드 바에서 구현할 Controller를 SideMenuNavigationController로 감싸서 구현합니다. 이러한 구조를 HomeViewController에서는 알 필요가 없으므로 외부에서 사용할 SettingController와 내부에서만 사용할 _SettingController를 나누어서 구현하였습니다.
+```swift
+import Foundation
+import UIKit
+import SideMenu
+
+// 외부에서 사용할 컨트롤러 (SideMenu 현재 파일에서만 사용하도록 캡슐화)
+class SettingContoller: SideMenuNavigationController {
+    
+    init() {
+        super.init(rootViewController: _SettingController())
+        self.leftSide = true
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+// 실제 화면을 정의하는 컨트롤러
+private class _SettingController: UIViewController {
+    // 중략
+}
+```
+3. 사용자가 설정한 세팅값은 struct로 만들어서 UserSetting 객체가 가지고 있도록 했습니다. 학습 / 테스트 하기 화면을 띄울 때 해당 setting 객체를 참고하여 단어 리스트를 만들도록 했습니다. 그리고 Setting은 [String: Int]의 Dictionary로 UserDefault에 저장했습니다.
+```swift
+struct Setting {
+    var testMode: ListingMode
+    var testWordsOrder: WordsOrder
+    var studyMode: ListingMode
+    var studyWordsOrder: WordsOrder
+    
+    static let defaultSetting = Setting()
+    
+    private init() {
+        self.testMode = .onlyFail
+        self.testWordsOrder = .random
+        self.studyMode = .onlyFail
+        self.studyWordsOrder = .random
+    }
+    
+    init(rawData: [String: Int]) {
+        self.testMode = ListingMode(rawValue: rawData["testMode"]!)!
+        self.testWordsOrder = WordsOrder(rawValue: rawData["testWordsOrder"]!)!
+        self.studyMode = ListingMode(rawValue: rawData["studyMode"]!)!
+        self.studyWordsOrder = WordsOrder(rawValue: rawData["studyWordsOrder"]!)!
+    }
+    
+    var rawData: [String: Int] {
+        return [
+            "testMode": testMode.rawValue,
+            "testWordsOrder": testWordsOrder.rawValue,
+            "studyMode": studyMode.rawValue,
+            "studyWordsOrder": studyWordsOrder.rawValue,
+        ]
+    }
+}
+
+enum ListingMode: Int {
+    case onlyFail = 0
+    case all
+    
+    mutating func toggle() {
+        switch self {
+        case .onlyFail:
+            self = .all
+        case .all:
+            self = .onlyFail
+        }
+    }
+}
+
+enum WordsOrder: Int {
+    case random = 0
+    case original
+    
+    mutating func toggle() {
+        switch self {
+        case .random:
+            self = .original
+        case .original:
+            self = .random
+        }
+    }
+}
+```
+```swift
+class UserSetting {
+    
+    static let shared = UserSetting()
+    
+    private let plist = UserDefaults.standard
+    
+    var setting: Setting {
+        didSet {
+            plist.set(setting.rawData, forKey: "setting")
+        }
+    }
+    
+    init() {
+        let rawData = plist.object(forKey: "setting") as? [String: Int]
+        if let rawData = rawData {
+            self.setting = Setting(rawData: rawData)
+        } else {
+            let defaultSetting = Setting.defaultSetting
+            plist.set(defaultSetting.rawData, forKey: "setting")
+            self.setting = defaultSetting
+        }
+    }
+    
+    func saveSetting(setting: Setting) {
+        self.setting = setting
+    }
+}
+```
+
+## 날짜 바뀔 때 단어장 처리
+### Trouble
+날짜가 바뀌면 새로운 오늘의 단어장을 만들어야 합니다. 또한 기존의 단어장 중에 복습 단어장으로 보낼 단어장에 새로운 복습 날짜를 부여해서 DB에 저장해야 합니다.
+### Shooting
+1. 날짜를 담당하는 객체를 만들었습니다. 해당 객체는 UserDefault에 저장된 오늘 날짜가 앱을 구동한 날짜와 동일한지 여부를 isDayChanged라는 변수를 가지고 있습니다.
+```swift
+class CalendarService {
+    
+    static let shared = CalendarService()
+    
+    private let plist = UserDefaults.standard
+    
+    private let calendar: Calendar = {
+        var calendar = Calendar.current
+        calendar.timeZone = NSTimeZone.local
+        return calendar
+    }()
+    
+    let today: Date
+    
+    var isDayChanged: Bool
+    
+    // MARK: Initializer
+    
+    init() {
+        guard let recorededToday = plist.object(forKey: "today") as? Date else {
+            // 저장된 today가 없을 때
+            let today = Date()
+            plist.set(today as NSDate, forKey: "today")
+            self.today = today
+            self.isDayChanged = true
+            return
+        }
+        
+        var calendar = Calendar.current
+        calendar.timeZone = NSTimeZone.local
+        let isTodayValid = calendar.isDateInToday(recorededToday)
+        
+        if isTodayValid {
+            self.today = recorededToday
+            self.isDayChanged = false
+        } else {
+            let today = Date()
+            plist.set(today as NSDate, forKey: "today")
+            self.today = today
+            self.isDayChanged = true
+        }
+    }
+```
+2. 날짜가 넘어가서 isDayChanged가 true인 경우에 실행할 메소드를 정의합니다.
+```swift
+// 날짜 넘어갔을 때 실행할 코드
+func setForNewDay() -> Bool {
+    guard CalendarService.shared.isDayChanged else { return false }
+    
+    // 학습 날짜 지난 단어장은 복습 단어장으로 보내기
+    let studyWordBooks = dao.fetchWordBooks(status: .study)
+    
+    studyWordBooks
+        .filter { wordBook in wordBook.isPassedStudyDay }
+        .forEach { wordBook in _ = finishWordBook(wordBook: wordBook) }
+    
+    // 남은 학습 단어장은 TestResult Reset 하기 (다음날 다시 테스트할 수 있도록)
+    var toResetWords = [Word]()
+    
+    studyWordBooks
+            .filter { wordBook in !wordBook.isPassedStudyDay }
+            .forEach { wordBook in toResetWords.append(contentsOf: wordBook.words) }
+    
+    toResetWords.forEach { word in
+        _ = dao.updateTestResult(id: word.id, testResult: .undefined)
+    }
+    
+    // 오늘 단어장 만들기
+    let todayID = dao.findWordBookID(createdAt: CalendarService.shared.today)
+    
+    if todayID == nil {
+        guard createTodayWordBook() else { return false }
+    }
+    return true
+}
+```
+3. AppDelegate의 didFinishLaunching에서 위에서 구현한 함수를 실행합니다.
+```swift
+func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    // Override point for customization after application launch.
+    
+    _ = WordService.shared.setForNewDay()
+    
+    return true
+}
+```
+## 튜토리얼 페이지 구현
+### Trouble
+튜토리얼을 내용을 하나의 화면이나 스크롤뷰에 담기는 너무 많습니다. 페이지뷰를 통해서 한 페이지에 하나의 내용만을 담아서 사용자에게 제시해야 합니다.
+### Shooting
+![](./readme_img/ts8.gif)
+1. 페이지 뷰를 통해서 튜토리얼 내용을 제공합니다. 뷰모델에서 페이지뷰컨트롤러에 현재 표시할 뷰컨트롤러를 제공합니다.
+```swift
+class TutorialController: UIViewController {
+    
+    let viewModel = TutorialViewModel()
+    
+    let pageController = UIPageViewController()
+    
+    func configurePageController() {
+        self.pageController.dataSource = self
+        self.pageController.delegate = self
+        if let firstvc = viewModel.firstVC {
+            self.pageController.setViewControllers([firstvc], direction: .forward, animated: true, completion: nil)
+        }
+    }
+}
+
+extension TutorialController: UIPageViewControllerDataSource {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        return viewModel.previousVC
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        return viewModel.nextVC
+    }
+}
+```
+2. 페이지뷰 아래에 페이지 컨트롤러를 두어서 총 페이지 수, 현재 페이지 위치를 표시하도록 합니다.
+```swift
+class TutorialController: UIViewController {
+    
+    let viewModel = TutorialViewModel()
+    
+    let pageController = UIPageViewController()
+    
+    lazy var pageControl: UIPageControl = {
+        let pc = UIPageControl()
+        pc.numberOfPages = viewModel.numOfPages
+        pc.tintColor = .gray
+        pc.pageIndicatorTintColor = .white
+        pc.currentPageIndicatorTintColor = .black
+        pc.addTarget(self, action: #selector(pageChanged(sender:)), for: .valueChanged)
+        return pc
+    }()
+
+    func configurePageControl() {
+        pageControl.currentPage = viewModel.currentIndex
+    }
+}
+
+extension TutorialController: UIPageViewControllerDelegate {
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        configurePageControl()
+    }
+}
+```
+3. 페이지 컨트롤을 통해서 페이지를 변경할 수 있도록 구현했습니다.
+```swift
+@objc func pageChanged(sender: UIPageControl) {
+    let index = sender.currentPage
+    let currentPage = viewModel.getContentController(of: index)
+    if let currentPage = currentPage {
+        self.pageController.setViewControllers([currentPage], direction: .forward, animated: true, completion: nil)
+    }
+}
+```
