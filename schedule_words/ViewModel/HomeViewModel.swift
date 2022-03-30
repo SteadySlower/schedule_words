@@ -60,14 +60,11 @@ class HomeViewModel {
     func actionSheetTitle(of wordBook: WordBook) -> String {
         let dateGap = CalendarService.shared.getDaysFromToday(date: wordBook.createdAt)
         
-        switch dateGap {
-        case 0:
+        if dateGap < 0 {
             return "오늘 단어장"
-        case 1:
-            return "어제 단어장"
-        case 2:
-            return "그제 단어장"
-        default:
+        } else if dateGap < 1 {
+            return "+\(dateGap + 1)일 단어장"
+        } else {
             return "+\(dateGap)일 단어장"
         }
         

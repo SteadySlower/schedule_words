@@ -18,8 +18,10 @@ class HomeCellViewModel {
     var tagCircleLabelString: String {
         let dateGap = CalendarService.shared.getDaysFromToday(date: wordBook.createdAt)
         
-        if dateGap == 0 {
+        if dateGap < 0 {
             return "오늘"
+        } else if dateGap < 1 {
+            return "+\(dateGap + 1)일"
         } else {
             return "+\(dateGap)일"
         }

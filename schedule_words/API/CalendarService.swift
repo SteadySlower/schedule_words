@@ -55,8 +55,13 @@ class CalendarService {
     // MARK: Methods
     
     // 날짜 비교
+        // TODO: 홈화면에서 어제 단어장이 날짜에 따라서 오늘 단어장으로 보이는 일이 생겨서 일단 임시 방편으로 -1리턴할 때만 오늘.
     func getDaysFromToday(date: Date) -> Int {
-        return calendar.dateComponents([.day], from: date, to: today).day!
+        if calendar.isDateInToday(date) {
+            return -1
+        } else {
+            return calendar.dateComponents([.day], from: date, to: today).day!
+        }
     }
     
     // 오늘 날짜 범위 리턴
