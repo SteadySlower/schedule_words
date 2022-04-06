@@ -1,10 +1,10 @@
-# Auto Voca Schedule (오! 보스) 프로젝트 📖
+# Auto Voca Scheduler 프로젝트 📖
 
 단어장 앱을 앱스토어 출시하는 개인 프로젝트입니다. 
 
 스스로 서비스를 처음부터 끝까지 만들어 보고 직접 운영까지 해보기 위해서 시작한 프로젝트입니다. 💪
 
-2022년 1월 25일 시작하여 현재 진행 중입니다. 🏃
+2022년 1월 25일 시작하여 개발을 완료하고 심사 중입니다. 🏃
 
 # 핵심 기능 설계 ⚙️
 
@@ -595,9 +595,9 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 ```
 ## 튜토리얼 페이지 구현
 ### Trouble
-튜토리얼을 내용을 하나의 화면이나 스크롤뷰에 담기는 너무 많습니다. 페이지뷰를 통해서 한 페이지에 하나의 내용만을 담아서 사용자에게 제시해야 합니다.
+튜토리얼을 내용을 하나의 화면이나 스크롤 뷰에 담기는 너무 많습니다. 한 화면에 하나의 내용만을 담아서 구조적으로 사용자에게 제시해야 합니다.
 ### Shooting
-1. 페이지 뷰를 통해서 튜토리얼 내용을 제공합니다. 뷰모델에서 페이지뷰컨트롤러에 현재 표시할 뷰컨트롤러를 제공합니다.
+1. 페이지 뷰를 통해서 튜토리얼 내용을 제공합니다. 뷰 모델에서 페이지 뷰 컨트롤러에 현재 표시할 뷰 컨트롤러를 제공합니다.
 ```swift
 class TutorialController: UIViewController {
     
@@ -624,7 +624,7 @@ extension TutorialController: UIPageViewControllerDataSource {
     }
 }
 ```
-2. 페이지뷰 아래에 페이지 컨트롤러를 두어서 총 페이지 수, 현재 페이지를 표시하도록 합니다.
+2. 페이지 뷰 아래에 페이지 컨트롤러를 두어서 총 페이지 수, 현재 페이지를 표시하도록 합니다.
 ```swift
 class TutorialController: UIViewController {
     
