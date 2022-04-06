@@ -14,14 +14,14 @@ class TutorialPage1: UIView {
     
     let titleLabel1: UILabel = {
         let lb = UILabel()
-        lb.text = "Auto Voca Scheduler 소개"
+        lb.text = "스케줄 단어장 소개"
         lb.font = .boldSystemFont(ofSize: 20)
         return lb
     }()
     
     let contentLabel1: UILabel = {
         let lb = UILabel()
-        lb.text = "Auto Voca Schedule (오보스)는 스케줄 기반의 단어 학습 앱입니다. 오늘 학습한 단어를 입력하면 효과적인 학습 및 복습 스케줄을 자동으로 수립하여 짧게 공부하고 오래 기억되는 단어 학습을 실현합니다."
+        lb.text = "스케줄 단어장은 스케줄 기반의 단어 학습 앱입니다. 오늘 학습한 단어를 입력하면 효과적인 학습 및 복습 스케줄을 자동으로 수립하여 짧게 공부하고 오래 기억되는 단어 학습을 실현합니다."
         lb.font = .systemFont(ofSize: 15, weight: .regular)
         lb.numberOfLines = 0
         return lb
@@ -36,7 +36,7 @@ class TutorialPage1: UIView {
     
     let contentLabel2: UILabel = {
         let lb = UILabel()
-        lb.text = "마보스가 추천하는 학습 및 복습 스케줄은 다음과 같습니다. 먼저 오늘 공부한 단어를 내일, 모레까지 총 3일간 학습합니다. 3일째 학습에서 테스트를 통과하지 못한 단어들은 다시 오늘 단어장으로 보내 3일간 다시 학습합니다."
+        lb.text = "스케줄 단어장이 추천하는 학습 및 복습 스케줄은 다음과 같습니다. 먼저 오늘 공부한 단어를 내일, 모레까지 총 3일간 학습합니다. 3일째 학습에서 테스트를 통과하지 못한 단어들은 다시 오늘 단어장으로 보내 3일간 다시 학습합니다."
         lb.font = .systemFont(ofSize: 15, weight: .regular)
         lb.numberOfLines = 0
         return lb
